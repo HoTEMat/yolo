@@ -24,6 +24,8 @@ namespace yolo
                 new Vector2(28, 17), new Vector2(22, 9), new Vector2(29, 13), new Vector2(35, 9),
                 new Vector2(40, 8), new Vector2(15, 15), new Vector2(20, 3), new Vector2(9, 15)
             };
+        
+        private const int NPCCount = 20;
         public Scene LoadScene(Context context)
         {
             // TODO entities
@@ -41,8 +43,24 @@ namespace yolo
             entity.Collider = new CircleCollider(entity, false, 2);
             
             scene.AddEntity(entity);
+            generateNPCs(scene, context);
 
             return scene;
+        }
+
+        private void generateNPCs(Scene scene, Context ctx)
+        {
+            for (int i = 0; i < NPCCount; i++ )
+            {
+                int idx = i % PersonInitial.Count;
+                var person = new Entity(ctx)
+                {
+                    Position = PersonInitial[idx],
+                    Behavior = new PersonBehavior(idx % 4, PersonTargets), // idx % 4 - chooses one of 4 person sprites
+                    // Animation ?
+                };
+                scene.AddEntity(person);
+            }
         }
     }
 
