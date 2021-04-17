@@ -74,7 +74,6 @@ namespace yolo {
         {
             return;
         }
-
         public override AchievementType? Interact()
         {
             return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
@@ -84,7 +83,6 @@ namespace yolo {
         {
             return true; // you can always eat icecream
         }
-
         public IceCreamStand(Entity entity) : base(entity)
         {
         }
@@ -168,6 +166,25 @@ namespace yolo {
 
         public Tree(Entity entity) : base(entity)
         {
+        }
+    }
+
+    public class Fountain : Interactable
+    {
+        public Fountain(Entity entity) : base(entity)
+        {
+        }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            return AchievementType.PeeInFountain;
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false;
         }
     }
 }
