@@ -15,8 +15,13 @@ namespace yolo {
             // Do nothing.
         }
 
-        public override void Interact() {
+        public override AchievementType? Interact() {
             Context.World.SwitchToScene(newScene, newPlayerPosition);
+            return null;
+        }
+
+        public override bool CanInteract() {
+            return true;
         }
 
         protected override TimedSpriteSet DefaultSprite => AssetBank.SpriteBank. // TODO

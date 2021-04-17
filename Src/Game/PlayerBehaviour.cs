@@ -4,10 +4,16 @@ using Microsoft.Xna.Framework.Input;
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 1; // TODO
-        public PlayerOrientation Orientation { get; private set; }
+        
+        public bool IsGood { get; }
+        public BucketList TodoList { get; }
         private int spriteNum;
-
-        public PlayerBehaviour(int spriteNum) {
+        public PlayerOrientation Orientation { get; private set; } = PlayerOrientation.Down;
+        
+        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum)
+        {
+            IsGood = isGood;
+            TodoList = todoList;
             this.spriteNum = spriteNum;
         }
 
@@ -52,7 +58,12 @@ namespace yolo {
         private void HandleInteraction(KeyboardState kbs) {
             var scene = Entity.Scene;
             if (kbs.IsKeyDown(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
-                Entity.Scene.SelectedInteractable?.Interact();
+                var achievement = Entity.Scene.SelectedInteractable?.Interact();
+                if (achievement != null)
+                {
+                    TodoList.ProcessAchievement((AchievementType)achievement);
+                }
+                
             }
         }
 

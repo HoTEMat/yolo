@@ -13,7 +13,7 @@ namespace yolo {
     }
 
     public abstract class Interactable : Behaviour {
-        public abstract void Interact();
+        public abstract AchievementType? Interact();
 
         public abstract bool CanInteract();
         public bool Highlighted { get; private set; }
@@ -31,5 +31,91 @@ namespace yolo {
 
         protected abstract TimedSpriteSet DefaultSprite { get; }
         protected abstract TimedSpriteSet HighlightedSprite { get; }
+    }
+
+    public class Bin : Interactable
+    {
+        public bool IsOverturned { get; private set; }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            if (IsOverturned)
+            {
+                IsOverturned = false;
+                return AchievementType.PutUpBin;
+            }
+            IsOverturned = true;
+            return AchievementType.ToppleBin;
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == IsOverturned;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
+
+    public class IceCreamStand : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
+        }
+
+        public override bool CanInteract()
+        {
+            return true; // you can always eat icecream
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
+    public class Pond : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            return Entity.Context.Player.IsGood ? AchievementType.FeedDucks : AchievementType.PeeInPond;
+        }
+        public override bool CanInteract()
+        {
+            return true;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
+
+    public class GraffittiHouse : Interactable
+    {
+        public bool HasGraffitti { get; private set; }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            // ToDo: draw graffitti or clean it
+            throw new System.NotImplementedException();
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == HasGraffitti;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
     }
 }
