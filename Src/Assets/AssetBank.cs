@@ -18,6 +18,9 @@ namespace yolo
             public Texture2D Dev { get; init; }
             public Texture2D Main { get; init; }
             public Texture2D MainScene { get; init; }
+            public Texture2D DumScene { get; init; }
+            public Texture2D ObchodScene { get; init; }
+            public Texture2D NemocniceScene { get; init; }
         }
 
         public SpriteBank Sprites { get; private set; }
@@ -238,6 +241,9 @@ namespace yolo
                 Dev = Content.Load<Texture2D>("assetName"),
                 Main = Content.Load<Texture2D>("main"),
                 MainScene = Content.Load<Texture2D>("mainScene"),
+                DumScene = Content.Load<Texture2D>("dumScene"),
+                NemocniceScene = Content.Load<Texture2D>("nemocniceScene"),
+                ObchodScene = Content.Load<Texture2D>("obchodScene"),
             };
 
             Sprites = new SpriteBank
