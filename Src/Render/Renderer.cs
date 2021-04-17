@@ -7,14 +7,19 @@ namespace yolo {
     public class Renderer {
         private Context context;
 
+        private QuadBuffer terrainMesh;
+        private QuadBuffer entityMesh;
+
         public Renderer(Context context) {
             this.context = context;
+            entityMesh = new();
+            terrainMesh = new QuadBuffer();
         }
 
-        QuadBuffer<VertexPositionNormalTexture> terrainMesh;
         public void RebuildTerrainMesh() {
 
-            terrainMesh = new QuadBuffer<VertexPositionNormalTexture>();
+            terrainMesh.Dispose();
+            terrainMesh = new QuadBuffer();
             var tiles = context.World.CurrentScene.Tiles;
 
             for (int y = 0; y < tiles.Height; y++) {
@@ -31,7 +36,7 @@ namespace yolo {
                             );
                     } else {
                         float height = t.Sprite.SourceRect.Height / 16f;
-                        
+
                         // front facing quad
                         if (y == tiles.Height - 1 || tiles[x, y + 1].Flat) {
                             terrainMesh.AddQuad(
@@ -82,6 +87,7 @@ namespace yolo {
             var device = context.Graphics.GraphicsDevice;
             var camera = context.Camera;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
+            var scene = context.World.CurrentScene;
 
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),
@@ -104,14 +110,25 @@ namespace yolo {
             device.DepthStencilState = new() {
                 DepthBufferEnable = true,
                 DepthBufferWriteEnable = true,
-                DepthBufferFunction = CompareFunction.Less,
+                DepthBufferFunction = CompareFunction.LessEqual,
             };
 
             device.BlendState = BlendState.AlphaBlend;
-            
+            device.Clear(Color.Black);
+
             foreach (var pass in persp.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
+            }
+
+            entityMesh.Dispose();
+            entityMesh = new QuadBuffer();
+            foreach (var entity in scene.Entities) {
+                if (entity.Animation != null) {
+                    var sprite = entity.Animation.GetCurrentSprite();
+
+                    entityMesh.AddSprite(sprite, entity.Position);
+                }
             }
         }
     }

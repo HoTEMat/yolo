@@ -49,7 +49,6 @@ namespace yolo {
         }
 
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             Context.Renderer.Draw();
 
