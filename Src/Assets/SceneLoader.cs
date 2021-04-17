@@ -91,7 +91,7 @@ namespace yolo
                 var bin = new Entity(ctx)
                 {
                     Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
-                    Behavior = new Bin() // ToDo: animation of bin - in behavior?
+                    Behavior = new Bin(ctx.Player.IsGood)  // if player is good - generate overturned bins
                 };
                 scene.AddEntity(bin);
             }
