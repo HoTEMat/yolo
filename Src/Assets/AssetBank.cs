@@ -130,6 +130,8 @@ namespace yolo
             public Sprite HeartGood { get; init; }
             public Sprite HeartBad { get; init; }
             
+            public Sprite Basket { get; init; }
+            
             // INTERIORS
             public Sprite HospitalWindow1 { get; init; }
             public Sprite HospitalWindow2 { get; init; }
@@ -380,6 +382,8 @@ namespace yolo
                 // EFFECTS
                 HeartGood = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(192, 64, 16, 16)},
                 HeartBad = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(208, 64, 16, 16)},
+                
+                Basket = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 32, 16, 16)},
                 
                 // INTERIORS
                 HospitalWindow1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 0, 16, 32)},
