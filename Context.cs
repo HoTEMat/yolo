@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace yolo {
     public class Context {
@@ -10,12 +11,14 @@ namespace yolo {
             Renderer = new Renderer(this);
         }
 
+        public GraphicsDeviceManager Graphics { get; init; }
         public GameTime GameTime { get; private set; }
         public AssetBank Assets { get; private set; }
         public World World { get; set; }
         public PlayerBehaviour Player { get; }
         public Camera Camera { get; private set; }
         public Renderer Renderer { get; private set; }
+        public SpriteBatch SpriteBatch { get; set; }
 
         internal void Update(GameTime gameTime) {
             this.GameTime = gameTime;

@@ -4,12 +4,15 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Color = Microsoft.Xna.Framework.Color;
+using Effect = Microsoft.Xna.Framework.Graphics.Effect;
 
 namespace yolo
 {
     public class AssetBank
     {
         private ContentManager content;
+
+        public Effect Perspective { get; private set; }
 
         public TextureBank Textures { get; private set; }
 
@@ -42,7 +45,7 @@ namespace yolo
             public Sprite ParkMisc3 { get; init; }
             public Sprite ParkMisc4 { get; init; }
             public Sprite ParkBush { get; init; }
-            
+
             public Sprite Person1Down { get; init; }
             public Sprite Person1Down1 { get; init; }
             public Sprite Person1Down2 { get; init; }
@@ -55,7 +58,7 @@ namespace yolo
             public Sprite Person1Left { get; init; }
             public Sprite Person1Left1 { get; init; }
             public Sprite Person1Left2 { get; init; }
-            
+
             public Sprite Person2Down { get; init; }
             public Sprite Person2Down1 { get; init; }
             public Sprite Person2Down2 { get; init; }
@@ -68,7 +71,7 @@ namespace yolo
             public Sprite Person2Left { get; init; }
             public Sprite Person2Left1 { get; init; }
             public Sprite Person2Left2 { get; init; }
-            
+
             public Sprite Person3Down { get; init; }
             public Sprite Person3Down1 { get; init; }
             public Sprite Person3Down2 { get; init; }
@@ -100,6 +103,9 @@ namespace yolo
 
         public void LoadContent(ContentManager Content)
         {
+            // Load effects
+            Perspective = Content.Load<Effect>("perspective");
+
             // Load textures
             Textures = new TextureBank
             {
@@ -109,7 +115,7 @@ namespace yolo
 
             Sprites = new SpriteBank
             {
-                Dev_Floor = new Sprite {Texture = Textures.Dev},
+                Dev_Floor = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(16, 48, 16, 16) },
                 Dev_Wall = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(0, 32, 16, 32)},
 
                 PondLU = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 16, 16)},
@@ -128,7 +134,7 @@ namespace yolo
                 ParkMisc3 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16)},
                 ParkMisc4 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16)},
                 ParkBush = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
-                
+
                 Person1Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16)},
                 Person1Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 32, 16, 16)},
                 Person1Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 48, 16, 16)},
@@ -141,7 +147,7 @@ namespace yolo
                 Person1Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 64, 16, 16)},
                 Person1Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 48, 16, 16)},
                 Person1Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 32, 16, 16)},
-                
+
                 Person2Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 80, 16, 16)},
                 Person2Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 80, 16, 16)},
                 Person2Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 96, 16, 16)},
@@ -154,7 +160,7 @@ namespace yolo
                 Person2Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 112, 16, 16)},
                 Person2Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 96, 16, 16)},
                 Person2Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 80, 16, 16)},
-                
+
                 Person3Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 128, 16, 16)},
                 Person3Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 128, 16, 16)},
                 Person3Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 144, 16, 16)},
@@ -179,8 +185,8 @@ namespace yolo
                 PondLD = new Tile {Sprite = Sprites.PondLD, Walkable = false},
                 PondRD = new Tile {Sprite = Sprites.PondRD, Walkable = false},
             };
-            
-            
+
+
         }
     }
 }

@@ -11,8 +11,8 @@ namespace yolo {
             Scene park = new ParkSceneLoader().LoadScene(assets);
             scenes.Add(park);
             // TODO: other scenes
-
-            return World(scenes, currentScene: park, timeToLive: 300);
+            throw new System.NotImplementedException();
+            //return new World(scenes, currentScene: park, timeToLive: 300);
         }
     }
 }

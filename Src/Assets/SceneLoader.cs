@@ -31,13 +31,12 @@ namespace yolo {
                     uint pixel = data[col + row * w];
                 }
             }
+
+            throw new System.NotImplementedException();
         }
 
         private static Tile CreateTile(uint code, AssetBank assets) {
-            if (code == Wall) {
-                return new Tile {
-                    Sprite =
-            }
-        }
+            throw new System.NotImplementedException();
         }
     }
+}

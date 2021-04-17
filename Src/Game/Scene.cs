@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace yolo {
     public class Scene {
         private const float InteractableDistanceThreshold = 10; // TODO
-        
+
         public List<Entity> Entities { get; }
         public Indexer2D<Tile> Tiles { get; }
         public Interactable SelectedInteractable { get; private set; }
