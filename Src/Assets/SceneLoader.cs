@@ -14,16 +14,28 @@ namespace yolo
     {
         private List<Vector2> PersonTargets = new List<Vector2>()
             { // points between which NPCs are moving
-                new Vector2(1, 14), new Vector2(40, 9), new Vector2(20, 28), new Vector2(33, 25), 
-                new Vector2(33, 18), new Vector2(21, 2), new Vector2(25, 13)
+                new (1, 14), new (40, 9), new (20, 28), new (33, 25), 
+                new (33, 18), new (21, 2), new (25, 13)
             };
 
         private List<Vector2> PersonInitial = new List<Vector2>()
             { // points where NPCs are generated
-                new Vector2(30, 27), new Vector2(22, 24), new Vector2(5, 14), new Vector2(19, 9), 
-                new Vector2(28, 17), new Vector2(22, 9), new Vector2(29, 13), new Vector2(35, 9),
-                new Vector2(40, 8), new Vector2(15, 15), new Vector2(20, 3), new Vector2(9, 15)
+                new (30, 27), new (22, 24), new (5, 14), new (19, 9), 
+                new (28, 17), new (22, 9), new (29, 13), new (35, 9),
+                new (40, 8), new (15, 15), new (20, 3), new (9, 15)
             };
+        private List<Vector2> IceCreamPositions = new List<Vector2>()
+            { // parc and square
+                new (30, 26), new (31, 16)
+            };
+
+        private List<Vector2> BinPositions = new List<Vector2>()
+            {
+            new (3, 13), new (14, 15), new (38, 10), new (22, 4),
+            new (20, 10), new (27, 13)
+            };
+        
+        private const int NPCCount = 20;
         public Scene LoadScene(Context context)
         {
             // TODO entities
@@ -34,15 +46,55 @@ namespace yolo
             
             Entity entity = new Entity(context)
             {
-                Position = new Vector2(0, 0),
+                Position = new Vector2(24, 12),
                 Animation = new Animation(context.Assets.Sprites.Fountain),
                 Behavior = null,
             };
             entity.Collider = new CircleCollider(entity, false, 2);
             
             scene.AddEntity(entity);
+            generateNPCs(scene, context);
+            generateIceCream(scene, context);
+            generateBins(scene, context);
 
             return scene;
+        }
+        private void generateNPCs(Scene scene, Context ctx)
+        {
+            for (int i = 0; i < NPCCount; i++ )
+            {
+                int idx = i % PersonInitial.Count;
+                var person = new Entity(ctx)
+                {
+                    Position = PersonInitial[idx],
+                    Behavior = new PersonBehavior(idx % 4, PersonTargets), // idx % 4 - chooses one of 4 person sprites
+                    // Animation ?
+                };
+                scene.AddEntity(person);
+            }
+        }
+        private void generateIceCream(Scene scene, Context ctx)
+        {
+            var icecream = new Entity(ctx)
+            {
+                Position = Utils.RandChoice(IceCreamPositions),
+                Behavior = new IceCreamStand(),
+                Animation = new Animation(ctx.Assets.Sprites.IcecreamStand)
+            };
+            scene.AddEntity(icecream);
+        }
+        private void generateBins(Scene scene, Context ctx)
+        {
+            int binStartIndex = ctx.Random.Next(0, BinPositions.Count - 1);
+            for (int i = 0; i < 3; i++)
+            {
+                var bin = new Entity(ctx)
+                {
+                    Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
+                    Behavior = new Bin(ctx.Player.IsGood)  // if player is good - generate overturned bins
+                };
+                scene.AddEntity(bin);
+            }
         }
     }
 

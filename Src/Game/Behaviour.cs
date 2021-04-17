@@ -28,6 +28,14 @@ namespace yolo {
     public class Bin : Interactable
     {
         public bool IsOverturned { get; private set; }
+
+        public Bin(bool isOverturned)
+        {
+            IsOverturned = isOverturned;
+            Entity.Animation = IsOverturned
+                ? new Animation(Entity.Context.Assets.Sprites.TrashcanDown)
+                : new Animation(Entity.Context.Assets.Sprites.TrashcanUp);
+        }
         public override void Update()
         {
             return;
@@ -37,9 +45,11 @@ namespace yolo {
             if (IsOverturned)
             {
                 IsOverturned = false;
+                Entity.Animation.Reset(Entity.Context.Assets.Sprites.TrashcanUp);
                 return AchievementType.PutUpBin;
             }
             IsOverturned = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.TrashcanDown);
             return AchievementType.ToppleBin;
         }
         public override bool CanInteract()
