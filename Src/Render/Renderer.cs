@@ -23,8 +23,6 @@ namespace yolo {
             terrainMesh = new QuadBuffer();
             var tiles = context.World.CurrentScene.Tiles;
 
-
-
             for (int y = 0; y < tiles.Height; y++) {
                 for (int x = 0; x < tiles.Width; x++) {
 
