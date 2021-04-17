@@ -28,6 +28,8 @@ namespace yolo {
         public void Update() {
             ResolveInteractable();
             UpdateEntities();
+            ResolveCollisions();
+            UpdateCamera();
         }
 
         private void ResolveInteractable() {
@@ -56,6 +58,29 @@ namespace yolo {
             foreach (Entity e in Entities) {
                 e.Update();
             }
+        }
+
+        private void ResolveCollisions() {
+            foreach (Entity e in Entities) {
+                if (e.Collider != null && e.Collider.Movable) {
+                    ResolveCollisionsFor(e);
+                }
+            }
+        }
+
+        private void ResolveCollisionsFor(Entity e) {
+            Vector2 totalPush = Vector2.Zero;
+            foreach (Entity other in Entities) {
+                if (other.Collider != null && !other.Collider.Movable) {
+                    totalPush += e.Collider.PushFrom(other);
+                }
+            }
+
+            e.Position += totalPush;
+        }
+
+        private void UpdateCamera() {
+            ctx.Camera.Update();
         }
     }
 }
