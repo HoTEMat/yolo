@@ -46,7 +46,9 @@ namespace yolo {
         CursePerson,
         FeedDucks,
         PeeInPond,
+        PeeInFountain,
         YellOnTree,
+        BuyFood,
         DeliverFood,
         DoGraffitti,
         CleanGraffitti
