@@ -32,4 +32,32 @@ namespace yolo {
         protected abstract TimedSpriteSet DefaultSprite { get; }
         protected abstract TimedSpriteSet HighlightedSprite { get; }
     }
+
+    public class Bin : Interactable
+    {
+        public bool IsOverturned { get; private set; }
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            if (IsOverturned)
+            {
+                IsOverturned = false;
+                return AchievementType.PutUpBin;
+            }
+            IsOverturned = true;
+            return AchievementType.ToppleBin;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == IsOverturned;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
 }
