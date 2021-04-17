@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 namespace yolo {
     public interface IWorldLoader {
-        World LoadWorld(AssetBank assets);
+        World LoadWorld(Context context);
     }
 
     public class FirstLevelLoader : IWorldLoader {
-        public World LoadWorld(AssetBank assets) {
+        public World LoadWorld(Context context) {
             List<Scene> scenes = new();
-            Scene park = new ParkSceneLoader().LoadScene(assets);
-            scenes.Add(park);
+            Scene mainScene = new MainSceneLoader().LoadScene(context);
+            scenes.Add(mainScene);
             // TODO: other scenes
 
-            return World(scenes, currentScene: park, timeToLive: 300);
+            return World(scenes, currentScene: mainScene, timeToLive: 300);
         }
     }
 }

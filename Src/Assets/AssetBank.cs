@@ -17,6 +17,7 @@ namespace yolo
         {
             public Texture2D Dev { get; init; }
             public Texture2D Main { get; init; }
+            public Texture2D MainScene { get; init; }
         }
 
         public SpriteBank Sprites { get; private set; }
@@ -25,6 +26,8 @@ namespace yolo
         {
             public Sprite Dev_Wall { get; init; }
             public Sprite Dev_Floor { get; init; }
+            
+            public Sprite Empty { get; init; }
 
             // OTHER
             public Sprite TrashcanUp { get; init; }
@@ -41,10 +44,7 @@ namespace yolo
             public Sprite ParkMisc3 { get; init; }
             public Sprite ParkMisc4 { get; init; }
             public Sprite ParkBush { get; init; }
-            public Sprite ParkPondLU { get; init; }
-            public Sprite ParkPondRU { get; init; }
-            public Sprite ParkPondLD { get; init; }
-            public Sprite ParkPondRD { get; init; }
+            public Sprite ParkPond { get; init; }
             public Sprite ParkGrass { get; init; }
             
             // PEOPLE
@@ -155,12 +155,10 @@ namespace yolo
         {
             public Tile Dev_Wall { get; init; }
             public Tile Dev_Floor { get; init; }
+            
+            public Tile Empty { get; init; }
 
             // PARK
-            public Tile ParkPondLU { get; init; }
-            public Tile ParkPondRU { get; init; }
-            public Tile ParkPondLD { get; init; }
-            public Tile ParkPondRD { get; init; }
             public Tile ParkGrass { get; init; }
             public Tile HouseFloor { get; init; }
             
@@ -239,12 +237,15 @@ namespace yolo
             {
                 Dev = Content.Load<Texture2D>("assetName"),
                 Main = Content.Load<Texture2D>("main"),
+                MainScene = Content.Load<Texture2D>("mainScene"),
             };
 
             Sprites = new SpriteBank
             {
                 Dev_Floor = new Sprite {Texture = Textures.Dev},
                 Dev_Wall = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(0, 32, 16, 32)},
+                
+                Empty = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(48, 48, 16, 16)},
 
                 // OTHER
                 TrashcanUp = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 0, 16, 16)},
@@ -260,10 +261,7 @@ namespace yolo
                 ParkMisc2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 0, 16, 16)},
                 ParkMisc3 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16)},
                 ParkMisc4 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16)},
-                ParkPondLU = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 16, 16)}, //4a4eff
-                ParkPondRU = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 0, 16, 16)}, //292de3
-                ParkPondLD = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 16, 16, 16)}, //3134ad
-                ParkPondRD = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 16, 16, 16)}, //0c0f81
+                ParkPond = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32)},
                 ParkBush = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
                 ParkGrass = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16)},
                 
@@ -373,36 +371,33 @@ namespace yolo
             {
                 Dev_Wall = new Tile {Sprite = Sprites.Dev_Wall, Walkable = false},
                 Dev_Floor = new Tile {Sprite = Sprites.Dev_Floor},
-
-                ParkPondLU = new Tile {Sprite = Sprites.ParkPondLU, Walkable = false}, //4a4eff
-                ParkPondRU = new Tile {Sprite = Sprites.ParkPondRU, Walkable = false}, //292de3
-                ParkPondLD = new Tile {Sprite = Sprites.ParkPondLD, Walkable = false}, //3134ad
-                ParkPondRD = new Tile {Sprite = Sprites.ParkPondRD, Walkable = false}, //0c0f81
                 
-                ParkGrass = new Tile {Sprite = Sprites.ParkGrass},
+                Empty = new Tile {Sprite = Sprites.Empty},
                 
-                HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //005784
-                HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor}, //e4e4e4
-                HospitalWindow2 = new Tile {Sprite = Sprites.HospitalFloor}, //adadad
-                HospitalWall = new Tile {Sprite = Sprites.HospitalFloor}, //584848
-                HospitalTableL = new Tile {Sprite = Sprites.HospitalFloor}, //817676
-                HospitalTableR = new Tile {Sprite = Sprites.HospitalFloor}, //6d6262
-                HospitalDoctor = new Tile {Sprite = Sprites.HospitalFloor}, //423535
+                ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
                 
-                HouseFloor = new Tile {Sprite = Sprites.HouseFloor}, //5a4a34
-                HouseStairL = new Tile {Sprite = Sprites.HouseStairL}, //185122
-                HouseStairR = new Tile {Sprite = Sprites.HouseStairR}, //257332
-                HouseElevatorL = new Tile {Sprite = Sprites.HouseElevatorL}, //7bfc91
-                HouseElevatorR = new Tile {Sprite = Sprites.HouseElevatorR}, //80ca8c
-                HouseGrandma = new Tile {Sprite = Sprites.HouseGrandma}, //55835d
-                HouseWall = new Tile {Sprite = Sprites.HouseWall}, //1dff43 
+                HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
+                HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalWindow2 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalWall = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalTableL = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalTableR = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalDoctor = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
                 
-                MarketIsleL = new Tile {Sprite = Sprites.MarketIsleL},//534129,
-                MarketIsleR = new Tile {Sprite = Sprites.MarketIsleR},//352714,
-                MarketCheckoutL = new Tile {Sprite = Sprites.MarketCheckoutL},//db8717,
-                MarketCheckoutR = new Tile {Sprite = Sprites.MarketCheckoutR},//bf740f,
-                MarketWall = new Tile {Sprite = Sprites.MarketWall},//d2a05d,
-                MarketFloor = new Tile {Sprite = Sprites.MarketFloor},//9d9d9d,
+                HouseFloor = new Tile {Sprite = Sprites.HouseFloor}, //
+                HouseStairL = new Tile {Sprite = Sprites.HouseStairL, Walkable=false, Flat = false}, //
+                HouseStairR = new Tile {Sprite = Sprites.HouseStairR, Walkable=false, Flat = false}, //
+                HouseElevatorL = new Tile {Sprite = Sprites.HouseElevatorL, Walkable=false, Flat = false}, //
+                HouseElevatorR = new Tile {Sprite = Sprites.HouseElevatorR, Walkable=false, Flat = false}, //
+                HouseGrandma = new Tile {Sprite = Sprites.HouseGrandma, Walkable=false, Flat = false}, //
+                HouseWall = new Tile {Sprite = Sprites.HouseWall, Walkable=false, Flat = false}, //
+                
+                MarketIsleL = new Tile {Sprite = Sprites.MarketIsleL, Walkable=false, Flat = false},//
+                MarketIsleR = new Tile {Sprite = Sprites.MarketIsleR, Walkable=false, Flat = false},//
+                MarketCheckoutL = new Tile {Sprite = Sprites.MarketCheckoutL, Walkable=false, Flat = false},//
+                MarketCheckoutR = new Tile {Sprite = Sprites.MarketCheckoutR, Walkable=false, Flat = false},//
+                MarketWall = new Tile {Sprite = Sprites.MarketWall, Walkable=false, Flat = false},//
+                MarketFloor = new Tile {Sprite = Sprites.MarketFloor},//
                  
                 // HOUSES
                 House1L = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
@@ -419,11 +414,11 @@ namespace yolo
                 House5R = new Tile {Sprite = Sprites.House5L, Walkable=false, Flat = false},
                 House6R = new Tile {Sprite = Sprites.House6L, Walkable=false, Flat = false},
                 House7R = new Tile {Sprite = Sprites.House7L, Walkable=false, Flat = false},
-                HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   // ae9a9a
-                HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   // a19a9a
+                HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   //
+                HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   //
                 
-                MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false},
-                MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false},
+                MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false}, //
+                MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false}, //
             };
             
             int personWalkPeriod = 300;
