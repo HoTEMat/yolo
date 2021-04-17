@@ -38,7 +38,14 @@ namespace yolo
         private const int NPCCount = 20;
         public Scene LoadScene(Context context)
         {
-            // TODO entities
+            // move npcs up
+            for (int i = 0; i < PersonInitial.Count; i++)
+                PersonInitial[i] += new Vector3(0, 0, -1);
+            for (int i = 0; i < PersonTargets.Count; i++)
+                PersonTargets[i] += new Vector3(0, 0, -1);
+            for (int i = 0; i < IceCreamPositions.Count; i++)
+                IceCreamPositions[i] += new Vector3(0, 0, -1);
+            
             List<Entity> entities = new List<Entity>();
 
             Scene scene = new Scene("main", entities,
@@ -74,6 +81,7 @@ namespace yolo
                 scene.AddEntity(person);
             }
         }
+        
         private void generateIceCream(Scene scene, Context ctx)
         {
             var icecream = new Entity(ctx)
@@ -85,6 +93,7 @@ namespace yolo
             icecream.Behavior =  new IceCreamStand(icecream);
             scene.AddEntity(icecream);
         }
+        
         private void generateBins(Scene scene, Context ctx)
         {
             int binStartIndex = ctx.Random.Next(0, BinPositions.Count - 1);
@@ -95,10 +104,12 @@ namespace yolo
                     Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
                 };
                 
-                //bin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
+                //t pbin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
                 scene.AddEntity(bin);
             }
         }
+        
+        // PARK
     }
 
     public class DumSceneLoader : ISceneLoader
