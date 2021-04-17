@@ -7,12 +7,17 @@ namespace yolo {
 
     public class FirstLevelLoader : IWorldLoader {
         public World LoadWorld(Context context) {
-            List<Scene> scenes = new();
             Scene mainScene = new MainSceneLoader().LoadScene(context);
-            scenes.Add(mainScene);
-            // TODO: other scenes
+            
+            List<Scene> scenes = new List<Scene>
+            {
+                mainScene,
+                new ObchodSceneLoader().LoadScene(context),
+                new NemocniceSceneLoader().LoadScene(context),
+                new DumSceneLoader().LoadScene(context),
+            };
 
-            return World(scenes, currentScene: mainScene, timeToLive: 300);
+            return new World(scenes, mainScene, 60, context);
         }
     }
 }

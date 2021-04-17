@@ -25,7 +25,7 @@ namespace yolo {
         public void SwitchToScene(string newSceneName, Vector2 playerPosition) {
             CurrentScene = Scenes[newSceneName];
             context.Player.Entity.Position = playerPosition;
-            context.Player.Entity.Scene = nextScene;
+            context.Player.Entity.Scene = CurrentScene;
         }
 
         public void Update() {
