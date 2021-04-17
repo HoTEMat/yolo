@@ -6,10 +6,12 @@ namespace yolo {
         public const float WalkSpeed = 1; // TODO
         
         public bool IsGood { get; }
+        public BucketList TodoList { get; }
 
-        public PlayerBehaviour(bool isGood)
+        public PlayerBehaviour(bool isGood, BucketList todoList)
         {
             IsGood = isGood;
+            TodoList = todoList;
         }
 
         public override void Update() {
