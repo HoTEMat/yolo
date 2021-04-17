@@ -56,6 +56,14 @@ namespace yolo
                 {0x9d9d9d, assets.Tiles.MarketFloor},
 
                 {0x428b1d, assets.Tiles.ParkGrass},
+                
+                {0x383838, assets.Tiles.Cobble   },
+                {0x402b2b, assets.Tiles.Cobble1  },
+                {0x361b1b, assets.Tiles.Cobble2  },
+                {0x963030, assets.Tiles.Cobble4  },
+                {0x840a0a, assets.Tiles.Cobble7  },
+                {0xcc7a7a, assets.Tiles.Cobble9  },
+                {0xff3232, assets.Tiles.Cobble10 },
             };
 
             Tile[] lHouses =

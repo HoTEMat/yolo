@@ -150,6 +150,18 @@ namespace yolo
             public Sprite HouseFloor { get; init; }
             public Sprite HouseGrandma { get; init; }
             public Sprite HouseWall { get; init; }
+            
+            public Sprite Cobble { get; init; }
+            public Sprite Cobble1 { get; init; }
+            public Sprite Cobble2 { get; init; }
+            public Sprite Cobble3 { get; init; }
+            public Sprite Cobble4 { get; init; }
+            public Sprite Cobble5 { get; init; }
+            public Sprite Cobble6 { get; init; }
+            public Sprite Cobble7 { get; init; }
+            public Sprite Cobble8 { get; init; }
+            public Sprite Cobble9 { get; init; }
+            public Sprite Cobble10 { get; init; }
         }
 
         public TileBank Tiles { get; private set; }
@@ -185,8 +197,6 @@ namespace yolo
             public Tile MarketL { get; init; }
             public Tile MarketR { get; init; }
             
-            //public Tile Cobble { get; init; } // 565656
-            
             // CENTER ff0000
             // SIDE ff8787
             
@@ -211,6 +221,18 @@ namespace yolo
             public Tile MarketCheckoutR { get; init; }
             public Tile MarketFloor { get; init; }
             public Tile MarketWall { get; init; }
+            
+            public Tile Cobble { get; init; } // 565656
+            public Tile Cobble1 { get; init; }
+            public Tile Cobble2 { get; init; }
+            public Tile Cobble3 { get; init; }
+            public Tile Cobble4 { get; init; }
+            public Tile Cobble5 { get; init; }
+            public Tile Cobble6 { get; init; }
+            public Tile Cobble7 { get; init; }
+            public Tile Cobble8 { get; init; }
+            public Tile Cobble9 { get; init; }
+            public Tile Cobble10 { get; init; }
         }
         
         public TimedSpriteSetBank TimedSprites { get; private set; }
@@ -371,6 +393,18 @@ namespace yolo
                 HouseFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 112, 16, 16)},
                 HouseGrandma = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(224, 80, 16, 32)},
                 HouseWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(240, 80, 16, 32)},
+                
+                Cobble = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 64, 16, 16)},
+                Cobble1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 64, 16, 16)},
+                Cobble2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 64, 16, 16)},
+                Cobble3 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 80, 16, 16)},
+                Cobble4 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 80, 16, 16)},
+                Cobble5 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 80, 16, 16)},
+                Cobble6 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 80, 16, 16)},
+                Cobble7 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 96, 16, 16)},
+                Cobble8 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 96, 16, 16)},
+                Cobble9 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 96, 16, 16)},
+                Cobble10 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 96, 16, 16)},
             };
 
             Tiles = new TileBank
@@ -425,6 +459,18 @@ namespace yolo
                 
                 MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false}, //
                 MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false}, //
+                
+                Cobble = new Tile {Sprite = Sprites.Cobble},
+                Cobble1 = new Tile {Sprite = Sprites.Cobble1},
+                Cobble2 = new Tile {Sprite = Sprites.Cobble2},
+                Cobble3 = new Tile {Sprite = Sprites.Cobble3},
+                Cobble4 = new Tile {Sprite = Sprites.Cobble4},
+                Cobble5 = new Tile {Sprite = Sprites.Cobble5},
+                Cobble6 = new Tile {Sprite = Sprites.Cobble6},
+                Cobble7 = new Tile {Sprite = Sprites.Cobble7},
+                Cobble8 = new Tile {Sprite = Sprites.Cobble8},
+                Cobble9 = new Tile {Sprite = Sprites.Cobble9},
+                Cobble10 = new Tile {Sprite = Sprites.Cobble10},
             };
             
             int personWalkPeriod = 300;
