@@ -43,7 +43,7 @@ namespace yolo {
                 Exit();
 
             Context.Update(gameTime);
-            Context.Camera.Update();
+            Context.World.Update();
 
             base.Update(gameTime);
         }
@@ -51,6 +51,7 @@ namespace yolo {
         protected override void Draw(GameTime gameTime) {
 
             Context.Renderer.Draw();
+            Context.Hud.Draw();
 
             base.Draw(gameTime);
         }
