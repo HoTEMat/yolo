@@ -15,6 +15,7 @@ namespace yolo {
     public abstract class Interactable : Behaviour {
         public abstract void Interact();
 
+        public abstract bool CanInteract();
         public bool Highlighted { get; private set; }
         public void SetHighlighted(bool highlighted) {
             if (highlighted == Highlighted)

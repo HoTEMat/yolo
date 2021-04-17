@@ -38,7 +38,7 @@ namespace yolo {
             Interactable selected = null;
             float selectedDistance = 0; // dummy value
             foreach (Entity e in Entities) {
-                if (e.Behavior is Interactable interactable) {
+                if (e.Behavior is Interactable interactable && interactable.CanInteract()) {
                     float distance = (e.Position - playerPos).Length();
                     if (distance <= InteractableDistanceThreshold &&
                         (selected == null || selectedDistance > distance)) {
