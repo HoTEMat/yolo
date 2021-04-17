@@ -16,6 +16,8 @@ namespace yolo
 
         public int Length { get { return Array.Length; } }
 
+        public Vector2 Size => new Vector2(Width, Height);
+
         public Indexer2D(int width, int height)
         {
             Width = width;

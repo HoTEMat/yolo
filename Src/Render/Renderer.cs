@@ -22,7 +22,7 @@ namespace yolo {
 
                     Tile t = tiles[x, y];
 
-                    if (t.Walkable) {
+                    if (t.Flat) {
                         terrainMesh.AddQuad(
                             new(new(x, y, 0), -Vector3.UnitZ, t.Sprite.UVTopLeft),
                             new(new(x + 1, y, 0), -Vector3.UnitZ, t.Sprite.UVTopRight),
@@ -31,7 +31,7 @@ namespace yolo {
                             );
                     } else {
                         // front facing quad
-                        if (y == tiles.Height - 1 || tiles[x, y + 1].Walkable) {
+                        if (y == tiles.Height - 1 || tiles[x, y + 1].Flat) {
                             terrainMesh.AddQuad(
                                 new(new(x, y + 1, -2), Vector3.UnitY, t.Sprite.UVTopLeft),
                                 new(new(x + 1, y + 1, -2), Vector3.UnitY, t.Sprite.UVTopRight),
@@ -40,7 +40,7 @@ namespace yolo {
                             );
                         }
                         // right facing quad
-                        if (x == tiles.Width - 1 || tiles[x + 1, y].Walkable) {
+                        if (x == tiles.Width - 1 || tiles[x + 1, y].Flat) {
                             terrainMesh.AddQuad(
                                 new(new(x + 1, y + 1, -2), Vector3.UnitX, t.Sprite.UVTopLeft),
                                 new(new(x + 1, y, -2), Vector3.UnitX, t.Sprite.UVTopRight),
@@ -49,7 +49,7 @@ namespace yolo {
                             );
                         }
                         // left facing quad
-                        if (x == 0 || tiles[x - 1, y].Walkable) {
+                        if (x == 0 || tiles[x - 1, y].Flat) {
                             terrainMesh.AddQuad(
                                 new(new(x, y, -2), Vector3.UnitX, t.Sprite.UVTopLeft),
                                 new(new(x, y + 1, -2), Vector3.UnitX, t.Sprite.UVTopRight),
@@ -57,6 +57,16 @@ namespace yolo {
                                 new(new(x, y + 1, 0), Vector3.UnitX, t.Sprite.UVBotRight)
                             );
                         }
+
+                        var UVOnePixel = new Vector2(0, 1) / t.Sprite.Texture.Height;
+
+                        // top facing quad
+                        terrainMesh.AddQuad(
+                            new(new(x, y, -2), -Vector3.UnitZ, t.Sprite.UVTopLeft),
+                            new(new(x + 1, y, -2), -Vector3.UnitZ, t.Sprite.UVTopRight),
+                            new(new(x, y + 1, -2), -Vector3.UnitZ, t.Sprite.UVTopLeft + UVOnePixel),
+                            new(new(x + 1, y + 1, -2), -Vector3.UnitZ, t.Sprite.UVTopRight + UVOnePixel)
+                        );
                     }
                 }
             }
