@@ -21,6 +21,7 @@ namespace yolo
             public Texture2D DumScene { get; init; }
             public Texture2D ObchodScene { get; init; }
             public Texture2D NemocniceScene { get; init; }
+            public Texture2D SpriteFont { get;init; }
         }
 
         public SpriteBank Sprites { get; private set; }
@@ -253,6 +254,12 @@ namespace yolo
             public TimedSpriteSet Person3Left { get; init; }
             public TimedSpriteSet Person3Up { get; init; }
         }
+        
+        public FontBank Fonts { get; private set; }
+        
+        public class FontBank {
+            public SpriteFont Font { get; set; }
+        }
 
 
         public void LoadContent(ContentManager Content)
@@ -266,6 +273,7 @@ namespace yolo
                 DumScene = Content.Load<Texture2D>("dumScene"),
                 NemocniceScene = Content.Load<Texture2D>("nemocniceScene"),
                 ObchodScene = Content.Load<Texture2D>("obchodScene"),
+                SpriteFont = Content.Load<Texture2D>("spritefont")
             };
 
             Sprites = new SpriteBank
@@ -538,6 +546,9 @@ namespace yolo
                 }
             };
             
+            Fonts = new FontBank {
+                Font = FontLoader.CreateFont(Textures.SpriteFont)
+            };
         }
     }
 }
