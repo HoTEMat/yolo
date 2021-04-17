@@ -1,6 +1,12 @@
+using Microsoft.Xna.Framework;
+
 namespace yolo {
     public abstract class Behaviour {
         public Entity Entity { get; }
+        public Vector2 Position {
+            get => Entity.Position;
+            set => Entity.Position = value;
+        }
         public abstract void Update();
     }
 
