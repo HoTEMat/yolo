@@ -40,7 +40,6 @@ namespace yolo {
         {
             return;
         }
-
         public override AchievementType? Interact()
         {
             if (IsOverturned)
@@ -51,10 +50,30 @@ namespace yolo {
             IsOverturned = true;
             return AchievementType.ToppleBin;
         }
-
         public override bool CanInteract()
         {
             return Entity.Context.Player.IsGood == IsOverturned;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
+
+    public class IceCreamStand : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
+        }
+
+        public override bool CanInteract()
+        {
+            return true; // you can always eat icecream
         }
 
         protected override TimedSpriteSet DefaultSprite { get; }
