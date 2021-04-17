@@ -14,7 +14,7 @@ namespace yolo {
             entity.ChangeSpriteTo(PersonSpriteSelector.GetStaticSprite(entity.Context.Assets, spriteNum, PersonOrientation.Down));
         }
         
-        public void UpdateOrientation(Vector2 posChange) {
+        public void UpdateOrientation(Vector3 posChange) {
             Context ctx = entity.Context;
             PersonOrientation? newOrientation = GetOrientation(posChange);
             bool newWalking = newOrientation != null;
@@ -29,7 +29,7 @@ namespace yolo {
             Walking = newWalking;
         }
 
-        private static PersonOrientation? GetOrientation(Vector2 posChange) {
+        private static PersonOrientation? GetOrientation(Vector3 posChange) {
             float epsilon = 10e-3f;
             if (posChange.Y > epsilon)
                 return PersonOrientation.Down;

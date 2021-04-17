@@ -16,7 +16,11 @@ namespace yolo {
             this.sprites = sprites;
             millis = 0;
         }
-        
+        public void Reset(ISpriteSet newSprites)
+        {
+            sprites = newSprites;
+            millis = 0;
+        }
         public void Update(Context ctx) {
             millis += (float) ctx.GameTime.ElapsedGameTime.TotalMilliseconds;
         }
