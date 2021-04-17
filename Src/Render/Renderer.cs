@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace yolo {
     public class Renderer {
@@ -124,7 +125,7 @@ namespace yolo {
             
             entityMesh.Dispose();
             entityMesh = new QuadBuffer();
-            foreach (var entity in scene.Entities) {
+            foreach (var entity in scene.Entities.OrderBy(e => e.Position.Y)) {
                 if (entity.Animation != null) {
                     var sprite = entity.Animation.GetCurrentSprite();
 
