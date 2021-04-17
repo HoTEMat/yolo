@@ -34,7 +34,8 @@ namespace yolo {
         }
 
         private void HandleInteraction(KeyboardState kbs) {
-            if (kbs.IsKeyDown(Keys.F)) {
+            var scene = Entity.Scene;
+            if (kbs.IsKeyDown(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
                 Entity.Scene.SelectedInteractable?.Interact();
             }
         }
