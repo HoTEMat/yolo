@@ -43,7 +43,7 @@ namespace yolo {
                 Exit();
 
             Context.Update(gameTime);
-            Context.Camera.Update();
+            Context.World.Update();
 
             base.Update(gameTime);
         }
@@ -52,6 +52,7 @@ namespace yolo {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             Context.Renderer.Draw();
+            Context.Hud.Draw();
 
             base.Draw(gameTime);
         }

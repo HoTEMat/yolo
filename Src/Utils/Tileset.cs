@@ -15,11 +15,6 @@ namespace yolo {
             TileWidth = tileWidth;
             TileHeight = tileHeight;
         }
-        public static Tileset Load(ContentManager Content, string assetName, int tileWidth, int tileHeight)
-        {
-            Texture2D texture = Content.Load<Texture2D>(assetName);
-            return new Tileset(texture, tileWidth, tileHeight);
-        }
 
         public Rectangle GetTile(int id)
         {

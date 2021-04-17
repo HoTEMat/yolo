@@ -10,20 +10,20 @@ namespace yolo {
             var characters = new List<char>();
             var kernings = new List<Vector3>();
 
-            Tileset fontTileset = new Tileset(srcTexture, 8, 8);
+            Tileset fontTileset = new Tileset(srcTexture, 7, 7);
 
             // the font in the tileset begins at tile no. 256 with space (' ')
             // so we start creating the spritefont from there
             for (char c = ' '; c <= '~'; c++)
             {
-                glyphBounds.Add(fontTileset.GetTile(c - ' ' + 256));
-                cropping.Add(new Rectangle(0, 0, 8, 8));
+                glyphBounds.Add(fontTileset.GetTile(c - ' '));
+                cropping.Add(new Rectangle(0, 0, 7, 7));
                 characters.Add(c);
-                kernings.Add(new Vector3(0, 8, 0));
+                kernings.Add(new Vector3(0, 7, 0));
             }
 
             // !!! following line needs MonoGame >=3.7, because in older versions SpriteFont constructor is private
-            return new SpriteFont(fontTileset.Texture, glyphBounds, cropping, characters, fontTileset.TileHeight, 0f, kernings, '?');
+            return new SpriteFont(srcTexture, glyphBounds, cropping, characters, fontTileset.TileHeight, 0f, kernings, '?');
         }
     }
 }
