@@ -18,7 +18,6 @@ namespace yolo {
         public Matrix View { get; private set; }
 
         public void Update() {
-            Console.WriteLine(Center);
             var kbs = Keyboard.GetState();
 
             float speed = 0.1f;
