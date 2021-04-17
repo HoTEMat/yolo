@@ -14,25 +14,25 @@ namespace yolo
     {
         private List<Vector2> PersonTargets = new List<Vector2>()
             { // points between which NPCs are moving
-                new Vector2(1, 14), new Vector2(40, 9), new Vector2(20, 28), new Vector2(33, 25), 
-                new Vector2(33, 18), new Vector2(21, 2), new Vector2(25, 13)
+                new (1, 14), new (40, 9), new (20, 28), new (33, 25), 
+                new (33, 18), new (21, 2), new (25, 13)
             };
 
         private List<Vector2> PersonInitial = new List<Vector2>()
             { // points where NPCs are generated
-                new Vector2(30, 27), new Vector2(22, 24), new Vector2(5, 14), new Vector2(19, 9), 
-                new Vector2(28, 17), new Vector2(22, 9), new Vector2(29, 13), new Vector2(35, 9),
-                new Vector2(40, 8), new Vector2(15, 15), new Vector2(20, 3), new Vector2(9, 15)
+                new (30, 27), new (22, 24), new (5, 14), new (19, 9), 
+                new (28, 17), new (22, 9), new (29, 13), new (35, 9),
+                new (40, 8), new (15, 15), new (20, 3), new (9, 15)
             };
         private List<Vector2> IceCreamPositions = new List<Vector2>()
             { // parc and square
-                new Vector2(30, 26), new Vector2(31, 16)
+                new (30, 26), new (31, 16)
             };
 
         private List<Vector2> BinPositions = new List<Vector2>()
             {
-            new Vector2(3, 13), new Vector2(14, 15), new Vector2(38, 10), new Vector2(22, 4),
-            new Vector2(20, 10), new Vector2(27, 13)
+            new (3, 13), new (14, 15), new (38, 10), new (22, 4),
+            new (20, 10), new (27, 13)
             };
         
         private const int NPCCount = 20;
