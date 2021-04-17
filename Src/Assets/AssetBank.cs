@@ -105,19 +105,19 @@ namespace yolo
             
             // HOUSES
             public Sprite House1L { get; init; }
-            public Sprite House2L { get; init; }
-            public Sprite House3L { get; init; }
-            public Sprite House4L { get; init; }
-            public Sprite House5L { get; init; }
-            public Sprite House6L { get; init; }
-            public Sprite House7L { get; init; }
             public Sprite House1R { get; init; }
+            public Sprite House2L { get; init; }
             public Sprite House2R { get; init; }
+            public Sprite House3L { get; init; }
             public Sprite House3R { get; init; }
+            public Sprite House4L { get; init; }
             public Sprite House4R { get; init; }
-            public Sprite House5R { get; init; }
-            public Sprite House6R { get; init; }
-            public Sprite House7R { get; init; }
+            public Sprite HouseS1L { get; init; }
+            public Sprite HouseS1R { get; init; }
+            public Sprite HouseS2L { get; init; }
+            public Sprite HouseS2R { get; init; }
+            public Sprite HouseS3L { get; init; }
+            public Sprite HouseS3R { get; init; }
             public Sprite HospitalL { get; init; }
             public Sprite HospitalR { get; init; }
             public Sprite MarketL { get; init; }
@@ -148,7 +148,6 @@ namespace yolo
             public Sprite HouseElevatorL { get; init; }
             public Sprite HouseElevatorR { get; init; }
             public Sprite HouseFloor { get; init; }
-            public Sprite HouseGrandma { get; init; }
             public Sprite HouseWall { get; init; }
             
             public Sprite Cobble { get; init; }
@@ -162,6 +161,8 @@ namespace yolo
             public Sprite Cobble8 { get; init; }
             public Sprite Cobble9 { get; init; }
             public Sprite Cobble10 { get; init; }
+            
+            public Sprite Grandma { get; init; }
         }
 
         public TileBank Tiles { get; private set; }
@@ -179,19 +180,19 @@ namespace yolo
             
             // HOUSES
             public Tile House1L { get; init; }
-            public Tile House2L { get; init; }
-            public Tile House3L { get; init; }
-            public Tile House4L { get; init; }
-            public Tile House5L { get; init; }
-            public Tile House6L { get; init; }
-            public Tile House7L { get; init; }
             public Tile House1R { get; init; }
+            public Tile House2L { get; init; }
             public Tile House2R { get; init; }
+            public Tile House3L { get; init; }
             public Tile House3R { get; init; }
+            public Tile House4L { get; init; }
             public Tile House4R { get; init; }
-            public Tile House5R { get; init; }
-            public Tile House6R { get; init; }
-            public Tile House7R { get; init; }
+            public Tile HouseS1L { get; init; }
+            public Tile HouseS1R { get; init; }
+            public Tile HouseS2L { get; init; }
+            public Tile HouseS2R { get; init; }
+            public Tile HouseS3L { get; init; }
+            public Tile HouseS3R { get; init; }
             public Tile HospitalL { get; init; }
             public Tile HospitalR { get; init; }
             public Tile MarketL { get; init; }
@@ -212,7 +213,6 @@ namespace yolo
             public Tile HouseStairR { get; init; }
             public Tile HouseElevatorL { get; init; }
             public Tile HouseElevatorR { get; init; }
-            public Tile HouseGrandma { get; init; }
             public Tile HouseWall { get; init; }
             
             public Tile MarketIsleL { get; init; }
@@ -355,12 +355,12 @@ namespace yolo
                 House3R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(240, 0, 16, 32)},
                 House4L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 32, 16, 32)},
                 House4R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(176, 32, 16, 32)},
-                House5L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 112, 16, 32)},
-                House5R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 112, 16, 32)},
-                House6L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 144, 16, 32)},
-                House6R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 144, 16, 32)},
-                House7L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(368, 144, 16, 32)},
-                House7R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 144, 16, 32)},
+                HouseS1L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 112, 16, 32)},
+                HouseS1R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 112, 16, 32)},
+                HouseS2L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 144, 16, 32)},
+                HouseS2R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 144, 16, 32)},
+                HouseS3L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(368, 144, 16, 32)},
+                HouseS3R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 144, 16, 32)},
                 HospitalL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(368, 0, 16, 32)},
                 HospitalR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 0, 16, 32)},
                 MarketL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(400, 48, 16, 32)},
@@ -391,7 +391,6 @@ namespace yolo
                 HouseElevatorL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(192, 80, 16, 32)},
                 HouseElevatorR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(208, 80, 16, 32)},
                 HouseFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 112, 16, 16)},
-                HouseGrandma = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(224, 80, 16, 32)},
                 HouseWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(240, 80, 16, 32)},
                 
                 Cobble = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 64, 16, 16)},
@@ -405,6 +404,8 @@ namespace yolo
                 Cobble8 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 96, 16, 16)},
                 Cobble9 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 96, 16, 16)},
                 Cobble10 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 96, 16, 16)},
+                
+                Grandma = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(224, 96, 16, 16)},
             };
 
             Tiles = new TileBank
@@ -429,7 +430,6 @@ namespace yolo
                 HouseStairR = new Tile {Sprite = Sprites.HouseStairR, Walkable=false, Flat = false}, //
                 HouseElevatorL = new Tile {Sprite = Sprites.HouseElevatorL, Walkable=false, Flat = false}, //
                 HouseElevatorR = new Tile {Sprite = Sprites.HouseElevatorR, Walkable=false, Flat = false}, //
-                HouseGrandma = new Tile {Sprite = Sprites.HouseGrandma, Walkable=false, Flat = false}, //
                 HouseWall = new Tile {Sprite = Sprites.HouseWall, Walkable=false, Flat = false}, //
                 
                 MarketIsleL = new Tile {Sprite = Sprites.MarketIsleL, Walkable=false, Flat = false},//
@@ -441,19 +441,19 @@ namespace yolo
                  
                 // HOUSES
                 House1L = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
-                House2L = new Tile {Sprite = Sprites.House2L, Walkable=false, Flat = false},
-                House3L = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
-                House4L = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
-                House5L = new Tile {Sprite = Sprites.House5L, Walkable=false, Flat = false},
-                House6L = new Tile {Sprite = Sprites.House6L, Walkable=false, Flat = false},
-                House7L = new Tile {Sprite = Sprites.House7L, Walkable=false, Flat = false},
                 House1R = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
+                House2L = new Tile {Sprite = Sprites.House2L, Walkable=false, Flat = false},
                 House2R = new Tile {Sprite = Sprites.House2L, Walkable=false, Flat = false},
+                House3L = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
                 House3R = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
+                House4L = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
                 House4R = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
-                House5R = new Tile {Sprite = Sprites.House5L, Walkable=false, Flat = false},
-                House6R = new Tile {Sprite = Sprites.House6L, Walkable=false, Flat = false},
-                House7R = new Tile {Sprite = Sprites.House7L, Walkable=false, Flat = false},
+                HouseS1L = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false},
+                HouseS1R = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false},
+                HouseS2L = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false},
+                HouseS2R = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false},
+                HouseS3L = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false},
+                HouseS3R = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false},
                 HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   //
                 HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   //
                 

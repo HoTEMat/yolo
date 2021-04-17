@@ -43,7 +43,6 @@ namespace yolo
                 {0x257332, assets.Tiles.HouseStairR},
                 {0x7bfc91, assets.Tiles.HouseElevatorL},
                 {0x80ca8c, assets.Tiles.HouseElevatorR},
-                {0x55835d, assets.Tiles.HouseGrandma},
                 {0x1dff43, assets.Tiles.HouseWall},
 
                 {0x197653, assets.Tiles.MarketL},
@@ -64,6 +63,13 @@ namespace yolo
                 {0x840a0a, assets.Tiles.Cobble7  },
                 {0xcc7a7a, assets.Tiles.Cobble9  },
                 {0xff3232, assets.Tiles.Cobble10 },
+                
+                {0x54985f, assets.Tiles.HouseS1L },
+                {0x3c8348, assets.Tiles.HouseS1R },
+                {0x917575, assets.Tiles.HouseS2L },
+                {0x735555, assets.Tiles.HouseS2R },
+                {0x547359, assets.Tiles.HouseS3L },
+                {0x3d5e43, assets.Tiles.HouseS3R },
             };
 
             Tile[] lHouses =
@@ -72,9 +78,6 @@ namespace yolo
                 assets.Tiles.House2L,
                 assets.Tiles.House3L,
                 assets.Tiles.House4L,
-                assets.Tiles.House5L,
-                assets.Tiles.House6L,
-                assets.Tiles.House7L
             };
 
             Tile[] rHouses =
@@ -83,9 +86,6 @@ namespace yolo
                 assets.Tiles.House2R,
                 assets.Tiles.House3R,
                 assets.Tiles.House4R,
-                assets.Tiles.House5R,
-                assets.Tiles.House6R,
-                assets.Tiles.House7R
             };
 
             int w = src.Width, h = src.Height;
