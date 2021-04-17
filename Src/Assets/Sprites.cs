@@ -6,24 +6,14 @@ namespace yolo
 {
     public interface ISpriteSet
     {
-        public bool IsFlat { get; }
         public bool Loops { get; }
         public Sprite GetSpriteAt(int millis);
     }
 
-    public class SimpleSpriteSet : ISpriteSet
-    {
-        private Sprite Sprite { get; init; }
-        public bool IsFlat { get; init; }
-        public bool Loops { get; } = false;
-
-        public Sprite GetSpriteAt(int millis) => Sprite;
-    }
 
     public class TimedSpriteSet : ISpriteSet
     {
         public Sprite[] Sprites { get; init; }
-        public bool IsFlat { get; init; }
         public bool Loops { get; init; }
         public int Period { get; init; }
         
@@ -34,12 +24,15 @@ namespace yolo
         }
     }
 
-    public class Sprite
+    public class Sprite : ISpriteSet
     {
         public Texture2D Texture { get; init; }
         public SpriteEffects Effects { get; init; } = SpriteEffects.None;
         public Rectangle SourceRect { get; init; }
         public Vector2 Origin { get; init; } = Vector2.Zero;
         public Color Tone { get; init; } = Color.White;
+        
+        public bool Loops { get; } = false;
+        public Sprite GetSpriteAt(int millis) => this;
     }
 }
