@@ -8,16 +8,14 @@ namespace yolo {
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
         public BucketList TodoList { get; }
-        private int spriteNum;
-        public PlayerOrientation Orientation { get; private set; } = PlayerOrientation.Down;
-        public bool Walking { get; private set; } = false;
+        private SpriteOrientationManager orientationManager;
         
         public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum)
         {
             IsGood = isGood;
             TodoList = todoList;
-            this.spriteNum = spriteNum;
             HasGroceries = false;
+            orientationManager = new SpriteOrientationManager(spriteNum, Entity);
         }
 
         public void HandInGroceries()
@@ -57,21 +55,7 @@ namespace yolo {
 
             posChange.Normalize();
             Position += posChange;
-            UpdateOrientation(posChange);
-        }
-
-        private void UpdateOrientation(Vector2 posChange) {
-            PlayerOrientation? newOrientation = GetOrientation(posChange);
-            bool newWalking = newOrientation != null;
-            if (newWalking && (!Walking || newOrientation.Value != Orientation)) {
-                TimedSpriteSet newSprite = PersonSpriteSelector.GetWalkingSpriteSet(Context.Assets, spriteNum, newOrientation.Value);
-                Orientation = (PlayerOrientation) newOrientation;
-                Entity.ChangeSpriteTo(newSprite);
-            } else if (!newWalking && Walking) {
-                Sprite newSprite = PersonSpriteSelector.GetStaticSprite(Context.Assets, spriteNum, Orientation);
-                Entity.ChangeSpriteTo(newSprite);
-            }
-            Walking = newWalking;
+            orientationManager.UpdateOrientation(posChange);
         }
 
         private void HandleInteraction(KeyboardState kbs) {
@@ -84,25 +68,5 @@ namespace yolo {
                 }
             }
         }
-
-        private static PlayerOrientation? GetOrientation(Vector2 posChange) {
-            float epsilon = 10e-3f;
-            if (posChange.Y > epsilon)
-                return PlayerOrientation.Down;
-            if (posChange.Y < -epsilon)
-                return PlayerOrientation.Up;
-            if (posChange.X > epsilon)
-                return PlayerOrientation.Right;
-            if (posChange.X < -epsilon)
-                return PlayerOrientation.Left;
-            return null;
-        }
-    }
-
-    public enum PlayerOrientation {
-        Up,
-        Right,
-        Down,
-        Left
     }
 }
