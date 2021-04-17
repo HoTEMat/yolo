@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -34,8 +35,27 @@ namespace yolo {
 
             IWorldLoader worldLoader = new FirstLevelLoader();
             Context.World = worldLoader.LoadWorld(Context);
-            Context.World.SwitchToScene("main", new Vector2(0, 0));
+            
+            Entity player = CreatePlayer();
+            player.Position = new Vector3(30, 30, 0);
+            Context.Player = player.Behavior as PlayerBehaviour;
+            Context.World.CurrentScene.AddEntity(player);
+            
             Context.Camera.Center = Vector3.Zero; //new(Context.World.CurrentScene.Tiles.Size / 2f, 0);
+            Context.Camera.Target = player;
+            Context.Camera.Update();
+            
+            Context.Renderer.RebuildTerrainMesh();
+        }
+
+        private Entity CreatePlayer() {
+            Entity player = new Entity(Context)
+            {
+                Position = new Vector3(20, 12, 0),
+            };
+            player.Behavior = new PlayerBehaviour(true, new BucketList(new List<BucketListItem>()), 1, player);
+            player.Collider = new CircleCollider(player, false, .5f);
+            return player;
         }
 
         protected override void Update(GameTime gameTime) {

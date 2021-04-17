@@ -4,6 +4,32 @@ namespace yolo {
     public class BucketList {
         public List<BucketListItem> Items;
 
+        public string Header = "Bucket list:";
+
+        public Dictionary<AchievementType, string> ItemText = new Dictionary<AchievementType, string>()
+        {
+            {AchievementType.PutUpBin, "Put up the bin - 3"},
+            {AchievementType.EatIceCream, "Eat an icecream"},
+            {AchievementType.HugPerson, "Hug people - 3"},
+            {AchievementType.BuyFood, "Buy groceries"},
+            {AchievementType.DeliverFood, "Bring groceries to grandma's house"},
+            {AchievementType.CleanGraffitti, "Clean up graffitti"},
+            {AchievementType.FeedDucks, "Feed the ducks"},
+
+            {AchievementType.ToppleBin, "Kick the bin - 3"},
+            {AchievementType.BadIceCream, "Throw away icecream"},
+            {AchievementType.CursePerson, "Curse people - 3"},
+            {AchievementType.DoGraffitti, "Make some graffitti"},
+            {AchievementType.PeeInPond, "Pee in the pond"},
+            {AchievementType.PeeInFountain, "Pee in the fountain"},
+            {AchievementType.YellOnTree, "Yell at a tree"}
+        };
+
+        public void FillBucketList(bool isGood)
+        {
+            // ToDo: randomly generate good or bad bucket list
+        }
+
         public BucketList(List<BucketListItem> items) {
             Items = items;
         }
@@ -46,7 +72,9 @@ namespace yolo {
         CursePerson,
         FeedDucks,
         PeeInPond,
+        PeeInFountain,
         YellOnTree,
+        BuyFood,
         DeliverFood,
         DoGraffitti,
         CleanGraffitti

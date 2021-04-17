@@ -4,9 +4,9 @@ namespace yolo {
     
     public class SceneTransporter : Interactable {
         private string newSceneName;
-        private Vector2 newPlayerPosition;
+        private Vector3 newPlayerPosition;
 
-        public SceneTransporter(string newSceneName, Vector2 newPlayerPosition, Entity entity) : base(entity) {
+        public SceneTransporter(string newSceneName, Vector3 newPlayerPosition, Entity entity) : base(entity) {
             this.newSceneName = newSceneName;
             this.newPlayerPosition = newPlayerPosition;
         }

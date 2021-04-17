@@ -1,9 +1,10 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
-        public const float WalkSpeed = 1; // TODO
+        public const float WalkSpeed = 1f; // TODO
         
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
@@ -36,24 +37,28 @@ namespace yolo {
         }
 
         private void HandleWalking(KeyboardState kbs) {
-            Vector3 posChange = Vector3.Zero;
+            Vector3 changeDir = Vector3.Zero;
             if (kbs.IsKeyDown(Keys.Right)) {
-                posChange += new Vector3(WalkSpeed, 0, 0);
+                changeDir += new Vector3(1, 0, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Left)) {
-                posChange += new Vector3(-WalkSpeed, 0, 0);
+                changeDir += new Vector3(-1, 0, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Up)) {
-                posChange += new Vector3(0, -WalkSpeed, 0);
+                changeDir += new Vector3(0, -1, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Down)) {
-                posChange += new Vector3(0, WalkSpeed, 0);
+                changeDir += new Vector3(0, 1, 0);
             }
 
-            posChange.Normalize();
+            if (changeDir != Vector3.Zero) {
+                changeDir.Normalize();
+            }
+
+            Vector3 posChange = changeDir * WalkSpeed * (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
             Position += posChange;
             orientationManager.UpdateOrientation(posChange);
         }
