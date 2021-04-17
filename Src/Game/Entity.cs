@@ -14,7 +14,7 @@ namespace yolo {
             Context = ctx;
         }
 
-        public void ChangeSpriteTo(TimedSpriteSet spriteSet) {
+        public void ChangeSpriteTo(ISpriteSet spriteSet) {
             Animation = new Animation(spriteSet);
         }
 

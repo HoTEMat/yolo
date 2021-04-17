@@ -6,7 +6,7 @@ namespace yolo {
         private ISpriteSet sprites;
         public bool Highlighted { get; set; } = false;
 
-        public Animation(TimedSpriteSet sprites) {
+        public Animation(ISpriteSet sprites) {
             this.sprites = sprites;
             millis = 0;
         }
