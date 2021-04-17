@@ -37,7 +37,7 @@ namespace yolo {
             Context.World = worldLoader.LoadWorld(Context);
             
             Entity player = CreatePlayer();
-            player.Position = new Vector3(30, 30, 0);
+            player.Position = new Vector3(26, 15, -1);
             Context.Player = player.Behavior as PlayerBehaviour;
             Context.World.CurrentScene.AddEntity(player);
             
@@ -49,12 +49,9 @@ namespace yolo {
         }
 
         private Entity CreatePlayer() {
-            Entity player = new Entity(Context)
-            {
-                Position = new Vector3(20, 12, 0),
-            };
+            Entity player = new Entity(Context);
             player.Behavior = new PlayerBehaviour(true, new BucketList(new List<BucketListItem>()), 1, player);
-            player.Collider = new CircleCollider(player, false, .5f);
+            player.Collider = new CircleCollider(player, true, .1f);
             return player;
         }
 
