@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace yolo {
 
+    /*
     public class SceneTransporter : Interactable {
         private string newSceneName;
         private Vector2 newPlayerPosition;
@@ -24,4 +25,7 @@ namespace yolo {
             return true;
         }
     }
+        protected override TimedSpriteSet DefaultSprite => AssetBank.SpriteBank. // TODO
+        protected override TimedSpriteSet HighlightedSprite => AssetBank.SpriteBank. // TODO
+    }*/
 }

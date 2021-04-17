@@ -8,7 +8,7 @@ namespace yolo {
     public class FirstLevelLoader : IWorldLoader {
         public World LoadWorld(Context context) {
             Scene mainScene = new MainSceneLoader().LoadScene(context);
-            
+
             List<Scene> scenes = new List<Scene>
             {
                 mainScene,

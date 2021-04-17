@@ -4,12 +4,15 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Color = Microsoft.Xna.Framework.Color;
+using Effect = Microsoft.Xna.Framework.Graphics.Effect;
 
 namespace yolo
 {
     public class AssetBank
     {
         private ContentManager content;
+
+        public Effect Perspective { get; private set; }
 
         public TextureBank Textures { get; private set; }
 
@@ -30,7 +33,7 @@ namespace yolo
         {
             public Sprite Dev_Wall { get; init; }
             public Sprite Dev_Floor { get; init; }
-            
+
             public Sprite Empty { get; init; }
 
             // OTHER
@@ -53,8 +56,9 @@ namespace yolo
             public Sprite ParkTreeLarge { get; init; }
             public Sprite ParkTreeSmall { get; init; }
             public Sprite ParkFence { get; init; }
-            
+
             // PEOPLE
+
             public Sprite Person1Down { get; init; }
             public Sprite Person1Down1 { get; init; }
             public Sprite Person1Down2 { get; init; }
@@ -67,7 +71,7 @@ namespace yolo
             public Sprite Person1Left { get; init; }
             public Sprite Person1Left1 { get; init; }
             public Sprite Person1Left2 { get; init; }
-            
+
             public Sprite Person2Down { get; init; }
             public Sprite Person2Down1 { get; init; }
             public Sprite Person2Down2 { get; init; }
@@ -80,7 +84,7 @@ namespace yolo
             public Sprite Person2Left { get; init; }
             public Sprite Person2Left1 { get; init; }
             public Sprite Person2Left2 { get; init; }
-            
+
             public Sprite Person3Down { get; init; }
             public Sprite Person3Down1 { get; init; }
             public Sprite Person3Down2 { get; init; }
@@ -93,7 +97,7 @@ namespace yolo
             public Sprite Person3Left { get; init; }
             public Sprite Person3Left1 { get; init; }
             public Sprite Person3Left2 { get; init; }
-            
+
             public Sprite Person4Down { get; init; }
             public Sprite Person4Down1 { get; init; }
             public Sprite Person4Down2 { get; init; }
@@ -106,7 +110,7 @@ namespace yolo
             public Sprite Person4Left { get; init; }
             public Sprite Person4Left1 { get; init; }
             public Sprite Person4Left2 { get; init; }
-            
+
             // HOUSES
             public Sprite House1L { get; init; }
             public Sprite House1R { get; init; }
@@ -126,13 +130,13 @@ namespace yolo
             public Sprite HospitalR { get; init; }
             public Sprite MarketL { get; init; }
             public Sprite MarketR { get; init; }
-            
+
             // EFFECTS
             public Sprite HeartGood { get; init; }
             public Sprite HeartBad { get; init; }
-            
+
             public Sprite Basket { get; init; }
-            
+
             // INTERIORS
             public Sprite HospitalWindow1 { get; init; }
             public Sprite HospitalWindow2 { get; init; }
@@ -141,21 +145,21 @@ namespace yolo
             public Sprite HospitalTableR { get; init; }
             public Sprite HospitalFloor { get; init; }
             public Sprite HospitalDoctor { get; init; }
-            
+
             public Sprite MarketIsleL { get; init; }
             public Sprite MarketIsleR { get; init; }
             public Sprite MarketCheckoutL { get; init; }
             public Sprite MarketCheckoutR { get; init; }
             public Sprite MarketWall { get; init; }
             public Sprite MarketFloor { get; init; }
-            
+
             public Sprite HouseStairL { get; init; }
             public Sprite HouseStairR { get; init; }
             public Sprite HouseElevatorL { get; init; }
             public Sprite HouseElevatorR { get; init; }
             public Sprite HouseFloor { get; init; }
             public Sprite HouseWall { get; init; }
-            
+
             public Sprite Cobble { get; init; }
             public Sprite Cobble1 { get; init; }
             public Sprite Cobble2 { get; init; }
@@ -167,7 +171,7 @@ namespace yolo
             public Sprite Cobble8 { get; init; }
             public Sprite Cobble9 { get; init; }
             public Sprite Cobble10 { get; init; }
-            
+
             public Sprite Grandma { get; init; }
         }
 
@@ -177,14 +181,14 @@ namespace yolo
         {
             public Tile Dev_Wall { get; init; }
             public Tile Dev_Floor { get; init; }
-            
+
             public Tile Empty { get; init; }
 
             // PARK
             public Tile ParkGrass { get; init; }
             public Tile ParkFence { get; init; }
             public Tile HouseFloor { get; init; }
-            
+
             // HOUSES
             public Tile House1L { get; init; }
             public Tile House1R { get; init; }
@@ -204,10 +208,10 @@ namespace yolo
             public Tile HospitalR { get; init; }
             public Tile MarketL { get; init; }
             public Tile MarketR { get; init; }
-            
+
             // CENTER ff0000
             // SIDE ff8787
-            
+
             public Tile HospitalWindow1 { get; init; }
             public Tile HospitalWindow2 { get; init; }
             public Tile HospitalWall { get; init; }
@@ -215,20 +219,20 @@ namespace yolo
             public Tile HospitalTableR { get; init; }
             public Tile HospitalDoctor { get; init; }
             public Tile HospitalFloor { get; init; }
-            
+
             public Tile HouseStairL { get; init; }
             public Tile HouseStairR { get; init; }
             public Tile HouseElevatorL { get; init; }
             public Tile HouseElevatorR { get; init; }
             public Tile HouseWall { get; init; }
-            
+
             public Tile MarketIsleL { get; init; }
             public Tile MarketIsleR { get; init; }
             public Tile MarketCheckoutL { get; init; }
             public Tile MarketCheckoutR { get; init; }
             public Tile MarketFloor { get; init; }
             public Tile MarketWall { get; init; }
-            
+
             public Tile Cobble { get; init; } // 565656
             public Tile Cobble1 { get; init; }
             public Tile Cobble2 { get; init; }
@@ -241,39 +245,42 @@ namespace yolo
             public Tile Cobble9 { get; init; }
             public Tile Cobble10 { get; init; }
         }
-        
+
         public TimedSpriteSetBank TimedSprites { get; private set; }
-        
+
         public class TimedSpriteSetBank {
             public TimedSpriteSet Person1Down { get; init; }
             public TimedSpriteSet Person1Right { get; init; }
             public TimedSpriteSet Person1Left { get; init; }
             public TimedSpriteSet Person1Up { get; init; }
-            
+
             public TimedSpriteSet Person2Down { get; init; }
             public TimedSpriteSet Person2Right { get; init; }
             public TimedSpriteSet Person2Left { get; init; }
             public TimedSpriteSet Person2Up { get; init; }
-            
+
             public TimedSpriteSet Person3Down { get; init; }
             public TimedSpriteSet Person3Right { get; init; }
             public TimedSpriteSet Person3Left { get; init; }
             public TimedSpriteSet Person3Up { get; init; }
-            
+
             public TimedSpriteSet Person4Down { get; init; }
             public TimedSpriteSet Person4Right { get; init; }
             public TimedSpriteSet Person4Left { get; init; }
             public TimedSpriteSet Person4Up { get; init; }
         }
-        
+
         public FontBank Fonts { get; private set; }
-        
+
         public class FontBank {
             public SpriteFont Font { get; set; }
         }
 
         public void LoadContent(ContentManager Content)
         {
+            // Load effects
+            Perspective = Content.Load<Effect>("perspective");
+
             // Load textures
             Textures = new TextureBank
             {
@@ -288,9 +295,9 @@ namespace yolo
 
             Sprites = new SpriteBank
             {
-                Dev_Floor = new Sprite {Texture = Textures.Dev},
+                Dev_Floor = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(16, 48, 16, 16) },
                 Dev_Wall = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(0, 32, 16, 32)},
-                
+
                 Empty = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(48, 48, 16, 16)},
 
                 // OTHER
@@ -313,7 +320,7 @@ namespace yolo
                 ParkTreeLarge = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32)},
                 ParkTreeSmall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32)},
                 ParkFence = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 112, 16, 16)},
-                
+
                 // PEOPLE
                 Person1Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16)},
                 Person1Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 32, 16, 16)},
@@ -327,7 +334,7 @@ namespace yolo
                 Person1Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 64, 16, 16)},
                 Person1Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 48, 16, 16)},
                 Person1Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 32, 16, 16)},
-                
+
                 Person2Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 80, 16, 16)},
                 Person2Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 80, 16, 16)},
                 Person2Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 96, 16, 16)},
@@ -340,7 +347,7 @@ namespace yolo
                 Person2Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 112, 16, 16)},
                 Person2Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 96, 16, 16)},
                 Person2Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 80, 16, 16)},
-                
+
                 Person3Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 128, 16, 16)},
                 Person3Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 128, 16, 16)},
                 Person3Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 144, 16, 16)},
@@ -353,7 +360,7 @@ namespace yolo
                 Person3Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 160, 16, 16)},
                 Person3Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 144, 16, 16)},
                 Person3Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 128, 16, 16)},
-                
+
                 Person4Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 176, 16, 16)},
                 Person4Down1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 176, 16, 16)},
                 Person4Down2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(16, 192, 16, 16)},
@@ -366,7 +373,7 @@ namespace yolo
                 Person4Left = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 208, 16, 16)},
                 Person4Left1 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 192, 16, 16)},
                 Person4Left2 = new Sprite {Effects = SpriteEffects.FlipHorizontally, Texture = Textures.Main, SourceRect = new Rectangle(32, 176, 16, 16)},
-                
+
                 // HOUSES
                 House1L = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 0, 16, 32)},
                 House1R = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(176, 0, 16, 32)},
@@ -386,13 +393,13 @@ namespace yolo
                 HospitalR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 0, 16, 32)},
                 MarketL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(400, 48, 16, 32)},
                 MarketR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(416, 48, 16, 32)},
-                
+
                 // EFFECTS
                 HeartGood = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(192, 64, 16, 16)},
                 HeartBad = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(208, 64, 16, 16)},
-                
+
                 Basket = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 32, 16, 16)},
-                
+
                 // INTERIORS
                 HospitalWindow1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 0, 16, 32)},
                 HospitalWindow2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(288, 0, 16, 32)},
@@ -401,21 +408,21 @@ namespace yolo
                 HospitalWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 0, 16, 32)},
                 HospitalDoctor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 0, 16, 32)},
                 HospitalFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16)},
-                
+
                 MarketWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 48, 16, 32)},
                 MarketFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 48, 16, 16)},
                 MarketCheckoutL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 48, 16, 32)},
                 MarketCheckoutR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(368, 48, 16, 32)},
                 MarketIsleL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(320, 48, 16, 32)},
                 MarketIsleR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 48, 16, 32)},
-                
+
                 HouseStairL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 80, 16, 32)},
                 HouseStairR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(176, 80, 16, 32)},
                 HouseElevatorL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(192, 80, 16, 32)},
                 HouseElevatorR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(208, 80, 16, 32)},
                 HouseFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(160, 112, 16, 16)},
                 HouseWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(240, 80, 16, 32)},
-                
+
                 Cobble = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 64, 16, 16)},
                 Cobble1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 64, 16, 16)},
                 Cobble2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 64, 16, 16)},
@@ -427,7 +434,7 @@ namespace yolo
                 Cobble8 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 96, 16, 16)},
                 Cobble9 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 96, 16, 16)},
                 Cobble10 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 96, 16, 16)},
-                
+
                 Grandma = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(224, 96, 16, 16)},
             };
 
@@ -435,12 +442,12 @@ namespace yolo
             {
                 Dev_Wall = new Tile {Sprite = Sprites.Dev_Wall, Walkable = false},
                 Dev_Floor = new Tile {Sprite = Sprites.Dev_Floor},
-                
+
                 Empty = new Tile {Sprite = Sprites.Empty},
-                
+
                 ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
                 ParkFence = new Tile {Sprite = Sprites.ParkFence}, //
-                
+
                 HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
                 HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
                 HospitalWindow2 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
@@ -448,21 +455,21 @@ namespace yolo
                 HospitalTableL = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
                 HospitalTableR = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
                 HospitalDoctor = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                
+
                 HouseFloor = new Tile {Sprite = Sprites.HouseFloor}, //
                 HouseStairL = new Tile {Sprite = Sprites.HouseStairL, Walkable=false, Flat = false}, //
                 HouseStairR = new Tile {Sprite = Sprites.HouseStairR, Walkable=false, Flat = false}, //
                 HouseElevatorL = new Tile {Sprite = Sprites.HouseElevatorL, Walkable=false, Flat = false}, //
                 HouseElevatorR = new Tile {Sprite = Sprites.HouseElevatorR, Walkable=false, Flat = false}, //
                 HouseWall = new Tile {Sprite = Sprites.HouseWall, Walkable=false, Flat = false}, //
-                
+
                 MarketIsleL = new Tile {Sprite = Sprites.MarketIsleL, Walkable=false, Flat = false},//
                 MarketIsleR = new Tile {Sprite = Sprites.MarketIsleR, Walkable=false, Flat = false},//
                 MarketCheckoutL = new Tile {Sprite = Sprites.MarketCheckoutL, Walkable=false, Flat = false},//
                 MarketCheckoutR = new Tile {Sprite = Sprites.MarketCheckoutR, Walkable=false, Flat = false},//
                 MarketWall = new Tile {Sprite = Sprites.MarketWall, Walkable=false, Flat = false},//
                 MarketFloor = new Tile {Sprite = Sprites.MarketFloor},//
-                 
+
                 // HOUSES
                 House1L = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
                 House1R = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
@@ -480,10 +487,10 @@ namespace yolo
                 HouseS3R = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false}, //
                 HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   //
                 HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   //
-                
+
                 MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false}, //
                 MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false}, //
-                
+
                 Cobble = new Tile {Sprite = Sprites.Cobble},   //
                 Cobble1 = new Tile {Sprite = Sprites.Cobble1},   //
                 Cobble2 = new Tile {Sprite = Sprites.Cobble2},   //
@@ -496,7 +503,7 @@ namespace yolo
                 Cobble9 = new Tile {Sprite = Sprites.Cobble9},   //
                 Cobble10 = new Tile {Sprite = Sprites.Cobble10},   //
             };
-            
+
             int personWalkPeriod = 300;
             TimedSprites = new TimedSpriteSetBank
             {
@@ -581,10 +588,12 @@ namespace yolo
                     Period = personWalkPeriod
                 }
             };
-            
+
             Fonts = new FontBank {
                 Font = FontLoader.CreateFont(Textures.SpriteFont)
             };
+
+
         }
     }
 }
