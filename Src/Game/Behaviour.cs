@@ -79,4 +79,22 @@ namespace yolo {
         protected override TimedSpriteSet DefaultSprite { get; }
         protected override TimedSpriteSet HighlightedSprite { get; }
     }
+    public class Pond : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            return Entity.Context.Player.IsGood ? AchievementType.FeedDucks : AchievementType.PeeInPond;
+        }
+        public override bool CanInteract()
+        {
+            return true;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
 }
