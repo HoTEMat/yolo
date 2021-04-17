@@ -23,6 +23,8 @@ namespace yolo {
             terrainMesh = new QuadBuffer();
             var tiles = context.World.CurrentScene.Tiles;
 
+
+
             for (int y = 0; y < tiles.Height; y++) {
                 for (int x = 0; x < tiles.Width; x++) {
 
@@ -117,12 +119,13 @@ namespace yolo {
             };
 
             device.BlendState = BlendState.AlphaBlend;
+            device.DepthStencilState = DepthStencilState.Default;
 
             foreach (var pass in persp.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
             }
-            
+
             entityMesh.Dispose();
             entityMesh = new QuadBuffer();
             foreach (var entity in scene.Entities.OrderBy(e => e.Position.Y)) {
