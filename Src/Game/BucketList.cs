@@ -25,6 +25,11 @@ namespace yolo {
             {AchievementType.YellOnTree, "Yell at a tree"}
         };
 
+        public void FillBucketList(bool isGood)
+        {
+            // ToDo: randomly generate good or bad bucket list
+        }
+
         public BucketList(List<BucketListItem> items) {
             Items = items;
         }
