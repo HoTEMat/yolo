@@ -6,6 +6,7 @@ namespace yolo {
         public const float WalkSpeed = 1; // TODO
         
         public bool IsGood { get; }
+        public bool HasGroceries { get; set; }
         public BucketList TodoList { get; }
         private int spriteNum;
         public PlayerOrientation Orientation { get; private set; } = PlayerOrientation.Down;
