@@ -10,6 +10,8 @@ namespace yolo {
         public SpriteOrientationManager(int spriteNum, Entity entity) {
             this.spriteNum = spriteNum;
             this.entity = entity;
+            
+            entity.ChangeSpriteTo(PersonSpriteSelector.GetStaticSprite(entity.Context.Assets, spriteNum, PersonOrientation.Down));
         }
         
         public void UpdateOrientation(Vector2 posChange) {
