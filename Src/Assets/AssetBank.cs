@@ -5,20 +5,24 @@ using Microsoft.Xna.Framework.Content;
 namespace yolo {
     public class AssetBank {
 
+        ContentManager content;
+
         public TextureBank Textures { get; } = new TextureBank();
-        
         public class TextureBank {
-            public Texture2D RoadSprite { get; set; }
-            
-            public void LoadContent(ContentManager content) {
-            
+            public Texture2D Dev { get; private set; }
+
+            public void LoadContent(AssetBank assets) {
+
             }
         }
 
         public SpriteBank Sprites { get; } = new SpriteBank();
         public class SpriteBank {
-            public Sprite RoadSprite = new Sprite {
-                Texture = 
+            public Sprite RoadSprite = new Sprite();
+
+            public void LoadContent(AssetBank assets) {
+
+            }
         }
 
 
