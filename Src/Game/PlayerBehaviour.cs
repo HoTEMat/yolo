@@ -17,8 +17,20 @@ namespace yolo {
             IsGood = isGood;
             TodoList = todoList;
             this.spriteNum = spriteNum;
+            HasGroceries = false;
         }
 
+        public void HandInGroceries()
+        {
+            HasGroceries = false;
+            // ToDo : stop displaying groceries symbol
+        }
+        public void PickGroceries()
+        {
+            HasGroceries = true;
+            // ToDo: start displaying groceries
+        }
+        
         public override void Update() {
             var kbs = Keyboard.GetState();
             HandleWalking(kbs);
