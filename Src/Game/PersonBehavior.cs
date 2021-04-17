@@ -14,7 +14,6 @@ namespace yolo
         {
             TargetPoints = targetPoints;
         }
-
         public override void Update()
         {
             var distanceFromTarget = (Position - curTargetPoint).Length();
@@ -32,23 +31,17 @@ namespace yolo
         }
         public override AchievementType? Interact()
         {
-            // infect or hug
+            // curse or hug
             var rnd = Entity.Context.Random.NextDouble();
             if (rnd <= interactionSuccess) // success
             {
-                
+                return Entity.Context.Player.IsGood ? AchievementType.HugPerson : AchievementType.CursePerson;
             }
-            else // fail
-            {
-                
-            }
-
             return null;
         }
-
-        public override bool CanInteract() {
-            // TODO
-            throw new System.NotImplementedException();
+        public override bool CanInteract()
+        {
+            return true;
         }
 
         protected override TimedSpriteSet DefaultSprite { get; }
