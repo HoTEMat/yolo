@@ -97,4 +97,25 @@ namespace yolo {
         protected override TimedSpriteSet DefaultSprite { get; }
         protected override TimedSpriteSet HighlightedSprite { get; }
     }
+
+    public class GraffittiHouse : Interactable
+    {
+        public bool HasGraffitti { get; private set; }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            // ToDo: draw graffitti or clean it
+            throw new System.NotImplementedException();
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == HasGraffitti;
+        }
+
+        protected override TimedSpriteSet DefaultSprite { get; }
+        protected override TimedSpriteSet HighlightedSprite { get; }
+    }
 }
