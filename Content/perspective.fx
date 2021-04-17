@@ -9,6 +9,7 @@
 #endif
 
 float4x4 view_projection;
+float3 sun_direction = float3(1,2,4);
 
 Texture2D SpriteTexture : register(t0);
 sampler TextureSampler : register(s0) = sampler_state {
@@ -46,8 +47,10 @@ PixelInput FloorPlane(VertexInput v) {
 
 float4 SpritePixelShader(PixelInput p) : COLOR0{
     float4 diffuse = tex2D(TextureSampler, p.TexCoord.xy);
-
-    return diffuse;
+    
+    float intensity = max(dot(sun_direction, p.Normal.xyz), 0.1);
+    intensity = 1;
+    return diffuse * intensity;
 }
 
 technique FloorPlane {
