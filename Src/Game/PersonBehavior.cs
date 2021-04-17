@@ -13,6 +13,7 @@ namespace yolo
         public PersonBehavior(List<Vector2> targetPoints)
         {
             TargetPoints = targetPoints;
+            curTargetPoint = Utils.RandChoice(TargetPoints);
         }
         public override void Update()
         {
@@ -22,7 +23,8 @@ namespace yolo
                 changeTarget();
             }
             var direction = curTargetPoint - Position;
-            var delta = (direction / direction.Length()) * walkSpeed;
+            direction.Normalize();
+            var delta = direction * walkSpeed;
             Position += delta;
         }
         private void changeTarget()
