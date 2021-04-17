@@ -5,6 +5,8 @@ namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 1; // TODO
 
+        public BucketList TodoList;
+
         public override void Update() {
             var kbs = Keyboard.GetState();
             HandleWalking(kbs);
