@@ -30,7 +30,8 @@ namespace yolo {
         }
 
         private static PersonOrientation? GetOrientation(Vector3 posChange) {
-            float epsilon = 10e-3f;
+            // TODO
+            float epsilon = 10e-7f;
             if (posChange.Y > epsilon)
                 return PersonOrientation.Down;
             if (posChange.Y < -epsilon)

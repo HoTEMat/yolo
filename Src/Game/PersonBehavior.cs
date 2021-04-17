@@ -8,7 +8,7 @@ namespace yolo
         private const double interactionSuccess = 0.5;
         private List<Vector3> TargetPoints;
         private Vector3 curTargetPoint;
-        private const float walkSpeed = 1;
+        private const float walkSpeed = 0.01f;
         private SpriteOrientationManager orientationManager;
         
         public PersonBehavior(int spriteNum, List<Vector3> targetPoints, Entity entity) : base(entity)
