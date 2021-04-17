@@ -35,12 +35,17 @@ namespace yolo {
 
             IWorldLoader worldLoader = new FirstLevelLoader();
             Context.World = worldLoader.LoadWorld(Context);
-            Context.World.SwitchToScene("main", new Vector2(0, 0));
-            Context.Camera.Center = Vector3.Zero; //new(Context.World.CurrentScene.Tiles.Size / 2f, 0);
             
             Entity player = CreatePlayer();
+            player.Position = new Vector3(30, 30, 0);
             Context.Player = player.Behavior as PlayerBehaviour;
             Context.World.CurrentScene.AddEntity(player);
+            
+            Context.Camera.Center = Vector3.Zero; //new(Context.World.CurrentScene.Tiles.Size / 2f, 0);
+            Context.Camera.Target = player;
+            Context.Camera.Update();
+            
+            Context.Renderer.RebuildTerrainMesh();
         }
 
         private Entity CreatePlayer() {

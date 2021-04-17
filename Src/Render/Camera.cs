@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -17,10 +18,11 @@ namespace yolo {
         public Matrix View { get; private set; }
 
         public void Update() {
+            Console.WriteLine(Center);
             var kbs = Keyboard.GetState();
 
             float speed = 0.1f;
-            //*
+            /*
             if (kbs.IsKeyDown(Keys.Right)) {
                 Center += new Vector3(speed, 0, 0);
             }
@@ -32,7 +34,7 @@ namespace yolo {
             }
             if (kbs.IsKeyDown(Keys.Down)) {
                 Center += new Vector3(0, speed, 0);
-            }//*/
+            }/*/
 
             if (Target != null) {
                 Center = Target.Position;

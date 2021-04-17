@@ -15,17 +15,18 @@ namespace yolo {
         public float TimeToLive { get; private set; }
         private Context context;
 
-        public World(List<Scene> scenes, float timeToLive, Context context) {
+        public World(List<Scene> scenes, Scene currentScene, float timeToLive, Context context) {
             this.context = context;
             Scenes = scenes.ToDictionary(scene => scene.Name);
+            CurrentScene = currentScene;
             TimeToLive = timeToLive;
         }
 
-        public void SwitchToScene(string newSceneName, Vector2 playerPosition) {
+        public void SwitchToScene(string newSceneName, Vector3 playerPosition) {
             CurrentScene = Scenes[newSceneName];
-            //context.Player.Entity.Position = playerPosition;
-            context.Camera.Center =  new (playerPosition, 0);
-            //context.Player.Entity.Scene = CurrentScene;
+            context.Player.Entity.Position = playerPosition;
+            context.Camera.Center =  playerPosition;
+            context.Player.Entity.Scene = CurrentScene;
 
             context.Renderer.RebuildTerrainMesh();
         }

@@ -8,7 +8,7 @@ namespace yolo
         private const double interactionSuccess = 0.5;
         private List<Vector3> TargetPoints;
         private Vector3 curTargetPoint;
-        private const float walkSpeed = 0.01f;
+        private const float walkSpeed = 1f;
         private SpriteOrientationManager orientationManager;
         
         public PersonBehavior(int spriteNum, List<Vector3> targetPoints, Entity entity) : base(entity)
@@ -26,7 +26,7 @@ namespace yolo
             }
             var direction = curTargetPoint - Position;
             direction.Normalize();
-            var delta = direction * walkSpeed;
+            var delta = direction * walkSpeed * (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
             Position += delta;
             orientationManager.UpdateOrientation(delta);
         }
