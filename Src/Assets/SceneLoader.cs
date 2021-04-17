@@ -51,15 +51,15 @@ namespace yolo
             Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
             
-            Entity entity = new Entity(context)
+            Entity fountain = new Entity(context)
             {
                 Position = new Vector3(24, 12, 0),
                 Animation = new Animation(context.Assets.Sprites.Fountain),
                 Behavior = null,
             };
-            entity.Collider = new CircleCollider(entity, false, 2);
+            fountain.Collider = new CircleCollider(fountain, false, 2);
+            scene.AddEntity(fountain);
             
-            scene.AddEntity(entity);
             generateNPCs(scene, context);
             generateIceCream(scene, context);
             generateBins(scene, context);

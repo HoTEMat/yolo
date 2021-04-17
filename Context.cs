@@ -17,7 +17,7 @@ namespace yolo {
         public GameTime GameTime { get; private set; }
         public AssetBank Assets { get; private set; }
         public World World { get; set; }
-        public PlayerBehaviour Player { get; }
+        public PlayerBehaviour Player { get; set; }
         public Camera Camera { get; private set; }
         public Renderer Renderer { get; private set; }
         public HUD Hud { get; private set; }
