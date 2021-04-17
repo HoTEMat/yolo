@@ -49,6 +49,9 @@ namespace yolo
             public Sprite ParkBush { get; init; }
             public Sprite ParkPond { get; init; }
             public Sprite ParkGrass { get; init; }
+            public Sprite ParkTreeLarge { get; init; }
+            public Sprite ParkTreeSmall { get; init; }
+            public Sprite ParkFence { get; init; }
             
             // PEOPLE
             public Sprite Person1Down { get; init; }
@@ -176,6 +179,7 @@ namespace yolo
 
             // PARK
             public Tile ParkGrass { get; init; }
+            public Tile ParkFence { get; init; }
             public Tile HouseFloor { get; init; }
             
             // HOUSES
@@ -292,6 +296,9 @@ namespace yolo
                 ParkPond = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32)},
                 ParkBush = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
                 ParkGrass = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16)},
+                ParkTreeLarge = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32)},
+                ParkTreeSmall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32)},
+                ParkFence = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 112, 16, 16)},
                 
                 // PEOPLE
                 Person1Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16)},
@@ -416,6 +423,7 @@ namespace yolo
                 Empty = new Tile {Sprite = Sprites.Empty},
                 
                 ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
+                ParkFence = new Tile {Sprite = Sprites.ParkFence}, //
                 
                 HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
                 HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
