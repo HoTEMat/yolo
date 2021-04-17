@@ -24,6 +24,16 @@ namespace yolo
                 new Vector2(28, 17), new Vector2(22, 9), new Vector2(29, 13), new Vector2(35, 9),
                 new Vector2(40, 8), new Vector2(15, 15), new Vector2(20, 3), new Vector2(9, 15)
             };
+        private List<Vector2> IceCreamPositions = new List<Vector2>()
+            { // parc and square
+                new Vector2(30, 26), new Vector2(31, 16)
+            };
+
+        private List<Vector2> BinPositions = new List<Vector2>()
+            {
+            new Vector2(3, 13), new Vector2(14, 15), new Vector2(38, 10), new Vector2(22, 4),
+            new Vector2(20, 10), new Vector2(27, 13)
+            };
         
         private const int NPCCount = 20;
         public Scene LoadScene(Context context)
@@ -36,7 +46,7 @@ namespace yolo
             
             Entity entity = new Entity(context)
             {
-                Position = new Vector2(0, 0),
+                Position = new Vector2(24, 12),
                 Animation = new Animation(context.Assets.Sprites.Fountain),
                 Behavior = null,
             };
@@ -44,10 +54,11 @@ namespace yolo
             
             scene.AddEntity(entity);
             generateNPCs(scene, context);
+            generateIceCream(scene, context);
+            generateBins(scene, context);
 
             return scene;
         }
-
         private void generateNPCs(Scene scene, Context ctx)
         {
             for (int i = 0; i < NPCCount; i++ )
@@ -60,6 +71,29 @@ namespace yolo
                     // Animation ?
                 };
                 scene.AddEntity(person);
+            }
+        }
+        private void generateIceCream(Scene scene, Context ctx)
+        {
+            var icecream = new Entity(ctx)
+            {
+                Position = Utils.RandChoice(IceCreamPositions),
+                Behavior = new IceCreamStand(),
+                Animation = new Animation(ctx.Assets.Sprites.IcecreamStand)
+            };
+            scene.AddEntity(icecream);
+        }
+        private void generateBins(Scene scene, Context ctx)
+        {
+            int binStartIndex = ctx.Random.Next(0, BinPositions.Count - 1);
+            for (int i = 0; i < 3; i++)
+            {
+                var bin = new Entity(ctx)
+                {
+                    Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
+                    Behavior = new Bin() // ToDo: animation of bin - in behavior?
+                };
+                scene.AddEntity(bin);
             }
         }
     }
