@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 
 namespace yolo {
@@ -29,18 +30,20 @@ namespace yolo {
             Walking = newWalking;
         }
 
-        private static PersonOrientation? GetOrientation(Vector3 posChange) {
-            // TODO
-            float epsilon = 10e-7f;
-            if (posChange.Y > epsilon)
-                return PersonOrientation.Down;
-            if (posChange.Y < -epsilon)
-                return PersonOrientation.Up;
-            if (posChange.X > epsilon)
+        private static PersonOrientation? GetOrientation(Vector3 posChange)
+        {
+            double res = Math.Atan2(posChange.Y, posChange.X);
+
+            if (posChange.Length() < 10e-7f)
+                return null;
+            
+            if (res < Math.PI / 4 && res > -Math.PI/4)
                 return PersonOrientation.Right;
-            if (posChange.X < -epsilon)
-                return PersonOrientation.Left;
-            return null;
+            if (res < Math.PI * 3 / 4 && res > Math.PI/4)
+                return PersonOrientation.Down;
+            if (res < -Math.PI / 4 && res > -Math.PI* 3/4)
+                return PersonOrientation.Up;
+            return PersonOrientation.Left;
         }
     }
     
