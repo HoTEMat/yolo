@@ -10,6 +10,7 @@ namespace yolo {
         public BucketList TodoList { get; }
         private int spriteNum;
         public PlayerOrientation Orientation { get; private set; } = PlayerOrientation.Down;
+        public bool Walking { get; private set; } = false;
         
         public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum)
         {
@@ -49,11 +50,16 @@ namespace yolo {
 
         private void UpdateOrientation(Vector2 posChange) {
             PlayerOrientation? newOrientation = GetOrientation(posChange);
-            if (newOrientation != null && newOrientation.Value != Orientation) {
+            bool newWalking = newOrientation != null;
+            if (newWalking && (!Walking || newOrientation.Value != Orientation)) {
+                TimedSpriteSet newSprite = PersonSpriteSelector.GetWalkingSpriteSet(Context.Assets, spriteNum, newOrientation.Value);
                 Orientation = (PlayerOrientation) newOrientation;
-                TimedSpriteSet newSprite = PersonSpriteSelector.GetSpriteSet(Context.Assets, spriteNum, Orientation);
+                Entity.ChangeSpriteTo(newSprite);
+            } else if (!newWalking && Walking) {
+                Sprite newSprite = PersonSpriteSelector.GetStaticSprite(Context.Assets, spriteNum, Orientation);
                 Entity.ChangeSpriteTo(newSprite);
             }
+            Walking = newWalking;
         }
 
         private void HandleInteraction(KeyboardState kbs) {
@@ -64,7 +70,6 @@ namespace yolo {
                 {
                     TodoList.ProcessAchievement((AchievementType)achievement);
                 }
-                
             }
         }
 

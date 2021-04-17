@@ -50,7 +50,8 @@ namespace yolo
             public Sprite ParkMisc2 { get; init; }
             public Sprite ParkMisc3 { get; init; }
             public Sprite ParkMisc4 { get; init; }
-            public Sprite ParkBush { get; init; }
+            public Sprite ParkBush1 { get; init; }
+            public Sprite ParkBush2 { get; init; }
             public Sprite ParkPond { get; init; }
             public Sprite ParkGrass { get; init; }
             public Sprite ParkTreeLarge { get; init; }
@@ -315,7 +316,8 @@ namespace yolo
                 ParkMisc3 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16)},
                 ParkMisc4 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16)},
                 ParkPond = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32)},
-                ParkBush = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
+                ParkBush1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 32, 16, 16)},
+                ParkBush2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
                 ParkGrass = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16)},
                 ParkTreeLarge = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32)},
                 ParkTreeSmall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32)},
@@ -472,19 +474,19 @@ namespace yolo
 
                 // HOUSES
                 House1L = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
-                House1R = new Tile {Sprite = Sprites.House1L, Walkable=false, Flat = false},
+                House1R = new Tile {Sprite = Sprites.House1R, Walkable=false, Flat = false},
                 House2L = new Tile {Sprite = Sprites.House2L, Walkable=false, Flat = false},
-                House2R = new Tile {Sprite = Sprites.House2L, Walkable=false, Flat = false},
+                House2R = new Tile {Sprite = Sprites.House2R, Walkable=false, Flat = false},
                 House3L = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
-                House3R = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
+                House3R = new Tile {Sprite = Sprites.House3R, Walkable=false, Flat = false},
                 House4L = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
-                House4R = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
+                House4R = new Tile {Sprite = Sprites.House4R, Walkable=false, Flat = false},
                 HouseS1L = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false}, //
-                HouseS1R = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false}, //
+                HouseS1R = new Tile {Sprite = Sprites.HouseS1R, Walkable=false, Flat = false}, //
                 HouseS2L = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false}, //
-                HouseS2R = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false}, //
+                HouseS2R = new Tile {Sprite = Sprites.HouseS2R, Walkable=false, Flat = false}, //
                 HouseS3L = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false}, //
-                HouseS3R = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false}, //
+                HouseS3R = new Tile {Sprite = Sprites.HouseS3R, Walkable=false, Flat = false}, //
                 HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   //
                 HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   //
 
