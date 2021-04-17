@@ -89,6 +89,8 @@ namespace yolo {
             var viewport = context.Graphics.GraphicsDevice.Viewport;
             var scene = context.World.CurrentScene;
 
+            device.Clear(Color.CornflowerBlue);
+
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),
                 (float)viewport.Width / viewport.Height,
@@ -114,13 +116,12 @@ namespace yolo {
             };
 
             device.BlendState = BlendState.AlphaBlend;
-            device.Clear(Color.Black);
 
             foreach (var pass in persp.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
             }
-
+            
             entityMesh.Dispose();
             entityMesh = new QuadBuffer();
             foreach (var entity in scene.Entities) {
@@ -129,6 +130,15 @@ namespace yolo {
 
                     entityMesh.AddSprite(sprite, entity.Position);
                 }
+            }
+
+            entityMesh.Transfer(device);
+            device.SetVertexBuffer(entityMesh.VertexBuffer);
+            device.Indices = entityMesh.IndexBuffer;
+
+            foreach (var pass in persp.CurrentTechnique.Passes) {
+                pass.Apply();
+                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, entityMesh.IndexBuffer.IndexCount / 3);
             }
         }
     }

@@ -56,10 +56,10 @@ namespace yolo {
             if (!isFlat) {
 
                 AddQuad(
-                    new T(new (topLeft.X, 0, -topLeft.Y), Vector3.UnitY, sprite.UVTopLeft),
-                    new T(new(topRight.X, 0, -topRight.Y), Vector3.UnitY, sprite.UVTopRight),
-                    new T(new(botLeft.X, 0, -botLeft.Y), Vector3.UnitY, sprite.UVBotLeft),
-                    new T(new(botRight.X, 0, -botRight.Y), Vector3.UnitY, sprite.UVBotRight)
+                    new T(new Vector3(topLeft.X, 0, topLeft.Y) + position, Vector3.UnitY, sprite.UVTopLeft),
+                    new T(new Vector3(topRight.X, 0, topRight.Y) + position, Vector3.UnitY, sprite.UVTopRight),
+                    new T(new Vector3(botLeft.X, 0, botLeft.Y) + position, Vector3.UnitY, sprite.UVBotLeft),
+                    new T(new Vector3(botRight.X, 0, botRight.Y) + position, Vector3.UnitY, sprite.UVBotRight)
                 );
 
             } else {
@@ -70,7 +70,7 @@ namespace yolo {
 
         public void Transfer(GraphicsDevice device) {
             VertexBuffer = new VertexBuffer(device, typeof(T), vertices.Count, BufferUsage.WriteOnly);
-            IndexBuffer = new IndexBuffer(device, IndexElementSize.SixteenBits, indices.Count, BufferUsage.WriteOnly);
+            IndexBuffer = new IndexBuffer(device, IndexElementSize.ThirtyTwoBits, indices.Count, BufferUsage.WriteOnly);
 
             VertexBuffer.SetData(vertices.ToArray());
             IndexBuffer.SetData(indices.ToArray());
@@ -80,8 +80,13 @@ namespace yolo {
         }
 
         public void Dispose() {
-            VertexBuffer.Dispose();
-            IndexBuffer.Dispose();
+            if (VertexBuffer != null) {
+                VertexBuffer.Dispose();
+            }
+
+            if (IndexBuffer != null) {
+                IndexBuffer.Dispose();
+            }
 
             VertexBuffer = null;
             IndexBuffer = null;
