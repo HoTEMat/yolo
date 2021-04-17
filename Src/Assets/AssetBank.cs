@@ -180,6 +180,12 @@ namespace yolo
             public Tile MarketL { get; init; }
             public Tile MarketR { get; init; }
         }
+        
+        public TimedSpriteSetBank TimedSprites { get; private set; }
+        
+        public class TimedSpriteSetBank {
+            public TimedSpriteSet Person1Down { get; init; }
+        }
 
 
         public void LoadContent(ContentManager Content)
@@ -348,6 +354,17 @@ namespace yolo
                 MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false},
                 MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false},
             };
+            
+            int personWalkPeriod = 300;
+            TimedSprites = new TimedSpriteSetBank
+            {
+                Person1Down = new TimedSpriteSet {
+                    Sprites = new []{Sprites.Person1Down, Sprites.Person1Down1, Sprites.Person1Down2},
+                    Loops = true,
+                    Period = personWalkPeriod
+                }
+            };
+            
         }
     }
 }
