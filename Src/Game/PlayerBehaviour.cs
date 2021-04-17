@@ -45,7 +45,12 @@ namespace yolo {
         private void HandleInteraction(KeyboardState kbs) {
             var scene = Entity.Scene;
             if (kbs.IsKeyDown(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
-                Entity.Scene.SelectedInteractable?.Interact();
+                var achievement = Entity.Scene.SelectedInteractable?.Interact();
+                if (achievement != null)
+                {
+                    TodoList.ProcessAchievement((AchievementType)achievement);
+                }
+                
             }
         }
     }
