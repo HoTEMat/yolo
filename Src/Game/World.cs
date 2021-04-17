@@ -9,16 +9,24 @@ namespace yolo {
         public static readonly Vector2 Left = new Vector2(-1, 0);
         public static readonly Vector2 Right = new Vector2(1, 0);
 
-
-
         public List<Scene> Scenes { get; }
-        public Scene CurrentScene { get; }
+        public Scene CurrentScene { get; private set; }
         private Context context;
 
-        public World(Context context) =>
+        public World(List<Scene> scenes, Scene startingScene, Context context) {
             this.context = context;
+            Scenes = scenes;
+            CurrentScene = startingScene;
+        }
 
         public void SwitchToScene(Scene nextScene, Vector2 playerPosition) {
+            CurrentScene = nextScene;
+            context.Player.Entity.Position = playerPosition;
+            context.Player.Entity.Scene = nextScene;
+        }
+        
+        public void Update() {
+            CurrentScene.Update();
         }
     }
 }

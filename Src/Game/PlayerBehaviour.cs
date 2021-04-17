@@ -1,7 +1,8 @@
 namespace yolo {
-    public class PlayerBehaviour : IBehaviour {
-        public Entity Entity { get; }
-        public void Update(Context ctx) {
+    public class PlayerBehaviour : Behaviour {
+        public float Orientation { get; private set; }
+        
+        public override void Update() {
             throw new System.NotImplementedException();
         }
     }
