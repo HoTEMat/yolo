@@ -20,7 +20,7 @@ namespace yolo
         public Sprite GetSpriteAt(int millis) => Sprite;
     }
 
-    class TimedSpriteSet : ISpriteSet
+    public class TimedSpriteSet : ISpriteSet
     {
         public Sprite[] Sprites { get; init; }
         public bool IsFlat { get; init; }

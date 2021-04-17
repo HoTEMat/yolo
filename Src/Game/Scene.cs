@@ -6,11 +6,11 @@ namespace yolo {
         private const float InteractableDistanceThreshold = 10; // TODO
         
         public List<Entity> Entities { get; }
-        public TileIndexer2D Tiles { get; }
+        public Indexer2D<Tile> Tiles { get; }
         public Interactable SelectedInteractable { get; private set; }
         private Context ctx;
 
-        public Scene(List<Entity> entities, TileIndexer2D tiles, Context ctx) {
+        public Scene(List<Entity> entities, Indexer2D<Tile> tiles, Context ctx) {
             this.ctx = ctx;
             Entities = entities;
             Tiles = tiles;

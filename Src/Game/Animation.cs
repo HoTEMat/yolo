@@ -3,7 +3,7 @@ using System;
 namespace yolo {
     public class Animation {
         private float millis;
-        private TimedSpriteSet sprites;
+        private ISpriteSet sprites;
 
         public Animation(TimedSpriteSet sprites) {
             this.sprites = sprites;
