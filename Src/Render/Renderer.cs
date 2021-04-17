@@ -30,11 +30,13 @@ namespace yolo {
                             new(new(x + 1, y + 1, 0), -Vector3.UnitZ, t.Sprite.UVBotRight)
                             );
                     } else {
+                        float height = t.Sprite.SourceRect.Height / 16f;
+                        
                         // front facing quad
                         if (y == tiles.Height - 1 || tiles[x, y + 1].Flat) {
                             terrainMesh.AddQuad(
-                                new(new(x, y + 1, -2), Vector3.UnitY, t.Sprite.UVTopLeft),
-                                new(new(x + 1, y + 1, -2), Vector3.UnitY, t.Sprite.UVTopRight),
+                                new(new(x, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopLeft),
+                                new(new(x + 1, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopRight),
                                 new(new(x, y + 1, 0), Vector3.UnitY, t.Sprite.UVBotLeft),
                                 new(new(x + 1, y + 1, 0), Vector3.UnitY, t.Sprite.UVBotRight)
                             );
@@ -42,8 +44,8 @@ namespace yolo {
                         // right facing quad
                         if (x == tiles.Width - 1 || tiles[x + 1, y].Flat) {
                             terrainMesh.AddQuad(
-                                new(new(x + 1, y + 1, -2), Vector3.UnitX, t.Sprite.UVTopLeft),
-                                new(new(x + 1, y, -2), Vector3.UnitX, t.Sprite.UVTopRight),
+                                new(new(x + 1, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
+                                new(new(x + 1, y, -height), Vector3.UnitX, t.Sprite.UVTopRight),
                                 new(new(x + 1, y + 1, 0), Vector3.UnitX, t.Sprite.UVBotLeft),
                                 new(new(x + 1, y, 0), Vector3.UnitX, t.Sprite.UVBotRight)
                             );
@@ -51,8 +53,8 @@ namespace yolo {
                         // left facing quad
                         if (x == 0 || tiles[x - 1, y].Flat) {
                             terrainMesh.AddQuad(
-                                new(new(x, y, -2), Vector3.UnitX, t.Sprite.UVTopLeft),
-                                new(new(x, y + 1, -2), Vector3.UnitX, t.Sprite.UVTopRight),
+                                new(new(x, y, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
+                                new(new(x, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopRight),
                                 new(new(x, y, 0), Vector3.UnitX, t.Sprite.UVBotLeft),
                                 new(new(x, y + 1, 0), Vector3.UnitX, t.Sprite.UVBotRight)
                             );
@@ -105,6 +107,8 @@ namespace yolo {
                 DepthBufferFunction = CompareFunction.Less,
             };
 
+            device.BlendState = BlendState.AlphaBlend;
+            
             foreach (var pass in persp.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);

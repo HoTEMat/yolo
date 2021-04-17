@@ -1,4 +1,4 @@
-bin
+Content/bin
 obj
 .vs
 .vscode
@@ -6,5 +6,5 @@ obj
 Folder.DotSettings.user
 *.swp
 *~
+bin/Debug/net5.0/*
 !bin/Debug/net5.0/Content
-!Content/bin

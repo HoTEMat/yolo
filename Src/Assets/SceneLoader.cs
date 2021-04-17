@@ -88,7 +88,7 @@ namespace yolo
         {
             Dictionary<uint, Tile> map = new Dictionary<uint, Tile>
             {
-                {0x0c0f81u, assets.Tiles.HospitalFloor},
+                {0x005784u, assets.Tiles.HospitalFloor},
 
                 {0xae9a9au, assets.Tiles.HospitalL},
                 {0xa19a9au, assets.Tiles.HospitalR},
@@ -117,7 +117,6 @@ namespace yolo
 
                 {0x428b1du, assets.Tiles.ParkGrass},
                 {0x08668cu, assets.Tiles.ParkFence},
-                
                 
                 {0x383838u, assets.Tiles.Cobble},
                 {0x402b2bu, assets.Tiles.Cobble1},
