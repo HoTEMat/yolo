@@ -16,8 +16,18 @@ namespace yolo
             // TODO entities
             List<Entity> entities = new List<Entity>();
 
-            return new Scene("main", entities,
+            Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
+            
+            Entity entity = new Entity(context)
+            {
+                Position = new Vector2(0, 0),
+                Animation = new Animation(context.Assets.Sprites.Fountain),
+                Behavior = null,
+            };
+            entity.Collider = new CircleCollider(entity, false, 2);
+            
+            scene.AddEntity(entity);
         }
     }
 
@@ -27,7 +37,7 @@ namespace yolo
         {
             // TODO entities
             List<Entity> entities = new List<Entity>();
-
+            
             return new Scene("dum", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.DumScene, context.Assets), context);
         }
@@ -91,7 +101,9 @@ namespace yolo
                 {0x9d9d9du, assets.Tiles.MarketFloor},
 
                 {0x428b1du, assets.Tiles.ParkGrass},
-
+                {0x08668cu, assets.Tiles.ParkFence},
+                
+                
                 {0x383838u, assets.Tiles.Cobble},
                 {0x402b2bu, assets.Tiles.Cobble1},
                 {0x361b1bu, assets.Tiles.Cobble2},
