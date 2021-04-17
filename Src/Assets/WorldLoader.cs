@@ -17,7 +17,7 @@ namespace yolo {
                 new DumSceneLoader().LoadScene(context),
             };
 
-            return new World(scenes, mainScene, 60, context);
+            return new World(scenes, 60, context);
         }
     }
 }

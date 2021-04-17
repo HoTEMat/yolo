@@ -298,7 +298,7 @@ namespace yolo
                 Dev_Floor = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(16, 48, 16, 16) },
                 Dev_Wall = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(0, 32, 16, 32)},
 
-                Empty = new Sprite {Texture = Textures.Dev, SourceRect = new Rectangle(48, 48, 16, 16)},
+                Empty = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 48, 16, 16)},
 
                 // OTHER
                 TrashcanUp = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 0, 16, 16)},

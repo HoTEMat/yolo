@@ -34,6 +34,7 @@ namespace yolo {
 
             IWorldLoader worldLoader = new FirstLevelLoader();
             Context.World = worldLoader.LoadWorld(Context);
+            Context.World.SwitchToScene("main", new Vector2(0, 0));
         }
 
         protected override void Update(GameTime gameTime) {
@@ -41,8 +42,6 @@ namespace yolo {
                 Exit();
 
             Context.Update(gameTime);
-
-            // TODO: Add your update logic here
             Context.Camera.Update();
 
             base.Update(gameTime);
@@ -51,21 +50,6 @@ namespace yolo {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            /*Matrix view = Matrix.Identity;
-
-            int width = GraphicsDevice.Viewport.Width;
-            int height = GraphicsDevice.Viewport.Height;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
-
-            var _firstShader = Context.Assets.Perspective;
-            var _image = Context.Assets.Textures.Main;
-            _firstShader.Parameters["view_projection"].SetValue(view * projection);
-
-            spriteBatch.Begin(effect: _firstShader);
-            spriteBatch.Draw(_image, new Vector2(0, 0), Color.White);
-            spriteBatch.End();*/
-
-            // TODO: Add your drawing code here
             Context.Renderer.Draw();
 
             base.Draw(gameTime);

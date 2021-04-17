@@ -63,49 +63,49 @@ namespace yolo
         {
             Dictionary<uint, Tile> map = new Dictionary<uint, Tile>
             {
-                {0x0c0f81, assets.Tiles.HospitalFloor},
+                {0x0c0f81u, assets.Tiles.HospitalFloor},
 
-                {0xae9a9a, assets.Tiles.HospitalL},
-                {0xa19a9a, assets.Tiles.HospitalR},
-                {0xe4e4e4, assets.Tiles.HospitalWindow1},
-                {0xadadad, assets.Tiles.HospitalWindow2},
-                {0x584848, assets.Tiles.HospitalWall},
-                {0x817676, assets.Tiles.HospitalTableL},
-                {0x6d6262, assets.Tiles.HospitalTableR},
-                {0x423535, assets.Tiles.HospitalDoctor},
+                {0xae9a9au, assets.Tiles.HospitalL},
+                {0xa19a9au, assets.Tiles.HospitalR},
+                {0xe4e4e4u, assets.Tiles.HospitalWindow1},
+                {0xadadadu, assets.Tiles.HospitalWindow2},
+                {0x584848u, assets.Tiles.HospitalWall},
+                {0x817676u, assets.Tiles.HospitalTableL},
+                {0x6d6262u, assets.Tiles.HospitalTableR},
+                {0x423535u, assets.Tiles.HospitalDoctor},
 
-                {0x5a4a34, assets.Tiles.HouseFloor},
-                {0x185122, assets.Tiles.HouseStairL},
-                {0x257332, assets.Tiles.HouseStairR},
-                {0x7bfc91, assets.Tiles.HouseElevatorL},
-                {0x80ca8c, assets.Tiles.HouseElevatorR},
-                {0x1dff43, assets.Tiles.HouseWall},
+                {0x5a4a34u, assets.Tiles.HouseFloor},
+                {0x185122u, assets.Tiles.HouseStairL},
+                {0x257332u, assets.Tiles.HouseStairR},
+                {0x7bfc91u, assets.Tiles.HouseElevatorL},
+                {0x80ca8cu, assets.Tiles.HouseElevatorR},
+                {0x1dff43u, assets.Tiles.HouseWall},
 
-                {0x197653, assets.Tiles.MarketL},
-                {0x0d5b3d, assets.Tiles.MarketR},
-                {0x534129, assets.Tiles.MarketIsleL},
-                {0x352714, assets.Tiles.MarketIsleR},
-                {0xdb8717, assets.Tiles.MarketCheckoutL},
-                {0xbf740f, assets.Tiles.MarketCheckoutR},
-                {0xd2a05d, assets.Tiles.MarketWall},
-                {0x9d9d9d, assets.Tiles.MarketFloor},
+                {0x197653u, assets.Tiles.MarketL},
+                {0x0d5b3du, assets.Tiles.MarketR},
+                {0x534129u, assets.Tiles.MarketIsleL},
+                {0x352714u, assets.Tiles.MarketIsleR},
+                {0xdb8717u, assets.Tiles.MarketCheckoutL},
+                {0xbf740fu, assets.Tiles.MarketCheckoutR},
+                {0xd2a05du, assets.Tiles.MarketWall},
+                {0x9d9d9du, assets.Tiles.MarketFloor},
 
-                {0x428b1d, assets.Tiles.ParkGrass},
+                {0x428b1du, assets.Tiles.ParkGrass},
 
-                {0x383838, assets.Tiles.Cobble},
-                {0x402b2b, assets.Tiles.Cobble1},
-                {0x361b1b, assets.Tiles.Cobble2},
-                {0x963030, assets.Tiles.Cobble4},
-                {0x840a0a, assets.Tiles.Cobble7},
-                {0xcc7a7a, assets.Tiles.Cobble9},
-                {0xff3232, assets.Tiles.Cobble10},
+                {0x383838u, assets.Tiles.Cobble},
+                {0x402b2bu, assets.Tiles.Cobble1},
+                {0x361b1bu, assets.Tiles.Cobble2},
+                {0x963030u, assets.Tiles.Cobble4},
+                {0x840a0au, assets.Tiles.Cobble7},
+                {0xcc7a7au, assets.Tiles.Cobble9},
+                {0xff3232u, assets.Tiles.Cobble10},
 
-                {0x54985f, assets.Tiles.HouseS1L},
-                {0x3c8348, assets.Tiles.HouseS1R},
-                {0x917575, assets.Tiles.HouseS2L},
-                {0x735555, assets.Tiles.HouseS2R},
-                {0x547359, assets.Tiles.HouseS3L},
-                {0x3d5e43, assets.Tiles.HouseS3R},
+                {0x54985fu, assets.Tiles.HouseS1L},
+                {0x3c8348u, assets.Tiles.HouseS1R},
+                {0x917575u, assets.Tiles.HouseS2L},
+                {0x735555u, assets.Tiles.HouseS2R},
+                {0x547359u, assets.Tiles.HouseS3L},
+                {0x3d5e43u, assets.Tiles.HouseS3R},
             };
 
             Tile[] lHouses =
@@ -135,12 +135,13 @@ namespace yolo
             {
                 for (int row = 0; row < h; row++)
                 {
-                    uint pixel = data[col + row * w] / 0xff;
+                    uint pixel = data[col + row * w] & 0xffffff;
+                    pixel = ((pixel & 0xff) << 16) | (pixel & 0xff00) | ((pixel & 0xff0000) >> 16);
 
                     // special case for left and right side of houses
-                    if (pixel == 0xff8787)
+                    if (pixel == 0xff8787u)
                         indexer2D[col, row] = lHouses[random.Next(0, lHouses.Length)];
-                    else if (pixel == 0xff0000)
+                    else if (pixel == 0xff0000u)
                         indexer2D[col, row] = rHouses[random.Next(0, rHouses.Length)];
                     else
                     {

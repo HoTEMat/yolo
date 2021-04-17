@@ -11,36 +11,11 @@ namespace yolo {
             this.context = context;
         }
 
-        Indexer2D<Tile> tiles = null;
-        RenderTarget2D buffer;
-        void Init() {
-            if (tiles == null) {
-                tiles = new Indexer2D<Tile>(100, 100);
-
-                System.Random rnd = new();
-
-                for (int i = 0; i < tiles.Length; i++) {
-                    if (rnd.Next(5) == 1) {
-                        tiles[i] = context.Assets.Tiles.Dev_Wall;
-                    } else {
-                        tiles[i] = context.Assets.Tiles.Dev_Floor;
-                    }
-                }
-
-                BuildTerrainMesh();
-
-                var viewport = context.Graphics.GraphicsDevice.Viewport;
-                int scale = 1;
-                buffer = new RenderTarget2D(context.Graphics.GraphicsDevice, viewport.Width / scale, viewport.Height / scale,
-                    false, SurfaceFormat.Color, DepthFormat.Depth24);
-            }
-        }
-
         QuadBuffer<VertexPositionNormalTexture> terrainMesh;
-        public void BuildTerrainMesh() {
+        public void RebuildTerrainMesh() {
 
             terrainMesh = new QuadBuffer<VertexPositionNormalTexture>();
-            var tiles = this.tiles;
+            var tiles = context.World.CurrentScene.Tiles;
 
             for (int y = 0; y < tiles.Height; y++) {
                 for (int x = 0; x < tiles.Width; x++) {
@@ -91,13 +66,10 @@ namespace yolo {
         }
 
         public void Draw() {
-            Init();
 
             var device = context.Graphics.GraphicsDevice;
-            var tiles = this.tiles;
             var camera = context.Camera;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
-            float time = MathF.Sin((float)context.GameTime.TotalGameTime.TotalSeconds);
 
             Matrix projection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.ToRadians(45),
@@ -108,17 +80,15 @@ namespace yolo {
             var persp = context.Assets.Perspective;
             persp.CurrentTechnique = persp.Techniques["FloorPlane"];
 
-            //effect.Parameters["Depth"].SetValue(0f);
             var viewProjection = camera.View * projection;
             persp.Parameters["view_projection"].SetValue(viewProjection);
-            persp.Parameters["SpriteTexture"].SetValue(context.Assets.Textures.Dev);
+            persp.Parameters["SpriteTexture"].SetValue(context.Assets.Textures.Main);
 
             device.SetVertexBuffer(terrainMesh.VertexBuffer);
             device.Indices = terrainMesh.IndexBuffer;
 
             device.RasterizerState = new() { CullMode = CullMode.CullCounterClockwiseFace };
 
-            device.SetRenderTarget(buffer);
             device.DepthStencilState = new() {
                 DepthBufferEnable = true,
                 DepthBufferWriteEnable = true,
@@ -129,12 +99,6 @@ namespace yolo {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
             }
-            
-            device.SetRenderTarget(null);
-            var sb = context.SpriteBatch;
-            sb.Begin(samplerState: SamplerState.PointClamp);
-            sb.Draw(buffer, device.Viewport.Bounds, Color.White);
-            sb.End();//*/
         }
     }
 }
