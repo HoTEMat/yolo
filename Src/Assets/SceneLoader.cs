@@ -12,6 +12,18 @@ namespace yolo
 
     public class MainSceneLoader : ISceneLoader
     {
+        private List<Vector2> PersonTargets = new List<Vector2>()
+            { // points between which NPCs are moving
+                new Vector2(1, 14), new Vector2(40, 9), new Vector2(20, 28), new Vector2(33, 25), 
+                new Vector2(33, 18), new Vector2(21, 2), new Vector2(25, 13)
+            };
+
+        private List<Vector2> PersonInitial = new List<Vector2>()
+            { // points where NPCs are generated
+                new Vector2(30, 27), new Vector2(22, 24), new Vector2(5, 14), new Vector2(19, 9), 
+                new Vector2(28, 17), new Vector2(22, 9), new Vector2(29, 13), new Vector2(35, 9),
+                new Vector2(40, 8), new Vector2(15, 15), new Vector2(20, 3), new Vector2(9, 15)
+            };
         public Scene LoadScene(Context context)
         {
             // TODO entities
