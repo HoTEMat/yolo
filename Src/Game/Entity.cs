@@ -6,7 +6,7 @@ namespace yolo {
         public Scene Scene { get; set; }
         public Animation Animation { get; set; }
         public ICollider Collider { get; set; }
-        public Behaviour Behavior { get; init; }
+        public Behaviour Behavior { get; set; }
         public Context Context { get; set; }
         public bool Destroyed { get; private set; }
 

@@ -36,7 +36,7 @@ namespace yolo {
         }
 
         private void ResolveInteractable() {
-            Vector2 playerPos = ctx.Player.Entity.Position;
+            Vector3 playerPos = ctx.Player.Entity.Position;
             Interactable selected = null;
             float selectedDistance = 0; // dummy value
             foreach (Entity e in Entities) {
@@ -72,7 +72,7 @@ namespace yolo {
         }
 
         private void ResolveCollisionsFor(Entity e) {
-            Vector2 totalPush = Vector2.Zero;
+            Vector3 totalPush = Vector3.Zero;
             foreach (Entity other in Entities) {
                 if (other.Collider != null && !other.Collider.Movable) {
                     totalPush += e.Collider.PushFrom(other);
