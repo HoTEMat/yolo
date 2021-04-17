@@ -1,10 +1,34 @@
+using Microsoft.Xna.Framework;
+
 namespace yolo {
-    public interface IBehaviour {
-        Entity Entity { get; }
-        void Update(Context ctx);
+    public abstract class Behaviour {
+        public Entity Entity { get; }
+        public Vector2 Position {
+            get => Entity.Position;
+            set => Entity.Position = value;
+        }
+
+        public Context Context => Entity.Context;
+        public abstract void Update();
     }
 
-    public interface IInteractable : IBehaviour {
-        void Interact(Context ctx);
+    public abstract class Interactable : Behaviour {
+        public abstract void Interact();
+
+        public bool Highlighted { get; private set; }
+        public void SetHighlighted(bool highlighted) {
+            if (highlighted == Highlighted)
+                return;
+            if (highlighted) {
+                Entity.ChangeSpriteTo(HighlightedSprite);
+            } else {
+                Entity.ChangeSpriteTo(DefaultSprite);
+            }
+
+            Highlighted = highlighted;
+        }
+
+        protected abstract TimedSpriteSet DefaultSprite { get; }
+        protected abstract TimedSpriteSet HighlightedSprite { get; }
     }
 }

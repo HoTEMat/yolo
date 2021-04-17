@@ -1,5 +1,8 @@
+using Microsoft.Xna.Framework.Graphics;
+
 namespace yolo {
-    public class TileIndexer2D {
-        
+    public class Tile {
+        public Sprite Sprite { get; init; }
+        public bool Walkable { get; init; }
     }
 }

@@ -9,6 +9,8 @@ namespace yolo
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Context Context;
+
         public Game()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -19,6 +21,7 @@ namespace yolo
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Context = new Context();
 
             base.Initialize();
         }
@@ -27,7 +30,7 @@ namespace yolo
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Context.Assets.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +38,10 @@ namespace yolo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Context.Update(gameTime);
+
             // TODO: Add your update logic here
+            Context.Camera.Update();
 
             base.Update(gameTime);
         }
