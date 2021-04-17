@@ -4,6 +4,12 @@ using Microsoft.Xna.Framework.Input;
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 1; // TODO
+        public PlayerOrientation Orientation { get; private set; }
+        private int spriteNum;
+
+        public PlayerBehaviour(int spriteNum) {
+            this.spriteNum = spriteNum;
+        }
 
         public override void Update() {
             var kbs = Keyboard.GetState();
@@ -31,6 +37,16 @@ namespace yolo {
 
             posChange.Normalize();
             Position += posChange;
+            UpdateOrientation(posChange);
+        }
+
+        private void UpdateOrientation(Vector2 posChange) {
+            PlayerOrientation? newOrientation = GetOrientation(posChange);
+            if (newOrientation != null && newOrientation.Value != Orientation) {
+                Orientation = (PlayerOrientation) newOrientation;
+                TimedSpriteSet newSprite = PersonSpriteSelector.GetSpriteSet(Context.Assets, spriteNum, Orientation);
+                Entity.ChangeSpriteTo(newSprite);
+            }
         }
 
         private void HandleInteraction(KeyboardState kbs) {
@@ -39,5 +55,25 @@ namespace yolo {
                 Entity.Scene.SelectedInteractable?.Interact();
             }
         }
+
+        private static PlayerOrientation? GetOrientation(Vector2 posChange) {
+            float epsilon = 10e-3f;
+            if (posChange.Y > epsilon)
+                return PlayerOrientation.Down;
+            if (posChange.Y < -epsilon)
+                return PlayerOrientation.Up;
+            if (posChange.X > epsilon)
+                return PlayerOrientation.Right;
+            if (posChange.X < -epsilon)
+                return PlayerOrientation.Left;
+            return null;
+        }
+    }
+
+    public enum PlayerOrientation {
+        Up,
+        Right,
+        Down,
+        Left
     }
 }
