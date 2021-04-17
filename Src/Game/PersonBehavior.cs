@@ -42,7 +42,8 @@ namespace yolo
             {
                 
             }
-            
+
+            return null;
         }
 
         public override bool CanInteract() {
