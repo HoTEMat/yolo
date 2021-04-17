@@ -22,10 +22,15 @@ namespace yolo {
         }
 
         public void Update() {
+            RemoveDestroyed();
             ResolveInteractable();
             UpdateEntities();
             ResolveCollisions();
             UpdateCamera();
+        }
+
+        private void RemoveDestroyed() {
+            Entities.RemoveAll(e => e.Destroyed);
         }
 
         private void ResolveInteractable() {
