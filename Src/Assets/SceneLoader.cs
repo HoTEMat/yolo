@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace yolo
@@ -28,6 +29,8 @@ namespace yolo
             entity.Collider = new CircleCollider(entity, false, 2);
             
             scene.AddEntity(entity);
+
+            return scene;
         }
     }
 
