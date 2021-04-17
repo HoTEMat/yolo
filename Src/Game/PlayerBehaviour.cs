@@ -7,11 +7,14 @@ namespace yolo {
         
         public bool IsGood { get; }
         public BucketList TodoList { get; }
-
-        public PlayerBehaviour(bool isGood, BucketList todoList)
+        private int spriteNum;
+        public PlayerOrientation Orientation { get; private set; } = PlayerOrientation.Down;
+        
+        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum)
         {
             IsGood = isGood;
             TodoList = todoList;
+            this.spriteNum = spriteNum;
         }
 
         public override void Update() {
@@ -40,6 +43,16 @@ namespace yolo {
 
             posChange.Normalize();
             Position += posChange;
+            UpdateOrientation(posChange);
+        }
+
+        private void UpdateOrientation(Vector2 posChange) {
+            PlayerOrientation? newOrientation = GetOrientation(posChange);
+            if (newOrientation != null && newOrientation.Value != Orientation) {
+                Orientation = (PlayerOrientation) newOrientation;
+                TimedSpriteSet newSprite = PersonSpriteSelector.GetSpriteSet(Context.Assets, spriteNum, Orientation);
+                Entity.ChangeSpriteTo(newSprite);
+            }
         }
 
         private void HandleInteraction(KeyboardState kbs) {
@@ -48,5 +61,25 @@ namespace yolo {
                 Entity.Scene.SelectedInteractable?.Interact();
             }
         }
+
+        private static PlayerOrientation? GetOrientation(Vector2 posChange) {
+            float epsilon = 10e-3f;
+            if (posChange.Y > epsilon)
+                return PlayerOrientation.Down;
+            if (posChange.Y < -epsilon)
+                return PlayerOrientation.Up;
+            if (posChange.X > epsilon)
+                return PlayerOrientation.Right;
+            if (posChange.X < -epsilon)
+                return PlayerOrientation.Left;
+            return null;
+        }
+    }
+
+    public enum PlayerOrientation {
+        Up,
+        Right,
+        Down,
+        Left
     }
 }
