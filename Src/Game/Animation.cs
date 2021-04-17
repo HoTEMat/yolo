@@ -1,7 +1,13 @@
 using System;
 
 namespace yolo {
-    public class Animation {
+
+    public interface IAnimation {
+        public void Update(Context ctx);
+        public Sprite GetCurrentSprite();
+    }
+
+    public class Animation : IAnimation {
         private float millis;
         private ISpriteSet sprites;
         public bool Highlighted { get; set; } = false;
@@ -16,7 +22,17 @@ namespace yolo {
         }
 
         public Sprite GetCurrentSprite() {
-            return sprites.GetSpriteAt((int) millis);
+            return sprites.GetSpriteAt((int)millis);
+        }
+    }
+
+    public class DialogAnimation : IAnimation {
+        public Sprite GetCurrentSprite() {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Context ctx) {
+            throw new NotImplementedException();
         }
     }
 }
