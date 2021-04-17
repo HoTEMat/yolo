@@ -4,6 +4,13 @@ using Microsoft.Xna.Framework.Input;
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 1; // TODO
+        
+        public bool IsGood { get; }
+
+        public PlayerBehaviour(bool isGood)
+        {
+            IsGood = isGood;
+        }
 
         public BucketList TodoList;
 
