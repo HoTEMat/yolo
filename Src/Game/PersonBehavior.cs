@@ -30,7 +30,7 @@ namespace yolo
         {
             curTargetPoint = Utils.RandChoice(TargetPoints);
         }
-        public override void Interact()
+        public override AchievementType? Interact()
         {
             // infect or hug
             var rnd = Entity.Context.Random.NextDouble();
@@ -43,6 +43,11 @@ namespace yolo
                 
             }
             
+        }
+
+        public override bool CanInteract() {
+            // TODO
+            throw new System.NotImplementedException();
         }
 
         protected override TimedSpriteSet DefaultSprite { get; }
