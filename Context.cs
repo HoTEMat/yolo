@@ -8,6 +8,7 @@ namespace yolo {
             Assets = new AssetBank();
             Camera = new Camera(this);
             Renderer = new Renderer(this);
+            Random = new Random();
         }
 
         public GameTime GameTime { get; private set; }
@@ -16,6 +17,8 @@ namespace yolo {
         public PlayerBehaviour Player { get; }
         public Camera Camera { get; private set; }
         public Renderer Renderer { get; private set; }
+        
+        public Random Random { get; }
 
         internal void Update(GameTime gameTime) {
             this.GameTime = gameTime;
