@@ -31,7 +31,6 @@ namespace yolo
         public Rectangle SourceRect { get; init; }
         public Vector2 Origin { get; init; } = Vector2.Zero;
         public Color Tone { get; init; } = Color.White;
-        public bool IsFlat { get; init; } = true;
         
         public bool Loops { get; } = false;
         public Sprite GetSpriteAt(int millis) => this;
