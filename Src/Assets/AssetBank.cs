@@ -448,7 +448,7 @@ namespace yolo
                 Empty = new Tile {Sprite = Sprites.Empty},
 
                 ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
-                ParkFence = new Tile {Sprite = Sprites.ParkFence}, //
+                ParkFence = new Tile {Sprite = Sprites.ParkFence, Flat=false}, //
 
                 HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
                 HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
