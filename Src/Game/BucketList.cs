@@ -35,6 +35,16 @@ namespace yolo {
 
     public enum AchievementType {
         ToppleBin,
-        PutUpBin
+        PutUpBin,
+        EatIceCream,
+        BadIceCream,
+        HugPerson,
+        CursePerson,
+        FeedDucks,
+        PeeInPond,
+        YellOnTree,
+        DeliverFood,
+        DoGraffitti,
+        CleanGraffitti
     }
 }
