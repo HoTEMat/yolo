@@ -21,10 +21,6 @@ namespace yolo {
             Entities.Add(e);
         }
 
-        public void TriggerInteraction() {
-            SelectedInteractable?.Interact();
-        }
-
         public void Update() {
             ResolveInteractable();
             UpdateEntities();
