@@ -23,8 +23,5 @@ namespace yolo {
         public override bool CanInteract() {
             return true;
         }
-
-        protected override TimedSpriteSet DefaultSprite => AssetBank.SpriteBank. // TODO
-        protected override TimedSpriteSet HighlightedSprite => AssetBank.SpriteBank. // TODO
     }
 }

@@ -45,8 +45,5 @@ namespace yolo
         {
             return true;
         }
-
-        protected override TimedSpriteSet DefaultSprite { get; }
-        protected override TimedSpriteSet HighlightedSprite { get; }
     }
 }

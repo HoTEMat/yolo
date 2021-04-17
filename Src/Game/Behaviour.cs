@@ -20,17 +20,9 @@ namespace yolo {
         public void SetHighlighted(bool highlighted) {
             if (highlighted == Highlighted)
                 return;
-            if (highlighted) {
-                Entity.ChangeSpriteTo(HighlightedSprite);
-            } else {
-                Entity.ChangeSpriteTo(DefaultSprite);
-            }
-
+            Entity.Animation.Highlighted = highlighted;
             Highlighted = highlighted;
         }
-
-        protected abstract TimedSpriteSet DefaultSprite { get; }
-        protected abstract TimedSpriteSet HighlightedSprite { get; }
     }
 
     public class Bin : Interactable
@@ -55,8 +47,6 @@ namespace yolo {
             return Entity.Context.Player.IsGood == IsOverturned;
         }
 
-        protected override TimedSpriteSet DefaultSprite { get; }
-        protected override TimedSpriteSet HighlightedSprite { get; }
     }
 
     public class IceCreamStand : Interactable
@@ -75,9 +65,6 @@ namespace yolo {
         {
             return true; // you can always eat icecream
         }
-
-        protected override TimedSpriteSet DefaultSprite { get; }
-        protected override TimedSpriteSet HighlightedSprite { get; }
     }
     public class Pond : Interactable
     {
@@ -93,9 +80,6 @@ namespace yolo {
         {
             return true;
         }
-
-        protected override TimedSpriteSet DefaultSprite { get; }
-        protected override TimedSpriteSet HighlightedSprite { get; }
     }
 
     public class GraffittiHouse : Interactable
@@ -114,8 +98,5 @@ namespace yolo {
         {
             return Entity.Context.Player.IsGood == HasGraffitti;
         }
-
-        protected override TimedSpriteSet DefaultSprite { get; }
-        protected override TimedSpriteSet HighlightedSprite { get; }
     }
 }
