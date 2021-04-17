@@ -9,11 +9,13 @@ namespace yolo
         private List<Vector2> TargetPoints;
         private Vector2 curTargetPoint;
         private const float walkSpeed = 1;
+        private SpriteOrientationManager orientationManager;
         
-        public PersonBehavior(List<Vector2> targetPoints)
+        public PersonBehavior(int spriteNum, List<Vector2> targetPoints)
         {
             TargetPoints = targetPoints;
             curTargetPoint = Utils.RandChoice(TargetPoints);
+            orientationManager = new SpriteOrientationManager(spriteNum, Entity);
         }
         public override void Update()
         {
@@ -26,6 +28,7 @@ namespace yolo
             direction.Normalize();
             var delta = direction * walkSpeed;
             Position += delta;
+            orientationManager.UpdateOrientation(delta);
         }
         private void changeTarget()
         {
