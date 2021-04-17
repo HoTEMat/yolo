@@ -43,23 +43,42 @@ namespace yolo {
             indices.Add(iBL);
         }
 
+        void swap<T>(ref T a, ref T b) {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
         public void AddSprite(Sprite sprite, Vector3 position, bool isFlat = false) {
 
             Vector2 wsSize = sprite.SourceRect.Size.ToVector2() / 16f;
-            Vector2 topLeft = sprite.Origin / 16f;
+            Vector2 topLeft = -sprite.Origin / 16f;
             Vector2 topRight = topLeft;
             topRight.X += wsSize.X;
             Vector2 botLeft = topLeft;
             botLeft.Y += wsSize.Y;
             Vector2 botRight = topLeft + wsSize;
 
+            Vector2 UVTopLeft = sprite.UVTopLeft;
+            Vector2 UVTopRight = sprite.UVTopRight;
+            Vector2 UVBotLeft = sprite.UVBotLeft;
+            Vector2 UVBotRight = sprite.UVBotRight;
+
+            if ((sprite.Effects & SpriteEffects.FlipHorizontally) != 0) {
+                swap(ref UVTopLeft, ref UVTopRight);
+                swap(ref UVBotLeft, ref UVBotRight);
+            }
+            if ((sprite.Effects & SpriteEffects.FlipVertically) != 0) {
+                swap(ref UVTopLeft, ref UVBotLeft);
+                swap(ref UVTopRight, ref UVBotRight);
+            }
+
             if (!isFlat) {
 
                 AddQuad(
-                    new T(new Vector3(topLeft.X, 0, topLeft.Y) + position, Vector3.UnitY, sprite.UVTopLeft),
-                    new T(new Vector3(topRight.X, 0, topRight.Y) + position, Vector3.UnitY, sprite.UVTopRight),
-                    new T(new Vector3(botLeft.X, 0, botLeft.Y) + position, Vector3.UnitY, sprite.UVBotLeft),
-                    new T(new Vector3(botRight.X, 0, botRight.Y) + position, Vector3.UnitY, sprite.UVBotRight)
+                    new T(new Vector3(topLeft.X, 0, topLeft.Y) + position, Vector3.UnitY, UVTopLeft),
+                    new T(new Vector3(topRight.X, 0, topRight.Y) + position, Vector3.UnitY, UVTopRight),
+                    new T(new Vector3(botLeft.X, 0, botLeft.Y) + position, Vector3.UnitY, UVBotLeft),
+                    new T(new Vector3(botRight.X, 0, botRight.Y) + position, Vector3.UnitY, UVBotRight)
                 );
 
             } else {
