@@ -37,6 +37,7 @@ namespace yolo
             var rnd = Entity.Context.Random.NextDouble();
             if (rnd <= interactionSuccess) // success
             {
+                Entity.Destroy();
                 return Entity.Context.Player.IsGood ? AchievementType.HugPerson : AchievementType.CursePerson;
             }
             return null;
