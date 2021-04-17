@@ -21,6 +21,42 @@ namespace yolo
         }
     }
 
+    public class DumSceneLoader : ISceneLoader
+    {
+        public Scene LoadScene(Context context)
+        {
+            // TODO entities
+            List<Entity> entities = new List<Entity>();
+
+            return new Scene("dum", entities,
+                TileMapLoader.LoadIndexer(context.Assets.Textures.DumScene, context.Assets), context);
+        }
+    }
+
+    public class NemocniceSceneLoader : ISceneLoader
+    {
+        public Scene LoadScene(Context context)
+        {
+            // TODO entities
+            List<Entity> entities = new List<Entity>();
+
+            return new Scene("nemocnice", entities,
+                TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
+        }
+    }
+
+    public class ObchodSceneLoader : ISceneLoader
+    {
+        public Scene LoadScene(Context context)
+        {
+            // TODO entities
+            List<Entity> entities = new List<Entity>();
+
+            return new Scene("obchod", entities,
+                TileMapLoader.LoadIndexer(context.Assets.Textures.ObchodScene, context.Assets), context);
+        }
+    }
+
     static class TileMapLoader
     {
         public static Indexer2D<Tile> LoadIndexer(Texture2D src, AssetBank assets)
@@ -55,21 +91,21 @@ namespace yolo
                 {0x9d9d9d, assets.Tiles.MarketFloor},
 
                 {0x428b1d, assets.Tiles.ParkGrass},
-                
-                {0x383838, assets.Tiles.Cobble   },
-                {0x402b2b, assets.Tiles.Cobble1  },
-                {0x361b1b, assets.Tiles.Cobble2  },
-                {0x963030, assets.Tiles.Cobble4  },
-                {0x840a0a, assets.Tiles.Cobble7  },
-                {0xcc7a7a, assets.Tiles.Cobble9  },
-                {0xff3232, assets.Tiles.Cobble10 },
-                
-                {0x54985f, assets.Tiles.HouseS1L },
-                {0x3c8348, assets.Tiles.HouseS1R },
-                {0x917575, assets.Tiles.HouseS2L },
-                {0x735555, assets.Tiles.HouseS2R },
-                {0x547359, assets.Tiles.HouseS3L },
-                {0x3d5e43, assets.Tiles.HouseS3R },
+
+                {0x383838, assets.Tiles.Cobble},
+                {0x402b2b, assets.Tiles.Cobble1},
+                {0x361b1b, assets.Tiles.Cobble2},
+                {0x963030, assets.Tiles.Cobble4},
+                {0x840a0a, assets.Tiles.Cobble7},
+                {0xcc7a7a, assets.Tiles.Cobble9},
+                {0xff3232, assets.Tiles.Cobble10},
+
+                {0x54985f, assets.Tiles.HouseS1L},
+                {0x3c8348, assets.Tiles.HouseS1R},
+                {0x917575, assets.Tiles.HouseS2L},
+                {0x735555, assets.Tiles.HouseS2R},
+                {0x547359, assets.Tiles.HouseS3L},
+                {0x3d5e43, assets.Tiles.HouseS3R},
             };
 
             Tile[] lHouses =
