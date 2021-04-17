@@ -50,6 +50,9 @@ namespace yolo
             public Sprite ParkBush { get; init; }
             public Sprite ParkPond { get; init; }
             public Sprite ParkGrass { get; init; }
+            public Sprite ParkTreeLarge { get; init; }
+            public Sprite ParkTreeSmall { get; init; }
+            public Sprite ParkFence { get; init; }
             
             // PEOPLE
             public Sprite Person1Down { get; init; }
@@ -128,6 +131,8 @@ namespace yolo
             public Sprite HeartGood { get; init; }
             public Sprite HeartBad { get; init; }
             
+            public Sprite Basket { get; init; }
+            
             // INTERIORS
             public Sprite HospitalWindow1 { get; init; }
             public Sprite HospitalWindow2 { get; init; }
@@ -177,6 +182,7 @@ namespace yolo
 
             // PARK
             public Tile ParkGrass { get; init; }
+            public Tile ParkFence { get; init; }
             public Tile HouseFloor { get; init; }
             
             // HOUSES
@@ -253,6 +259,11 @@ namespace yolo
             public TimedSpriteSet Person3Right { get; init; }
             public TimedSpriteSet Person3Left { get; init; }
             public TimedSpriteSet Person3Up { get; init; }
+            
+            public TimedSpriteSet Person4Down { get; init; }
+            public TimedSpriteSet Person4Right { get; init; }
+            public TimedSpriteSet Person4Left { get; init; }
+            public TimedSpriteSet Person4Up { get; init; }
         }
         
         public FontBank Fonts { get; private set; }
@@ -260,7 +271,6 @@ namespace yolo
         public class FontBank {
             public SpriteFont Font { get; set; }
         }
-
 
         public void LoadContent(ContentManager Content)
         {
@@ -300,6 +310,9 @@ namespace yolo
                 ParkPond = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32)},
                 ParkBush = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16)},
                 ParkGrass = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16)},
+                ParkTreeLarge = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32)},
+                ParkTreeSmall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32)},
+                ParkFence = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(48, 112, 16, 16)},
                 
                 // PEOPLE
                 Person1Down = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16)},
@@ -378,6 +391,8 @@ namespace yolo
                 HeartGood = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(192, 64, 16, 16)},
                 HeartBad = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(208, 64, 16, 16)},
                 
+                Basket = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(96, 32, 16, 16)},
+                
                 // INTERIORS
                 HospitalWindow1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 0, 16, 32)},
                 HospitalWindow2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(288, 0, 16, 32)},
@@ -424,6 +439,7 @@ namespace yolo
                 Empty = new Tile {Sprite = Sprites.Empty},
                 
                 ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
+                ParkFence = new Tile {Sprite = Sprites.ParkFence}, //
                 
                 HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
                 HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
@@ -456,91 +472,111 @@ namespace yolo
                 House3R = new Tile {Sprite = Sprites.House3L, Walkable=false, Flat = false},
                 House4L = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
                 House4R = new Tile {Sprite = Sprites.House4L, Walkable=false, Flat = false},
-                HouseS1L = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false},
-                HouseS1R = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false},
-                HouseS2L = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false},
-                HouseS2R = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false},
-                HouseS3L = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false},
-                HouseS3R = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false},
+                HouseS1L = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false}, //
+                HouseS1R = new Tile {Sprite = Sprites.HouseS1L, Walkable=false, Flat = false}, //
+                HouseS2L = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false}, //
+                HouseS2R = new Tile {Sprite = Sprites.HouseS2L, Walkable=false, Flat = false}, //
+                HouseS3L = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false}, //
+                HouseS3R = new Tile {Sprite = Sprites.HouseS3L, Walkable=false, Flat = false}, //
                 HospitalL = new Tile {Sprite = Sprites.HospitalL, Walkable=false, Flat = false},   //
                 HospitalR = new Tile {Sprite = Sprites.HospitalR, Walkable=false, Flat = false},   //
                 
                 MarketL = new Tile {Sprite = Sprites.MarketL, Walkable=false, Flat = false}, //
                 MarketR = new Tile {Sprite = Sprites.MarketR, Walkable=false, Flat = false}, //
                 
-                Cobble = new Tile {Sprite = Sprites.Cobble},
-                Cobble1 = new Tile {Sprite = Sprites.Cobble1},
-                Cobble2 = new Tile {Sprite = Sprites.Cobble2},
-                Cobble3 = new Tile {Sprite = Sprites.Cobble3},
-                Cobble4 = new Tile {Sprite = Sprites.Cobble4},
-                Cobble5 = new Tile {Sprite = Sprites.Cobble5},
-                Cobble6 = new Tile {Sprite = Sprites.Cobble6},
-                Cobble7 = new Tile {Sprite = Sprites.Cobble7},
-                Cobble8 = new Tile {Sprite = Sprites.Cobble8},
-                Cobble9 = new Tile {Sprite = Sprites.Cobble9},
-                Cobble10 = new Tile {Sprite = Sprites.Cobble10},
+                Cobble = new Tile {Sprite = Sprites.Cobble},   //
+                Cobble1 = new Tile {Sprite = Sprites.Cobble1},   //
+                Cobble2 = new Tile {Sprite = Sprites.Cobble2},   //
+                Cobble3 = new Tile {Sprite = Sprites.Cobble3},   //
+                Cobble4 = new Tile {Sprite = Sprites.Cobble4},   //
+                Cobble5 = new Tile {Sprite = Sprites.Cobble5},   //
+                Cobble6 = new Tile {Sprite = Sprites.Cobble6},   //
+                Cobble7 = new Tile {Sprite = Sprites.Cobble7},   //
+                Cobble8 = new Tile {Sprite = Sprites.Cobble8},   //
+                Cobble9 = new Tile {Sprite = Sprites.Cobble9},   //
+                Cobble10 = new Tile {Sprite = Sprites.Cobble10},   //
             };
             
             int personWalkPeriod = 300;
             TimedSprites = new TimedSpriteSetBank
             {
                 Person1Down = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person1Down, Sprites.Person1Down1, Sprites.Person1Down2},
+                    Sprites = new []{Sprites.Person1Down1, Sprites.Person1Down2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person1Right = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person1Right, Sprites.Person1Right1, Sprites.Person1Right2},
+                    Sprites = new []{Sprites.Person1Right1, Sprites.Person1Right2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person1Left = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person1Left, Sprites.Person1Left1, Sprites.Person1Left2},
+                    Sprites = new []{ Sprites.Person1Left1, Sprites.Person1Left2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person1Up = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person1Up, Sprites.Person1Up1, Sprites.Person1Up2},
+                    Sprites = new []{ Sprites.Person1Up1, Sprites.Person1Up2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person2Down = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person2Down, Sprites.Person2Down1, Sprites.Person2Down2},
+                    Sprites = new []{ Sprites.Person2Down1, Sprites.Person2Down2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person2Right = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person2Right, Sprites.Person2Right1, Sprites.Person2Right2},
+                    Sprites = new []{ Sprites.Person2Right1, Sprites.Person2Right2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person2Left = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person2Left, Sprites.Person2Left1, Sprites.Person2Left2},
+                    Sprites = new []{ Sprites.Person2Left1, Sprites.Person2Left2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person2Up = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person2Up, Sprites.Person2Up1, Sprites.Person2Up2},
+                    Sprites = new []{ Sprites.Person2Up1, Sprites.Person2Up2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person3Down = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person3Down, Sprites.Person3Down1, Sprites.Person3Down2},
+                    Sprites = new []{ Sprites.Person3Down1, Sprites.Person3Down2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person3Right = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person3Right, Sprites.Person3Right1, Sprites.Person3Right2},
+                    Sprites = new []{ Sprites.Person3Right1, Sprites.Person3Right2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person3Left = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person3Left, Sprites.Person3Left1, Sprites.Person3Left2},
+                    Sprites = new []{ Sprites.Person3Left1, Sprites.Person3Left2},
                     Loops = true,
                     Period = personWalkPeriod
                 },
                 Person3Up = new TimedSpriteSet {
-                    Sprites = new []{Sprites.Person3Up, Sprites.Person3Up1, Sprites.Person3Up2},
+                    Sprites = new []{ Sprites.Person3Up1, Sprites.Person3Up2},
+                    Loops = true,
+                    Period = personWalkPeriod
+                },
+                Person4Down = new TimedSpriteSet {
+                    Sprites = new []{ Sprites.Person4Down1, Sprites.Person4Down2},
+                    Loops = true,
+                    Period = personWalkPeriod
+                },
+                Person4Right = new TimedSpriteSet {
+                    Sprites = new []{ Sprites.Person4Right1, Sprites.Person4Right2},
+                    Loops = true,
+                    Period = personWalkPeriod
+                },
+                Person4Left = new TimedSpriteSet {
+                    Sprites = new []{ Sprites.Person4Left1, Sprites.Person4Left2},
+                    Loops = true,
+                    Period = personWalkPeriod
+                },
+                Person4Up = new TimedSpriteSet {
+                    Sprites = new []{ Sprites.Person4Up1, Sprites.Person4Up2},
                     Loops = true,
                     Period = personWalkPeriod
                 }

@@ -31,6 +31,9 @@ namespace yolo
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Context.Assets.LoadContent(Content);
+
+            IWorldLoader worldLoader = new FirstLevelLoader();
+            Context.World = worldLoader.LoadWorld(Context);
         }
 
         protected override void Update(GameTime gameTime)
