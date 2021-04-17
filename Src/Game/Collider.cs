@@ -17,7 +17,7 @@ namespace yolo {
         /// Return vector to push this entity away from the other.
         /// </summary>
         /// <param name="other">The entity to push from.</param>
-        Vector2 PushFrom(Entity other);
+        Vector3 PushFrom(Entity other);
     }
 
     abstract class Collider : ICollider
@@ -31,7 +31,7 @@ namespace yolo {
         public Entity ColliderEntity { get; }
         public bool Movable { get; }
 
-        public abstract Vector2 PushFrom(Entity other);
+        public abstract Vector3 PushFrom(Entity other);
     }
 
     class CircleCollider : Collider
@@ -47,23 +47,23 @@ namespace yolo {
         /// Pushes this entity away from the other as to not collide with it.
         /// </summary>
         /// <param name="other"></param>
-        public override Vector2 PushFrom(Entity other)
+        public override Vector3 PushFrom(Entity other)
         {
+            Vector2 other_pos = new Vector2(other.Position.X, other.Position.Y);
+            Vector2 my_pos = new Vector2(ColliderEntity.Position.X, ColliderEntity.Position.Y);
+
             switch (other.Collider)
             {
                 // CIRCLE from CIRCLE
                 case CircleCollider otherCircleCollider:
                 {
-                    Vector2 other_pos = other.Position;
-                    Vector2 my_pos = ColliderEntity.Position;
-
                     float distance = (float)Math.Sqrt(Math.Pow(other_pos.X - my_pos.X, 2) + Math.Pow(other_pos.Y - my_pos.Y, 2));
 
                     if (distance < otherCircleCollider.Radius + Radius)
                     {
                         Vector2 moveVector = new Vector2(my_pos.X - other_pos.X, my_pos.Y - other_pos.Y);
                         moveVector.Normalize();
-                        return moveVector * (otherCircleCollider.Radius + Radius - distance);
+                        return new Vector3(moveVector * (otherCircleCollider.Radius + Radius - distance), 0);
                     }
 
                     break;
@@ -73,18 +73,18 @@ namespace yolo {
                 case RectangleCollider otherRectangleCollider:
                 {
                     // the other object is at 0, 0, I'm in the 1st quadrant
-                    Vector2 pos = (ColliderEntity.Position - other.Position);
+                    Vector2 pos = (my_pos - other_pos);
                     float sx = Math.Sign(pos.X);
                     float sy = Math.Sign(pos.Y);
                     pos = new Vector2(Math.Abs(pos.X), Math.Abs(pos.Y));
                 
                     // we're above
                     if (pos.X < otherRectangleCollider.Width && pos.X - Radius < otherRectangleCollider.Height)
-                        return new Vector2(0, -otherRectangleCollider.Height - (pos.X - Radius) * sy);
+                        return new Vector3(0, -otherRectangleCollider.Height - (pos.X - Radius) * sy, 0);
                 
                     // we're to the right
                     if (pos.Y < otherRectangleCollider.Height && pos.Y - Radius < otherRectangleCollider.Width)
-                        return new Vector2(otherRectangleCollider.Width - (pos.Y - Radius) * sx, 0);
+                        return new Vector3(otherRectangleCollider.Width - (pos.Y - Radius) * sx, 0, 0);
                 
                     // we're at the corner (or inside, but we're fucked in that case)
                     // TODO!
@@ -92,7 +92,7 @@ namespace yolo {
                 }
             }
 
-            return Vector2.Zero;
+            return Vector3.Zero;
         }
     }
     
@@ -111,10 +111,9 @@ namespace yolo {
         /// Pushes this entity away from the other as to not collide with it.
         /// </summary>
         /// <param name="other"></param>
-        public override Vector2 PushFrom(Entity other)
+        public override Vector3 PushFrom(Entity other)
         {
-            return Vector2.Zero;
+            return Vector3.Zero;
         }
     }
-    
 }

@@ -10,7 +10,7 @@ namespace yolo {
         public BucketList TodoList { get; }
         private SpriteOrientationManager orientationManager;
         
-        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum)
+        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum, Entity entity) : base(entity)
         {
             IsGood = isGood;
             TodoList = todoList;
@@ -36,21 +36,21 @@ namespace yolo {
         }
 
         private void HandleWalking(KeyboardState kbs) {
-            Vector2 posChange = Vector2.Zero;
+            Vector3 posChange = Vector3.Zero;
             if (kbs.IsKeyDown(Keys.Right)) {
-                posChange += new Vector2(WalkSpeed, 0);
+                posChange += new Vector3(WalkSpeed, 0, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Left)) {
-                posChange += new Vector2(-WalkSpeed, 0);
+                posChange += new Vector3(-WalkSpeed, 0, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Up)) {
-                posChange += new Vector2(0, -WalkSpeed);
+                posChange += new Vector3(0, -WalkSpeed, 0);
             }
 
             if (kbs.IsKeyDown(Keys.Down)) {
-                posChange += new Vector2(0, WalkSpeed);
+                posChange += new Vector3(0, WalkSpeed, 0);
             }
 
             posChange.Normalize();

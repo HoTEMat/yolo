@@ -6,12 +6,12 @@ namespace yolo
     public class PersonBehavior : Interactable
     {
         private const double interactionSuccess = 0.5;
-        private List<Vector2> TargetPoints;
-        private Vector2 curTargetPoint;
+        private List<Vector3> TargetPoints;
+        private Vector3 curTargetPoint;
         private const float walkSpeed = 1;
         private SpriteOrientationManager orientationManager;
         
-        public PersonBehavior(int spriteNum, List<Vector2> targetPoints)
+        public PersonBehavior(int spriteNum, List<Vector3> targetPoints, Entity entity) : base(entity)
         {
             TargetPoints = targetPoints;
             curTargetPoint = Utils.RandChoice(TargetPoints);

@@ -34,7 +34,7 @@ namespace yolo {
 
             IWorldLoader worldLoader = new FirstLevelLoader();
             Context.World = worldLoader.LoadWorld(Context);
-            Context.World.SwitchToScene("main", new Vector2(0, 0));
+            Context.World.SwitchToScene("nemocnice", new Vector2(0, 0));
             Context.Camera.Center = new(Context.World.CurrentScene.Tiles.Size / 2f, 0);
         }
 
@@ -49,7 +49,6 @@ namespace yolo {
         }
 
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             Context.Renderer.Draw();
             Context.Hud.Draw();
