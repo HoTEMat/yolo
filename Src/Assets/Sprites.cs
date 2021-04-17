@@ -12,8 +12,8 @@ namespace yolo {
 
     public class Sprite {
         public Texture2D Texture { get; init; }
-        public Rectangle Bounds { get; init; }
-        public Point Origin { get; init; }
-        public Color Tone { get; init; }
+        public Rectangle SourceRect { get; init; }
+        public Vector2 Origin { get; init; } = Vector2.Zero;
+        public Color Tone { get; init; } = Color.White;
     }
 }
