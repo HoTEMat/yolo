@@ -405,8 +405,8 @@ namespace yolo
                 // INTERIORS
                 HospitalWindow1 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 0, 16, 32)},
                 HospitalWindow2 = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(288, 0, 16, 32)},
-                HospitalTableL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(288, 0, 16, 32)},
-                HospitalTableR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(304, 0, 16, 32)},
+                HospitalTableL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(304, 0, 16, 32)},
+                HospitalTableR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(320, 0, 16, 32)},
                 HospitalWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 0, 16, 32)},
                 HospitalDoctor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(336, 0, 16, 32)},
                 HospitalFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16)},
@@ -448,15 +448,15 @@ namespace yolo
                 Empty = new Tile {Sprite = Sprites.Empty},
 
                 ParkGrass = new Tile {Sprite = Sprites.ParkGrass}, //
-                ParkFence = new Tile {Sprite = Sprites.ParkFence}, //
+                ParkFence = new Tile {Sprite = Sprites.ParkFence, Flat=false}, //
 
                 HospitalFloor = new Tile {Sprite = Sprites.HospitalFloor},  //
-                HospitalWindow1 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                HospitalWindow2 = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                HospitalWall = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                HospitalTableL = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                HospitalTableR = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
-                HospitalDoctor = new Tile {Sprite = Sprites.HospitalFloor, Walkable=false, Flat = false}, //
+                HospitalWindow1 = new Tile {Sprite = Sprites.HospitalWindow1, Walkable=false, Flat = false}, //
+                HospitalWindow2 = new Tile {Sprite = Sprites.HospitalWindow2, Walkable=false, Flat = false}, //
+                HospitalWall = new Tile {Sprite = Sprites.HospitalWall, Walkable=false, Flat = false}, //
+                HospitalTableL = new Tile {Sprite = Sprites.HospitalTableL, Walkable=false, Flat = false}, //
+                HospitalTableR = new Tile {Sprite = Sprites.HospitalTableR, Walkable=false, Flat = false}, //
+                HospitalDoctor = new Tile {Sprite = Sprites.HospitalDoctor, Walkable=false, Flat = false}, //
 
                 HouseFloor = new Tile {Sprite = Sprites.HouseFloor}, //
                 HouseStairL = new Tile {Sprite = Sprites.HouseStairL, Walkable=false, Flat = false}, //
