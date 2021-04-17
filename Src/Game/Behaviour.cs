@@ -99,4 +99,36 @@ namespace yolo {
             return Entity.Context.Player.IsGood == HasGraffitti;
         }
     }
+    public class Grandma : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            Entity.Context.Player.HandInGroceries();
+            return AchievementType.DeliverFood;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.HasGroceries;
+        }
+    }
+    public class Tree : Interactable
+    {
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            return AchievementType.YellOnTree;
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false;
+        }
+    }
 }
