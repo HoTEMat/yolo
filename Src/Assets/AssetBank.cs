@@ -412,7 +412,7 @@ namespace yolo
                 HospitalFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16)},
 
                 MarketWall = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(384, 48, 16, 32)},
-                MarketFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(272, 48, 16, 16)},
+                MarketFloor = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(320, 80, 16, 16)},
                 MarketCheckoutL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(352, 48, 16, 32)},
                 MarketCheckoutR = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(368, 48, 16, 32)},
                 MarketIsleL = new Sprite {Texture = Textures.Main, SourceRect = new Rectangle(320, 48, 16, 32)},

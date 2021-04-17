@@ -106,7 +106,6 @@ namespace yolo
                 {0x428b1du, assets.Tiles.ParkGrass},
                 {0x08668cu, assets.Tiles.ParkFence},
                 
-                
                 {0x383838u, assets.Tiles.Cobble},
                 {0x402b2bu, assets.Tiles.Cobble1},
                 {0x361b1bu, assets.Tiles.Cobble2},

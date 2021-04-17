@@ -49,14 +49,14 @@ namespace yolo {
         /// <param name="other"></param>
         public override Vector2 PushFrom(Entity other)
         {
+            Vector2 other_pos = new Vector2(other.Position.X, other.Position.Y);
+            Vector2 my_pos = new Vector2(ColliderEntity.Position.X, ColliderEntity.Position.Y);
+
             switch (other.Collider)
             {
                 // CIRCLE from CIRCLE
                 case CircleCollider otherCircleCollider:
                 {
-                    Vector2 other_pos = other.Position;
-                    Vector2 my_pos = ColliderEntity.Position;
-
                     float distance = (float)Math.Sqrt(Math.Pow(other_pos.X - my_pos.X, 2) + Math.Pow(other_pos.Y - my_pos.Y, 2));
 
                     if (distance < otherCircleCollider.Radius + Radius)
@@ -73,7 +73,7 @@ namespace yolo {
                 case RectangleCollider otherRectangleCollider:
                 {
                     // the other object is at 0, 0, I'm in the 1st quadrant
-                    Vector2 pos = (ColliderEntity.Position - other.Position);
+                    Vector2 pos = (my_pos - other_pos);
                     float sx = Math.Sign(pos.X);
                     float sy = Math.Sign(pos.Y);
                     pos = new Vector2(Math.Abs(pos.X), Math.Abs(pos.Y));
@@ -116,5 +116,4 @@ namespace yolo {
             return Vector2.Zero;
         }
     }
-    
 }
