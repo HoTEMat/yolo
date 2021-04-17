@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace yolo {
@@ -5,20 +6,23 @@ namespace yolo {
         Scene LoadScene(AssetBank assets);
     }
 
-    
+
 
     public class ParkSceneLoader : ISceneLoader {
         public Scene LoadScene(AssetBank assets) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-        
+
     }
-    
+
+    enum TilePalette : uint {
+        Wall = 0x00000000, // TODO
+        Road = 0x00000000, // TODO
+    }
+
     static class TileMapLoader {
-        public const uint Wall = 0x00000000; // TODO
-        public const uint Road = 0x00000000; // TODO
-        
-        public static TileIndexer2D LoadIndexer(Texture2D src, AssetBank assets) {
+
+        public static Indexer2D<Tile> LoadIndexer(Texture2D src, AssetBank assets) {
             int w = src.Width, h = src.Height;
             uint[] data = new uint[w * h];
             src.GetData(data);
@@ -28,12 +32,12 @@ namespace yolo {
                 }
             }
         }
-        
+
         private static Tile CreateTile(uint code, AssetBank assets) {
             if (code == Wall) {
                 return new Tile {
-                    Sprite = 
-            } 
+                    Sprite =
+            }
+        }
         }
     }
-}
