@@ -7,6 +7,8 @@ namespace yolo {
             get => Entity.Position;
             set => Entity.Position = value;
         }
+
+        public Context Context => Entity.Context;
         public abstract void Update();
     }
 

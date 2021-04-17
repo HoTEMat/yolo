@@ -2,7 +2,7 @@ using System;
 
 namespace yolo {
     public class Animation {
-        private int millis;
+        private float millis;
         private TimedSpriteSet sprites;
 
         public Animation(TimedSpriteSet sprites) {
@@ -11,11 +11,11 @@ namespace yolo {
         }
         
         public void Update(Context ctx) {
-            throw new NotImplementedException();
+            millis += (float) ctx.GameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         public Sprite GetCurrentSprite() {
-            throw new NotImplementedException();
+            return sprites.GetSpriteAt((int) millis);
         }
     }
 }
