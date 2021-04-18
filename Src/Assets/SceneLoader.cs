@@ -12,19 +12,11 @@ namespace yolo
 
     public class MainSceneLoader : ISceneLoader
     {
-        private List<Vector3> PersonTargets = new List<Vector3>()
+        private List<List<Vector3>> PersonTargets = new List<List<Vector3>>()
         {
-            // points between which NPCs are moving
-            new(1, 14, 0), new(40, 9, 0), new(20, 28, 0), new(33, 25, 0),
-            new(33, 18, 0), new(21, 2, 0), new(25, 13, 0)
-        };
-
-        private List<Vector3> PersonInitial = new List<Vector3>()
-        {
-            // points where NPCs are generated
-            new(30, 27, 0), new(22, 24, 0), new(5, 14, 0), new(19, 9, 0),
-            new(28, 17, 0), new(22, 9, 0), new(29, 13, 0), new(35, 9, 0),
-            new(40, 8, 0), new(15, 15, 0), new(20, 3, 0), new(9, 15, 0)
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            new() { new(21, 22, 0), new(23, 25, 0), new(20, 28, 0), new(28, 26.5f, 0), new(31, 27.5f, 0), new(31, 22, 0), },
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
         };
 
         private List<Vector3> IceCreamPositions = new List<Vector3>()
@@ -75,8 +67,8 @@ namespace yolo
             
             SpriteEffects[] ef = new[]
             {
-                SpriteEffects.FlipHorizontally,
                 SpriteEffects.None,
+                SpriteEffects.FlipHorizontally,
             };
             
 
@@ -186,15 +178,12 @@ namespace yolo
         {
             for (int i = 0; i < NPCCount; i++)
             {
-                int idx = i % PersonInitial.Count;
+                int idx = Utils.Random.Next(1, 5);
 
-                var person = new Entity(ctx)
-                {
-                    Position = PersonInitial[idx],
-                };
-
+                var person = new Entity(ctx);
+                
                 person.Behavior =
-                    new PersonBehavior(idx % 4 + 1, PersonTargets, person); // idx % 4 - chooses one of 4 person sprites
+                    new PersonBehavior(idx, Utils.RandChoice(PersonTargets), person);
                 scene.AddEntity(person);
             }
         }

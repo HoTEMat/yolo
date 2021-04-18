@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class Scene {
-        private const float InteractableDistanceThreshold = 10; // TODO
+        private const float InteractableDistanceThreshold = 1; // TODO
 
         public string Name { get; }
         public List<Entity> Entities { get; }
+        private List<Entity> toBeAddedEntities = new();
         public Indexer2D<Tile> Tiles { get; }
         public Interactable SelectedInteractable { get; private set; }
         private Context ctx;
@@ -22,7 +23,7 @@ namespace yolo {
 
         public void AddEntity(Entity e) {
             e.Scene = this;
-            Entities.Add(e);
+            toBeAddedEntities.Add(e);
         }
 
         public void Update() {
@@ -31,6 +32,7 @@ namespace yolo {
             ResolveInteractable();
             UpdateEntities();
             ResolveCollisions();
+            InsertAddedEntities();
             UpdateCamera();
         }
 
@@ -91,6 +93,11 @@ namespace yolo {
 
         private void UpdateCamera() {
             ctx.Camera.Update();
+        }
+
+        private void InsertAddedEntities() {
+            Entities.AddRange(toBeAddedEntities);
+            toBeAddedEntities = new List<Entity>();
         }
     }
 }
