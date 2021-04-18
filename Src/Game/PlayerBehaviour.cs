@@ -73,6 +73,11 @@ namespace yolo {
             //    float d = Entity.GetDistanceFrom(Entity.Scene.SelectedInteractable.Entity);
             //    Console.WriteLine(d);
             //}
+
+            // TODO: remove this (just for testing)
+            //if (Context.Keyboard.IsKeyPressed(Keys.R)) {
+            //    Context.Game.Restart(new FirstLevelLoader());
+            //}
             
             
             KeyboardManager kb = Context.Keyboard;

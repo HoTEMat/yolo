@@ -7,8 +7,9 @@ namespace yolo {
     public class Game : Microsoft.Xna.Framework.Game {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
         private Context Context;
+        // If not null, the game will be restarted after Update loop finishes
+        private IWorldLoader willRestartTo;
 
         public Game() {
             graphics = new GraphicsDeviceManager(this);
@@ -22,7 +23,8 @@ namespace yolo {
             // TODO: Add your initialization logic here
             Context = new Context {
                 Graphics = graphics,
-                Keyboard = new KeyboardManager()
+                Keyboard = new KeyboardManager(),
+                Game = this
             };
 
             base.Initialize();
@@ -33,18 +35,39 @@ namespace yolo {
 
             Context.SpriteBatch = spriteBatch;
             Context.Assets.LoadContent(Content);
+            
             Entity player = CreatePlayer();
             Context.Player = (PlayerBehaviour)player.Behavior;
 
-            IWorldLoader worldLoader = new FirstLevelLoader();
-            Context.World = worldLoader.LoadWorld(Context);
+            StartLevel(new FirstLevelLoader());
+        }
 
+        private void StartLevel(IWorldLoader worldLoader) {
+            Context.Score = new Score();
+            
+            Entity player = CreatePlayer();
+            Context.Player = (PlayerBehaviour)player.Behavior;
+
+            Context.World = worldLoader.LoadWorld(Context);
             Context.World.CurrentScene.AddEntity(player);
 
             Context.Camera.Target = player;
             Context.Camera.Update();
 
             Context.Renderer.RebuildTerrainMesh();
+        }
+
+        public void Restart(IWorldLoader newWorldLoader) {
+            willRestartTo = newWorldLoader;
+        }
+
+        // Dont call this if you dont know what you are doing
+        public void TriggerRestartCheck() {
+            if (willRestartTo != null) {
+                Context.World.Destroy();
+                StartLevel(willRestartTo);
+                willRestartTo = null;
+            }
         }
 
         private Entity CreatePlayer() {

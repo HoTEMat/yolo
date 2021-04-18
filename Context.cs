@@ -12,7 +12,6 @@ namespace yolo {
             Hud = new HUD(this);
             Random = new Random();
             FloatRandom = new FloatRandom(Random);
-            Score = new Score();
         }
 
         /// <summary>
@@ -28,6 +27,7 @@ namespace yolo {
         public KeyboardManager Keyboard { get; init; }
         public GameTime GameTime { get; private set; }
         public AssetBank Assets { get; private set; }
+        public Game Game { get; init; }
         public World World { get; set; }
         public PlayerBehaviour Player { get; set; }
         public Camera Camera { get; private set; }

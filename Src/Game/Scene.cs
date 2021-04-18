@@ -8,9 +8,9 @@ namespace yolo {
         private const float InteractableDistanceThreshold = 0.7f; // TODO
 
         public string Name { get; }
-        public List<Entity> Entities { get; }
+        public List<Entity> Entities { get; private set; }
         private List<Entity> toBeAddedEntities = new();
-        public Indexer2D<Tile> Tiles { get; }
+        public Indexer2D<Tile> Tiles { get; private set; }
         public Interactable SelectedInteractable { get; private set; }
         public Vector3 Tomovo { get; set; }
 
@@ -120,6 +120,18 @@ namespace yolo {
         // Don't call this from the update loop.
         public void RemoveTemporalEntitiesNow() {
             Entities.RemoveAll(e => e.IsTemporal);
+        }
+
+        public void Destroy() {
+            foreach (var e in Entities) {
+                e.Destroy();
+            }
+
+            Entities = null;
+            toBeAddedEntities = null;
+            Tiles = null;
+            SelectedInteractable = null;
+            ctx = null;
         }
     }
 }
