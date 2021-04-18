@@ -50,7 +50,7 @@ namespace yolo {
             {
                 var multipleG = Utils.RandChoice(GoodActionsMultiple);
                 Items.Add(new BucketListItem(multipleG, 3)); // ToDo: Constants?
-                var otherG = Utils.RandChooseN(GoodActions, 2);
+                var otherG = Utils.RandChooseN(GoodActions, 3);
                 foreach (var itemType in otherG)
                 {
                     Items.Add(new BucketListItem(itemType, 1));
@@ -60,7 +60,7 @@ namespace yolo {
             // is bad
             var multipleB = Utils.RandChoice(BadActionsMultiple);
             Items.Add(new BucketListItem(multipleB, 3)); // ToDo: Constants?
-            var otherB = Utils.RandChooseN(BadActions, 2);
+            var otherB = Utils.RandChooseN(BadActions, 3);
             foreach (var itemType in otherB)
             {
                 Items.Add(new BucketListItem(itemType, 1));
