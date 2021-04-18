@@ -18,7 +18,7 @@ namespace yolo {
 
         public static ParticleSystemGenerator HearthsGenerator(Scene scene, Context ctx) {
             return new ParticleSystemGenerator(scene, ctx) {
-                Count = 5,
+                Count = 8,
                 ScaleInterpolation = new LinearInterpolation(1, 0.5f),
                 VelocityInterpolation = new VectorInterpolation(
                     xInterpolation: new Constant<float>(0),

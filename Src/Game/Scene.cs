@@ -25,6 +25,20 @@ namespace yolo {
             e.Scene = this;
             toBeAddedEntities.Add(e);
         }
+        
+        // Dont call this if you dont know what you are doing. 
+        // Maybe you want to use Destroy() - that is safe.
+        public void RemoveEntityNow(Entity e) {
+            e.Scene = null;
+            Entities.Remove(e);
+        }
+        
+        // Dont call this if you dont know what you are doing. 
+        // Maybe you want to use AddEntity() - that is safe.
+        public void AddEntityNow(Entity e) {
+            e.Scene = this;
+            Entities.Add(e);
+        }
 
         public void Update() {
             UpdateKeyboard();
@@ -34,6 +48,7 @@ namespace yolo {
             ResolveCollisions();
             InsertAddedEntities();
             UpdateCamera();
+            ctx.World.TriggerSceneSwitchCheck();
         }
 
         private void UpdateKeyboard() {

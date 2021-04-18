@@ -6,7 +6,7 @@ namespace yolo {
         private string newSceneName;
         private Vector3 newPlayerPosition;
 
-        public SceneTransporter(string newSceneName, Vector3 newPlayerPosition, Entity entity) : base(entity) {
+        public SceneTransporter(Entity entity, string newSceneName, Vector3 newPlayerPosition) : base(entity) {
             this.newSceneName = newSceneName;
             this.newPlayerPosition = newPlayerPosition;
         }

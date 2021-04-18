@@ -75,14 +75,16 @@ namespace yolo {
                 if (achievement != null)
                 {
                     TodoList.ProcessAchievement((AchievementType)achievement);
+                    ShowHearts();
                 }
             }
         }
 
         private void ShowHearts() {
-            Vector3 pos = Entity.Position + World.Up * 1.3f + World.Backward * 0.001f;
+            Vector3 pos = Entity.Position + World.Up * 0.5f + World.Backward * 0.001f;
+            ISpriteSet hearth = IsGood ? Context.Assets.Sprites.HeartGood : Context.Assets.Sprites.HeartBad;
             ParticleSystemGenerator.HearthsGenerator(Entity.Scene, Context)
-                .Generate(Context.Assets.Sprites.HeartGood, pos);
+                .Generate(hearth, pos);
         }
     }
 }

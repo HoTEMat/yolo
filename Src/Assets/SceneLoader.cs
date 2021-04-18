@@ -172,6 +172,20 @@ namespace yolo
                 msc.Behavior = new Tree(msc);
                 scene.AddEntity(msc);
             }
+            
+            // Scene Transports
+            Entity toStoreTransport = new Entity(context)
+            {
+                Position = new Vector3(21, 15, 0),
+                Animation = new Animation(context.Assets.Sprites.Grandma)
+            };
+            SceneTransporter toStoreTransportBehaviour = new SceneTransporter(
+                toStoreTransport,
+                "nemocnice",
+                new Vector3(2, 2, 0)
+            );
+            toStoreTransport.Behavior = toStoreTransportBehaviour;
+            scene.AddEntity(toStoreTransport);
         }
 
         private void generateNPCs(Scene scene, Context ctx)

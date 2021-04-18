@@ -15,6 +15,7 @@ namespace yolo {
         // In seconds.
         public float TimeToLive { get; private set; }
         private Context context;
+        private SceneSwitchInfo? plannedSceneSwitch;
 
         public World(List<Scene> scenes, Scene currentScene, float timeToLive, Context context) {
             this.context = context;
@@ -24,17 +25,38 @@ namespace yolo {
         }
 
         public void SwitchToScene(string newSceneName, Vector3 playerPosition) {
-            CurrentScene = Scenes[newSceneName];
-            context.Player.Entity.Position = playerPosition;
-            context.Camera.Center =  playerPosition;
-            context.Player.Entity.Scene = CurrentScene;
+            plannedSceneSwitch = new SceneSwitchInfo {
+                SceneName = newSceneName,
+                NewPlayerPos = playerPosition
+            };
+        }
+        
+        // Dont call this if you dont know what you are doing
+        public void TriggerSceneSwitchCheck() {
+            if (plannedSceneSwitch == null)
+                return;
+                
+            Scene newScene = Scenes[plannedSceneSwitch.Value.SceneName];
+            Entity player = context.Player.Entity;
+            
+            CurrentScene.RemoveEntityNow(player);
+            newScene.AddEntityNow(player);
+            player.Position = plannedSceneSwitch.Value.NewPlayerPos;
 
+            CurrentScene = newScene;
             context.Renderer.RebuildTerrainMesh();
+            plannedSceneSwitch = null;
         }
 
         public void Update() {
             TimeToLive -= (float) context.GameTime.ElapsedGameTime.TotalSeconds;
             CurrentScene.Update();
+        }
+        
+        struct SceneSwitchInfo
+        {
+            public string SceneName;
+            public Vector3 NewPlayerPos;
         }
     }
 }
