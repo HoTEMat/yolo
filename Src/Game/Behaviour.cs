@@ -203,8 +203,11 @@ namespace yolo {
 
     public class Fountain : Interactable
     {
+        private bool Peed { get; set;}
         public Fountain(Entity entity) : base(entity)
         {
+            Peed = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.Fountain);
         }
         public override void Update()
         {
@@ -212,11 +215,13 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
+            Peed = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.FountainPee);
             return AchievementType.PeeInFountain;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false;
+            return Entity.Context.Player.IsGood == false && Peed == false;
         }
     }
 

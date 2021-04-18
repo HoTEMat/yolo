@@ -46,11 +46,7 @@ namespace yolo
             Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
 
-            Entity fountain = new Entity(context)
-            {
-                Position = new Vector3(24, 12, 0),
-                Animation = new Animation(context.Assets.Sprites.Fountain),
-            };
+            Entity fountain = new Entity(context) {Position = new Vector3(24, 12, 0),};
             fountain.Behavior = new Fountain(fountain);
             fountain.Collider = new RectangleCollider(fountain, false, 2, 0.1f);
             scene.AddEntity(fountain);
