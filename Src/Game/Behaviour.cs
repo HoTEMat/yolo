@@ -76,13 +76,14 @@ namespace yolo {
     public class IceCreamStand : Interactable
     {
         private bool interacted;
+        
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
-            interacted = false;
+            interacted = true;
             return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
         }
 
@@ -208,8 +209,10 @@ namespace yolo {
 
     public class Fountain : Interactable
     {
+        bool Peed;
         public Fountain(Entity entity) : base(entity)
         {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.Fountain);
         }
         public override void Update()
         {
@@ -217,10 +220,14 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
+            Peed = true;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.FountainPee);
             return AchievementType.PeeInFountain;
         }
         public override bool CanInteract()
         {
+            if (Peed) return false;
+            
             return Entity.Context.Player.IsGood == false;
         }
     }

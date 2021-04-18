@@ -40,7 +40,7 @@ namespace yolo {
                 nemocniceScene,
             };
 
-            return new World(scenes, nemocniceScene, 60, context);
+            return new World(scenes, nemocniceScene, 60, context, false);
         }
     }
 }
