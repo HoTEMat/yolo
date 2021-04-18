@@ -289,6 +289,9 @@ namespace yolo {
 
             Vector2 origin16x16 = new(8, 16);
             Vector2 origin32x16 = new(16, 16);
+            Vector2 origin32x32 = new(16, 16);
+            
+            Vector2 originTree = new(8, 32);
 
             Sprites = new SpriteBank {
                 Dev_Floor = new Sprite { Texture = Textures.Dev, SourceRect = new Rectangle(16, 48, 16, 16) },
@@ -304,18 +307,18 @@ namespace yolo {
                 Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
 
                 // PARK
-                ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16) },
-                ParkDuck2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 16, 16, 16) },
-                ParkMisc1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 0, 16, 16) },
+                ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16), Origin = origin16x16},
+                ParkDuck2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 16, 16, 16), Origin = origin16x16},
+                ParkMisc1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 0, 16, 16) , Origin = origin16x16},
                 ParkMisc2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 0, 16, 16), Origin = origin16x16 },
                 ParkMisc3 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16), Origin = origin16x16 },
                 ParkMisc4 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16), Origin = origin16x16 },
-                ParkPond = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32) },
+                ParkPond = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32), Origin = origin32x32 },
                 ParkBush1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 32, 16, 16) },
                 ParkBush2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16) },
                 ParkGrass = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16) },
-                ParkTreeLarge = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32) },
-                ParkTreeSmall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32) },
+                ParkTreeLarge = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32), Origin = originTree},
+                ParkTreeSmall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32) , Origin = originTree},
                 ParkFence = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 112, 16, 16) },
 
                 // PEOPLE

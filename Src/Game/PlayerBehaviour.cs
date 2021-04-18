@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
-        public const float WalkSpeed = 1f; // TODO
+        public const float WalkSpeed = 2f; // TODO
         
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
