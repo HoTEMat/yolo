@@ -5,7 +5,7 @@ namespace yolo {
     public class Entity {
         public Vector3 Position { get; set; }
         public Scene Scene { get; set; }
-        public Animation Animation { get; set; }
+        public IAnimation Animation { get; set; }
         public ICollider Collider { get; set; }
         public Behaviour Behavior { get; set; }
         public Context Context { get; set; }

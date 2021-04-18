@@ -295,6 +295,11 @@ namespace yolo {
             public SpriteFont Font { get; set; }
         }
 
+        public DialogBank Dialogs { get; private set; }
+        public class DialogBank {
+            public DialogInfo DoctorDialog { get; set; }
+        }
+
         public void LoadContent(ContentManager Content) {
             // Load effects
             Perspective = Content.Load<Effect>("perspective");
@@ -641,7 +646,11 @@ namespace yolo {
                 Font = FontLoader.CreateFont(Textures.SpriteFont)
             };
 
-
+            Dialogs = new DialogBank {
+                DoctorDialog = new DialogInfo(new[] {
+                    "Hello", "You die"
+                }),
+            };
         }
     }
 }
