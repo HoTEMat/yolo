@@ -73,18 +73,20 @@ namespace yolo {
 
     public class IceCreamStand : Interactable
     {
+        private bool interacted;
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
+            interacted = false;
             return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
         }
 
         public override bool CanInteract()
         {
-            return true; // you can always eat icecream
+            return !interacted;
         }
         public IceCreamStand(Entity entity) : base(entity)
         {
