@@ -15,26 +15,26 @@ namespace yolo {
             this.sentences = new List<string>(sentences);
         }
 
-        public Entity OnEntity { get; init; }
         public DialogInfo NextDialog { get; init; } = null;
         public Point Size { get; } = new(20, 3);
 
-        public DialogBehavior OpenNewDialog(Context ctx) {
+        public DialogBehavior OpenNewDialogOn(Entity onE) {
+            var ctx = onE.Context;
             var player = ctx.Player;
             player.FreezeFor = float.PositiveInfinity;
 
-            var e = new Entity(ctx) {
+            var eBanner = new Entity(ctx) {
                 IsTemporal = true,
             };
 
             DialogBehavior result;
-            e.Behavior = result = new DialogBehavior(e, this);
-            e.Animation = new DialogAnimation() {
+            eBanner.Animation = new DialogAnimation() {
                 DisplayChars = Size,
             };
-            e.Position = OnEntity.Position + World.Up * 1;
+            eBanner.Position = onE.Position + World.Up * 1;
+            eBanner.Behavior = result = new DialogBehavior(eBanner, this);
 
-            ctx.World.CurrentScene.AddEntity(e);
+            ctx.World.CurrentScene.AddEntity(eBanner);
 
             return result;
         }
@@ -43,12 +43,16 @@ namespace yolo {
 
     public class DialogBehavior : Behaviour {
 
-        List<string[]> linesToDisplay = new();
+        List<string[]> screensToDisplay = new();
+        int screen = 0;
 
         public DialogBehavior(Entity e, DialogInfo info) : base(e) {
             foreach (var tense in info.Sentences) {
-                linesToDisplay.Add(tense.SplitToLines(info.Size.X).ToArray());
+                screensToDisplay.Add(tense.SplitToLines(info.Size.X).ToArray());
             }
+
+            var anim = (DialogAnimation)Entity.Animation;
+            anim.Text = string.Join(' ', screensToDisplay[screen]);
         }
 
         public override void Update() {

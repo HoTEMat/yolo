@@ -373,7 +373,7 @@ namespace yolo {
         }
 
         public override AchievementType? Interact() {
-            Entity.Context.Assets.Dialogs.DoctorDialog.OpenNewDialog(Entity.Context);
+            Entity.Context.Assets.Dialogs.DoctorDialog.OpenNewDialogOn(Entity);
             return null;
         }
 
