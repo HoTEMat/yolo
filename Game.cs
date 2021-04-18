@@ -64,6 +64,10 @@ namespace yolo {
             WillTransitionTo = controller;
         }
 
+        public void ProZenu() {
+            WillTransitionTo = new GameOverScreenController(Context);
+        }
+
         protected override void Update(GameTime gameTime) {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -168,15 +172,18 @@ namespace yolo {
     }
 
     public class GameOverScreenController : Controller {
+        private OutroWindow outroWindow;
+        
         public GameOverScreenController(Context ctx) : base(ctx) {
+            outroWindow = new OutroWindow(ctx);
         }
 
         public override void Update(GameTime gameTime) {
-            throw new System.NotImplementedException();
+            outroWindow.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime) {
-            throw new System.NotImplementedException();
+            outroWindow.Draw(gameTime);
         }
 
         
