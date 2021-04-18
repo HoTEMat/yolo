@@ -379,7 +379,7 @@ namespace yolo
             {
                 Position = new Vector3( 15.7f, 16.8f, 0),
             };
-            //doctor.Behavior = new IntroDoctorBehavior(doctor);
+            doctor.Behavior = new IntroDoctorBehavior(doctor);
             scene.AddEntity(doctor);
             
             Entity bed = new Entity(context)

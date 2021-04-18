@@ -29,7 +29,7 @@ namespace yolo {
             millis += (float)ctx.GameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public Sprite GetCurrentSprite(Context ctx) {
+        public virtual Sprite GetCurrentSprite(Context ctx) {
             var result = sprites.GetSpriteAt((int)millis).Clone();
             result.Effects ^= Effects;
             result.Scale *= this.Scale;
@@ -52,7 +52,7 @@ namespace yolo {
             buffer = new RenderTarget2D(ctx.Graphics.GraphicsDevice, DisplayChars.X * 7, DisplayChars.Y * 7);
         }
 
-        public Sprite GetCurrentSprite(Context ctx) {
+        public override Sprite GetCurrentSprite(Context ctx) {
             if (buffer == null) {
                 initBuffer(ctx);
             }

@@ -285,7 +285,7 @@ namespace yolo {
         public override AchievementType? Interact()
         {
             interacted = true;
-                
+
             if (Entity.Context.Player.IsGood && !interacted)
             {
                 return AchievementType.ThankDoctor;
@@ -354,5 +354,26 @@ namespace yolo {
         }
     }
 
+    public class IntroDoctorBehavior : Interactable {
+        private bool _bought = false;
 
+        public IntroDoctorBehavior(Entity entity) : base(entity) {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
+        }
+
+        public override void Update() {
+            return;
+        }
+
+        public override AchievementType? Interact() {
+            Entity.Context.Assets.Dialogs.DoctorDialog.OpenNewDialog(Entity.Context);
+            return null;
+        }
+
+        public override bool CanInteract() {
+            if (_bought) return false;
+
+            return Entity.Context.Player.IsGood;
+        }
+    }
 }

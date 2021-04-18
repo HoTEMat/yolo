@@ -43,12 +43,12 @@ namespace yolo {
 
     public class DialogBehavior : Behaviour {
 
-        List<string> linesToDisplay;
+        List<string[]> linesToDisplay = new();
 
         public DialogBehavior(Entity e, DialogInfo info) : base(e) {
-            /*foreach (var tense in info.Sentences) {
-                linesToDisplay = tense.SplitToLines(info.Size.X).ToList();
-            }*/
+            foreach (var tense in info.Sentences) {
+                linesToDisplay.Add(tense.SplitToLines(info.Size.X).ToArray());
+            }
         }
 
         public override void Update() {
