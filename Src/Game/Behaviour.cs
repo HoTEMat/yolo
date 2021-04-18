@@ -110,26 +110,45 @@ namespace yolo {
         }
     }
 
-    public class GraffittiHouse : Interactable
+    public class Graffitti : Interactable
     {
-        public bool HasGraffitti { get; private set; }
+        public bool Visible { get; private set; }
+        public Graffitti(Entity entity, bool visible) : base(entity)
+        {
+            Visible = visible;
+            if (Visible)
+            {
+                Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.Grafitti);
+                return;
+            }
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.FadedGrafitti);
+        }
+        
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
-            // ToDo: draw graffitti or clean it
-            throw new System.NotImplementedException();
+            if (Visible)
+            {
+                Visible = false;
+                Entity.Animation.Reset(Entity.Context.Assets.Sprites.FadedGrafitti);
+                return AchievementType.CleanGraffitti;
+            }
+            else
+            {
+                Visible = true;
+                Entity.Animation.Reset(Entity.Context.Assets.Sprites.Grafitti);
+                return AchievementType.DoGraffitti;
+            }
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == HasGraffitti;
+            return Entity.Context.Player.IsGood == Visible;
         }
 
-        public GraffittiHouse(Entity entity) : base(entity)
-        {
-        }
+        
     }
     public class Grandma : Interactable
     {
