@@ -26,7 +26,7 @@ namespace yolo {
                 dumScene,
             };
 
-            return new World(scenes, mainScene, 60, context);
+            return new World(scenes, mainScene, 5, context);
         }
     }
 

@@ -56,6 +56,10 @@ namespace yolo {
             TimeToLive -= (float) context.GameTime.ElapsedGameTime.TotalSeconds;
             CurrentScene.Update();
             
+            if (TimeToLive <= -1) {
+                context.Game.GameOver();
+            }
+            
             
             // TODO: remove this
             //if (context.Keyboard.IsKeyPressed(Keys.I)) {

@@ -112,7 +112,7 @@ namespace yolo {
           
             sb.DrawStringCentered("You died..", new Vector2(viewport.Width/2, viewport.Height/6), 8, Color.White);
             
-            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, viewport.Height/2), 3, Color.White);
+            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, viewport.Height/2), 4, Color.White);
             
             /*sb.Draw(context.Assets.Sprites.Paper.Texture, 
                 new Rectangle(0, 300, viewport.Width, viewport.Width), 
