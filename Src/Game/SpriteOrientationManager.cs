@@ -51,7 +51,8 @@ namespace yolo {
         Up,
         Right,
         Down,
-        Left
+        Left,
+        Dead
     }
 }
 
