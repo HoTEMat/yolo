@@ -128,7 +128,7 @@ namespace yolo {
             entityMesh = new QuadBuffer();
             foreach (var entity in scene.Entities.OrderBy(e => e.Position.Y)) {
                 if (entity.Animation != null) {
-                    var sprite = entity.Animation.GetCurrentSprite();
+                    var sprite = entity.Animation.GetCurrentSprite(context);
 
                     entityMesh.AddSprite(sprite, entity.Position);
                 }
