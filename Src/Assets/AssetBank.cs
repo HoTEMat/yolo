@@ -43,6 +43,7 @@ namespace yolo {
             public Sprite FadedGrafitti { get; init; }
             public Sprite IcecreamStand { get; init; }
             public Sprite Fountain { get; init; }
+            public Sprite FountainPee { get; init; }
 
             // PARK
             public Sprite ParkDuck1 { get; init; }
@@ -54,6 +55,7 @@ namespace yolo {
             public Sprite ParkBush1 { get; init; }
             public Sprite ParkBush2 { get; init; }
             public Sprite ParkPond { get; init; }
+            public Sprite ParkPondPee { get; init; }
             public Sprite ParkGrass { get; init; }
             public Sprite ParkTreeLarge { get; init; }
             public Sprite ParkTreeSmall { get; init; }
@@ -148,6 +150,7 @@ namespace yolo {
             public Sprite HospitalFloor { get; init; }
             public Sprite HospitalDoctor { get; init; }
             public Sprite HospitalBedEntity { get; init; }
+            public Sprite HospitalBedBrokenEntity { get; init; }
             public Sprite HospitalDoctorEntity { get; init; }
 
             public Sprite MarketIsleL { get; init; }
@@ -158,6 +161,7 @@ namespace yolo {
             public Sprite MarketFloor { get; init; }
             public Sprite MarketCheckoutEntity { get; init; }
             public Sprite MarketIsleEntity { get; init; }
+            public Sprite MarketIsleStolenEntity { get; init; }
 
             public Sprite HouseStairL { get; init; }
             public Sprite HouseStairR { get; init; }
@@ -321,6 +325,7 @@ namespace yolo {
                 FadedGrafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16, Tone = Color.LightGray},
                 IcecreamStand = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 112, 16, 16), Origin = origin16x16 },
                 Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
+                FountainPee = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 176, 32, 16), Origin = origin32x16 },
 
                 // PARK
                 ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16), Origin = origin16x16},
@@ -330,6 +335,7 @@ namespace yolo {
                 ParkMisc3 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16), Origin = origin16x16 },
                 ParkMisc4 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16), Origin = origin16x16 },
                 ParkPond = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32), Origin = origin32x32 },
+                ParkPondPee = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 192, 32, 32), Origin = origin32x32 },
                 ParkBush1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 32, 16, 16) },
                 ParkBush2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16) },
                 ParkGrass = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16) },
@@ -426,7 +432,8 @@ namespace yolo {
                 HospitalFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16) },
                 
                 HospitalDoctorEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 32, 16, 32) },
-                HospitalBedEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 32, 32, 32) },
+                HospitalBedEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 32, 32, 32) },
+                HospitalBedBrokenEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 48, 32, 32) },
 
                 MarketWall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 48, 16, 32) },
                 MarketFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(320, 80, 16, 16) },
@@ -436,6 +443,7 @@ namespace yolo {
                 MarketIsleR = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 48, 16, 32) },
                 
                 MarketIsleEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 80, 32, 32) },
+                MarketIsleStolenEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 96, 32, 32) },
                 MarketCheckoutEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(368, 80, 16, 32) },
 
                 HouseStairL = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 80, 16, 32) },

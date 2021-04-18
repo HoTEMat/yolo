@@ -68,6 +68,13 @@ namespace yolo {
         }
 
         private void HandleInteraction() {
+            // TODO: remove this (just for testing)
+            //if (Context.Keyboard.IsKeyPressed(Keys.P) && Entity.Scene.SelectedInteractable != null) {
+            //    float d = Entity.GetDistanceFrom(Entity.Scene.SelectedInteractable.Entity);
+            //    Console.WriteLine(d);
+            //}
+            
+            
             KeyboardManager kb = Context.Keyboard;
             var scene = Entity.Scene;
             if (kb.IsKeyPressed(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {

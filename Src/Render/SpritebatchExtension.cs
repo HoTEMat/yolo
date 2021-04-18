@@ -21,5 +21,27 @@ namespace yolo {
             Color c = Color.FromNonPremultiplied(new Vector4(vec + new Vector3(1), 2) / 2);
             return c;
         }
+
+        public static void DrawTextBlock(this SpriteBatch sb, SpriteFont font, Vector2 position, string text,
+            int charsPerRow, int lineHeight, int scale, Color fontColor)
+        {
+            Vector2 curPosition = position;
+            string[] words = text.Split();
+            string curLine = "";
+            int wordIdx = 0;
+            while (wordIdx < words.Length)
+            {
+                while (curLine.Length + words[wordIdx].Length < charsPerRow)
+                {
+                    curLine += words[wordIdx];
+                    curLine += " ";
+                    wordIdx++;
+                    if (wordIdx >= words.Length) break;
+                }
+                sb.DrawString(font, curLine, curPosition, fontColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                curLine = "";
+                curPosition = new Vector2(curPosition.X, curPosition.Y + lineHeight);
+            }
+        }
     }
 }

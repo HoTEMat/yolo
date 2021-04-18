@@ -4,7 +4,7 @@ namespace yolo {
     public class BucketList {
         public List<BucketListItem> Items;
 
-        public string Header = "Bucket list:";
+        public string Header = "Bucket list";
 
         public Dictionary<AchievementType, string> ItemText = new Dictionary<AchievementType, string>()
         {

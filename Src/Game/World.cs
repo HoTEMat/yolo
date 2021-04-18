@@ -39,6 +39,7 @@ namespace yolo {
             Scene newScene = Scenes[plannedSceneSwitch.Value.SceneName];
             Entity player = context.Player.Entity;
             
+            CurrentScene.RemoveTemporalEntitiesNow();
             CurrentScene.RemoveEntityNow(player);
             newScene.AddEntityNow(player);
             player.Position = plannedSceneSwitch.Value.NewPlayerPos;

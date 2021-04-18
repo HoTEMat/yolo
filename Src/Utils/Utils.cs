@@ -32,5 +32,9 @@ namespace yolo
             }
             return res;
         }
+
+        public static float Max(float a, float b, float c) {
+            return Math.Max(a, Math.Max(b, c));
+        }
     }
 }
