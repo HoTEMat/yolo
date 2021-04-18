@@ -34,7 +34,7 @@ namespace yolo {
 
             sb.Begin(samplerState: SamplerState.PointClamp);
 
-            sb.DrawStringCentered("Press F to interact. Come on, try it.", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 5, Color.Black);
+            sb.DrawStringCentered("Press F to interact. Come on, try it.", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 4, Color.Black);
             
             sb.End();
         }
@@ -75,8 +75,10 @@ namespace yolo {
             
             sb.Begin(samplerState: SamplerState.PointClamp);
             DrawTransparentBackground(sb, bounds);
-            sb.DrawStringCentered("Choose your role", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 5, Color.Black);
-            sb.DrawStringCentered("(G)ood or (B)ad?", new Vector2(bounds.Width / 2f, bounds.Height / 3f + 50), 4, Color.Black);
+            sb.FillRectangle(new Rectangle((int) (bounds.Width / 2f - 750), (int) (bounds.Height / 2f - 300), 1500, 350), Color.Black);
+            sb.DrawStringCentered("You have been diagnosed with a terminal illness.", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 4, Color.White);
+            sb.DrawStringCentered("Are you (G)ood or (B)ad?", new Vector2(bounds.Width / 2f, bounds.Height / 3f + 50), 4, Color.White);
+            
             
             sb.End();
         }
@@ -110,7 +112,7 @@ namespace yolo {
           
             sb.DrawStringCentered("You died..", new Vector2(viewport.Width/2, viewport.Height/6), 8, Color.White);
             
-            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, viewport.Height/2), 3, Color.White);
+            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, viewport.Height/2), 4, Color.White);
             
             /*sb.Draw(context.Assets.Sprites.Paper.Texture, 
                 new Rectangle(0, 300, viewport.Width, viewport.Width), 
