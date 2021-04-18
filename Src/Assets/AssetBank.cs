@@ -61,6 +61,10 @@ namespace yolo {
             public Sprite ParkTreeSmall { get; init; }
             public Sprite ParkFence { get; init; }
 
+            public Sprite MarketStand1 { get; init; }
+            public Sprite MarketStand2 { get; init; }
+            public Sprite MarketStand3 { get; init; }
+            
             // PEOPLE
 
             public Sprite Person1Down { get; init; }
@@ -347,6 +351,10 @@ namespace yolo {
                 ParkTreeLarge = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32), Origin = originTree},
                 ParkTreeSmall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32) , Origin = originTree},
                 ParkFence = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 80, 16, 16) },
+                
+                MarketStand1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(256, 112, 16, 16), Origin = origin16x16},
+                MarketStand2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 112, 16, 16), Origin = origin16x16},
+                MarketStand3 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 128, 16, 16), Origin = origin16x16},
 
                 // PEOPLE
                 Person1Down = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16), Origin = origin16x16 },

@@ -15,10 +15,24 @@ namespace yolo
     {
         private List<List<Vector3>> PersonTargets = new List<List<Vector3>>()
         {
+            // CITY
             new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
-            new() { new(21, 22, 0), new(23, 25, 0), new(20, 28, 0), new(28, 26.5f, 0), new(31, 27.5f, 0), new(31, 22, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            
             new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
-        };
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            
+            // PARK
+            new() { new(21, 22, 0), new(23, 25, 0), new(20, 28, 0), new(28, 26.5f, 0), new(31, 27.5f, 0), new(31, 22, 0), },
+            new() { new (23, 22, 0), new (27, 21, 0), new (31, 24, 0), new (26, 26, 0), new (20, 25, 0), }, };
 
         private List<Vector3> IceCreamPositions = new List<Vector3>()
         {
@@ -28,13 +42,23 @@ namespace yolo
 
         private List<Vector3> BinPositions = new List<Vector3>()
         {
-            new(3, 14, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
-            new(20, 10, 0), new(27, 13, 0)
+            new (22.1f, 2.3f, 0),
+            new (20.8f, 7.3f, 0),
+            new (20.6f, 13.7f, 0),
+            new (12f, 13.7f, 0),
+            new (2f, 13.7f, 0),
+            new (25f, 17.1f, 0),
+            new (27.3f, 10.5f, 0),
+            new (39.3f, 8.9f, 0),
         };
 
         private List<Vector3> GraffittiPositions = new List<Vector3>()
         {
-            new Vector3(9, 13, 0), new Vector3(28, 6, 0), new Vector3(21, 1, 0),new Vector3(36, 8, 0)
+            new (3, 13.01f, 0),
+            new (26, 6.01f, 0),
+            new (36, 8.01f, 0),
+            new (30, 21.01f, 0),
+            new (21, 21.01f, 0),
         };
 
         private const int NPCCount = 20;
@@ -56,6 +80,38 @@ namespace yolo
             generateBins(scene, context);
             generatePark(scene, context);
             generateGraffitti(scene, context);
+            
+            List<Vector3> standPositions = new List<Vector3>()
+            {
+                new (27f, 17f, 0),
+                new (28f, 18.5f, 0),
+            };
+
+            Sprite[] stands = new[]
+            {
+                context.Assets.Sprites.MarketStand1,
+                context.Assets.Sprites.MarketStand2,
+                context.Assets.Sprites.MarketStand3,
+            };
+
+            for (int i = 0; i < 3; i++)
+            {
+                foreach (var standPosition in standPositions)
+                {
+                    Console.WriteLine(i);
+                    Vector3 delta = new Vector3(i * 1.5f, 0, 0);
+                    
+                    Entity stand1 = new Entity(context)
+                    {
+                        Position = standPosition + delta,
+                        Animation = new Animation(Utils.RandChoice(stands)),
+                    };
+                    stand1.Behavior = new MarketStand(stand1);
+                    stand1.Collider = new RectangleCollider(stand1, false, 1, 0.1f);
+                    scene.AddEntity(stand1);
+                }
+                
+            }
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
