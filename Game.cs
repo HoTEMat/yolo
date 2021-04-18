@@ -143,7 +143,7 @@ namespace yolo {
         private Entity CreatePlayer(Vector3 pos) {
             Entity player = new Entity(ctx);
             var bucketList = new BucketList(new List<BucketListItem>());
-            bucketList.FillBucketList(true);
+            bucketList.FillBucketList(playerIsGood);
             player.Behavior = new PlayerBehaviour(playerIsGood, bucketList, 1, player);
             player.Collider = new CircleCollider(player, true, .1f);
             player.Position = pos;
