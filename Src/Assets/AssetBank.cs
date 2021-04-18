@@ -307,8 +307,8 @@ namespace yolo {
                 Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
 
                 // PARK
-                ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16) },
-                ParkDuck2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 16, 16, 16) },
+                ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16), Origin = origin16x16},
+                ParkDuck2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 16, 16, 16), Origin = origin16x16},
                 ParkMisc1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 0, 16, 16) , Origin = origin16x16},
                 ParkMisc2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 0, 16, 16), Origin = origin16x16 },
                 ParkMisc3 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 16, 16, 16), Origin = origin16x16 },

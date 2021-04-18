@@ -88,12 +88,11 @@ namespace yolo
                 float x = Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble();
                 float y = Utils.Random.Next(minY, maxY) + (float)Utils.Random.NextDouble();
 
-                if ((x > 26 && x < 28 && y > 23 && y < 25))
+                if (x > 26 && x < 28 && y > 23 && y < 25)
                     continue;
                 
                 Entity msc = new Entity(context)
                 {
-                    
                     Position = new Vector3( x, y, 0),
                     Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
                     Behavior = null,
@@ -110,6 +109,28 @@ namespace yolo
             pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
             scene.AddEntity(pond);
+            
+            Sprite[] duck = new[]
+            {
+                context.Assets.Sprites.ParkDuck1,
+                context.Assets.Sprites.ParkDuck1,
+            };
+            
+            Entity duck1 = new Entity(context)
+            {
+                Position = new Vector3(27.3f, 24.3f, 0),
+                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
+            };
+            
+            scene.AddEntity(duck1);
+            
+            Entity duck1 = new Entity(context)
+            {
+                Position = new Vector3(26.2f, 23.3f, 0),
+                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
+            };
+            
+            scene.AddEntity(duck1);
 
             List<Vector3> treePositions = new List<Vector3>()
             {
