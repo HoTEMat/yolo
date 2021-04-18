@@ -100,11 +100,11 @@ namespace yolo
             
             Entity pond = new Entity(context)
             {
-                Position = new Vector3(27, 24, 0),
+                Position = new Vector3(27, 24, -0.01f),
                 Animation = new Animation(context.Assets.Sprites.ParkPond),
                 IsFlat = true,
             };
-            pond.Collider = new CircleCollider(pond, false, 2);
+            pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
             scene.AddEntity(pond);
         }
