@@ -10,7 +10,7 @@ namespace yolo {
         public static readonly Vector3 Right = new Vector3(1, 0, 0);
         public static readonly Vector3 Up = new Vector3(0, 0, -1);
 
-        public Dictionary<string, Scene> Scenes { get; }
+        public Dictionary<string, Scene> Scenes { get; private set; }
         public Scene CurrentScene { get; private set; }
         // In seconds.
         public float TimeToLive { get; private set; }
@@ -52,6 +52,17 @@ namespace yolo {
         public void Update() {
             TimeToLive -= (float) context.GameTime.ElapsedGameTime.TotalSeconds;
             CurrentScene.Update();
+            context.Game.TriggerRestartCheck();
+        }
+        
+        public void Destroy() {
+            foreach (var (_, scene) in Scenes) {
+                scene.Destroy();
+            }
+            Scenes = null;
+            CurrentScene = null;
+            context = null;
+            plannedSceneSwitch = null;
         }
         
         struct SceneSwitchInfo
