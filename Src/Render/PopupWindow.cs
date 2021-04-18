@@ -16,6 +16,30 @@ namespace yolo {
         public abstract void Draw();
     }
 
+    public class InfoWindow : PopupWindow {
+        public InfoWindow(Context context) : base(context) {
+        }
+
+        public override void Update(GameTime gameTime) {
+            if (context.Keyboard.IsKeyPressed(Keys.F)) {
+                context.Game.InfoScreenDone();
+            }
+        }
+
+        public override void Draw() {
+            var device = context.Graphics.GraphicsDevice;
+            var viewport = context.Graphics.GraphicsDevice.Viewport;
+            SpriteBatch sb = context.SpriteBatch;
+            Rectangle bounds = viewport.Bounds;
+
+            sb.Begin(samplerState: SamplerState.PointClamp);
+
+            sb.DrawStringCentered("Press F to interact. Come on, try it.", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 5, Color.Black);
+            
+            sb.End();
+        }
+    }
+
     public class IntroWindow : PopupWindow {
         private int selectedButton;
         private const int buttonsCount = 2;
