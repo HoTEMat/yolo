@@ -8,26 +8,57 @@ namespace yolo {
 
         public Dictionary<AchievementType, string> ItemText = new Dictionary<AchievementType, string>()
         {
-            {AchievementType.PutUpBin, "Put up the bin - 3"},
+            {AchievementType.PutUpBin, "Put up the bin"},
             {AchievementType.EatIceCream, "Eat an icecream"},
-            {AchievementType.HugPerson, "Hug people - 3"},
+            {AchievementType.HugPerson, "Hug people"},
             {AchievementType.BuyFood, "Buy groceries"},
             {AchievementType.DeliverFood, "Bring groceries to grandma's house"},
             {AchievementType.CleanGraffitti, "Clean up graffitti"},
             {AchievementType.FeedDucks, "Feed the ducks"},
 
-            {AchievementType.ToppleBin, "Kick the bin - 3"},
+            {AchievementType.ToppleBin, "Kick the bin"},
             {AchievementType.BadIceCream, "Throw away icecream"},
-            {AchievementType.CursePerson, "Curse people - 3"},
+            {AchievementType.CursePerson, "Curse people"},
             {AchievementType.DoGraffitti, "Make some graffitti"},
             {AchievementType.PeeInPond, "Pee in the pond"},
             {AchievementType.PeeInFountain, "Pee in the fountain"},
             {AchievementType.YellOnTree, "Yell at a tree"}
         };
 
+        public AchievementType[] GoodActionsMultiple = new[] {AchievementType.PutUpBin, AchievementType.HugPerson};
+        public AchievementType[] GoodActions = new[]
+        {
+             AchievementType.EatIceCream, AchievementType.BuyFood, AchievementType.DeliverFood,
+            AchievementType.CleanGraffitti, AchievementType.FeedDucks
+        };
+        public AchievementType[] BadActionsMultiple = new[] {AchievementType.ToppleBin, AchievementType.CursePerson};
+        public AchievementType[] BadActions = new[]
+        {
+            AchievementType.BadIceCream, AchievementType.DoGraffitti, AchievementType.PeeInPond, 
+            AchievementType.PeeInFountain, AchievementType.YellOnTree
+        };
+
         public void FillBucketList(bool isGood)
         {
-            // ToDo: randomly generate good or bad bucket list
+            if (isGood)
+            {
+                var multipleG = Utils.RandChoice(GoodActionsMultiple);
+                Items.Add(new BucketListItem(multipleG, 3)); // ToDo: Constants?
+                var otherG = Utils.RandChooseN(GoodActions, 2);
+                foreach (var itemType in otherG)
+                {
+                    Items.Add(new BucketListItem(itemType, 1));
+                }
+                return;
+            }
+            // is bad
+            var multipleB = Utils.RandChoice(BadActionsMultiple);
+            Items.Add(new BucketListItem(multipleB, 3)); // ToDo: Constants?
+            var otherB = Utils.RandChooseN(BadActions, 2);
+            foreach (var itemType in otherB)
+            {
+                Items.Add(new BucketListItem(itemType, 1));
+            }
         }
 
         public BucketList(List<BucketListItem> items) {
