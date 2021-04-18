@@ -14,7 +14,11 @@ namespace yolo {
             //bucketList.FillBucketList(true);
         }
 
-        public void Draw() {
+        public void Draw()
+        {
+            if (!context.World.hud)
+                return;
+                
             var device = context.Graphics.GraphicsDevice;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
