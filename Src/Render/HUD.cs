@@ -7,8 +7,10 @@ namespace yolo {
         private Context context;
         private AssetBank assets => context.Assets;
 
+        //private BucketList bucketList = new BucketList(new List<BucketListItem>());
         public HUD(Context context) {
             this.context = context;
+            //bucketList.FillBucketList(true);
         }
 
         public void Draw() {
@@ -16,12 +18,9 @@ namespace yolo {
             var camera = context.Camera;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
-            var bucketList = new BucketList(new List<BucketListItem>());
-            bucketList.FillBucketList(true);
-            
             context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             DrawClock(context.SpriteBatch, new Vector2(150, 90), GetClockContent());
-            DrawBucketList(bucketList, context.SpriteBatch, new Vector2(150, 90 + 150));
+            DrawBucketList(context.SpriteBatch, new Vector2(25, 200));
             context.SpriteBatch.End();
         }
 
@@ -47,18 +46,20 @@ namespace yolo {
             DrawStringCentered(spriteBatch, content, center, 8);
         }
 
-        private void DrawBucketList(BucketList list, SpriteBatch spriteBatch, Vector2 position)
+        private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
         {
-            const int rowWidth = 500;
-            const int rowHeight = 20;
-            //var list = context.Player.TodoList;
+            const int rowWidth = 200;
+            const int rowHeight = 30;
+            const int paddingLeft = 5;
+            const int paddingTop = 5;
+            var list = context.Player.TodoList;
             spriteBatch.Draw(
                 assets.Sprites.Empty.Texture,
-                new Rectangle((int)position.X, (int)position.Y, rowWidth, rowHeight * list.Items.Count),
+                new Rectangle((int)position.X + paddingLeft, (int)position.Y + paddingTop, rowWidth, rowHeight * (list.Items.Count + 1)),
                 assets.Sprites.Empty.SourceRect,
                 Color.White);
-            var curPos = position;
-            DrawString(spriteBatch, list.Header, curPos, 1);
+            var curPos = new Vector2(position.X + paddingLeft, position.Y + paddingTop);
+            DrawString(spriteBatch, list.Header, curPos, 2);
             foreach (var listItem in list.Items)
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
