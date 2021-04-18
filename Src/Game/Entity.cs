@@ -34,5 +34,15 @@ namespace yolo {
             }
             Destroyed = true;
         }
+
+        public float GetDistanceFrom(Entity other) {
+            // Distance between centers
+            float centerDst = (other.Position - Position).Length();
+            // Distance from our center to other's border
+            float dstFromOtherBorder = other.Collider?.DistanceFromBorderTo(Position) ?? centerDst;
+            // Distance from other's center to our border
+            float dstToOurBorder = Collider?.DistanceFromBorderTo(other.Position) ?? centerDst;
+            return dstFromOtherBorder + dstToOurBorder - centerDst;
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace yolo {
         /// </summary>
         /// <param name="other">The entity to push from.</param>
         Vector3 PushFrom(Entity other);
+
+        float DistanceFromBorderTo(Vector3 point);
     }
 
     abstract class Collider : ICollider
@@ -32,6 +34,8 @@ namespace yolo {
         public bool Movable { get; }
 
         public abstract Vector3 PushFrom(Entity other);
+
+        public abstract float DistanceFromBorderTo(Vector3 point);
     }
 
     class CircleCollider : Collider
@@ -106,6 +110,10 @@ namespace yolo {
 
             return Vector3.Zero;
         }
+
+        public override float DistanceFromBorderTo(Vector3 point) {
+            return Math.Abs((point - ColliderEntity.Position).Length() - Radius);
+        }
     }
     
     class RectangleCollider : Collider
@@ -126,6 +134,17 @@ namespace yolo {
         public override Vector3 PushFrom(Entity other)
         {
             return Vector3.Zero;
+        }
+
+        public override float DistanceFromBorderTo(Vector3 point) {
+            Vector3 ourCenter = ColliderEntity.Position;
+            Vector3 diag = new Vector3(-Width, Height, 0);
+            Vector3 topLeft = ourCenter + diag / 2;
+            Vector3 botRight = ourCenter - diag / 2;
+
+            float dx = Utils.Max(0, topLeft.X - point.X, point.X - botRight.X);
+            float dy = Utils.Max(0, topLeft.Y - point.Y, point.Y - botRight.Y);
+            return (float) Math.Sqrt(dx * dx + dy * dy);
         }
     }
 }
