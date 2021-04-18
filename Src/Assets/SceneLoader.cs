@@ -13,67 +13,119 @@ namespace yolo
     public class MainSceneLoader : ISceneLoader
     {
         private List<Vector3> PersonTargets = new List<Vector3>()
-            { // points between which NPCs are moving
-                new (1, 14, 0), new (40, 9, 0), new (20, 28, 0), new (33, 25, 0), 
-                new (33, 18, 0), new (21, 2, 0), new (25, 13, 0)
-            };
+        {
+            // points between which NPCs are moving
+            new(1, 14, 0), new(40, 9, 0), new(20, 28, 0), new(33, 25, 0),
+            new(33, 18, 0), new(21, 2, 0), new(25, 13, 0)
+        };
 
         private List<Vector3> PersonInitial = new List<Vector3>()
-            { // points where NPCs are generated
-                new (30, 27, 0), new (22, 24, 0), new (5, 14, 0), new (19, 9, 0), 
-                new (28, 17, 0), new (22, 9, 0), new (29, 13, 0), new (35, 9, 0),
-                new (40, 8, 0), new (15, 15, 0), new (20, 3, 0), new (9, 15, 0)
-            };
+        {
+            // points where NPCs are generated
+            new(30, 27, 0), new(22, 24, 0), new(5, 14, 0), new(19, 9, 0),
+            new(28, 17, 0), new(22, 9, 0), new(29, 13, 0), new(35, 9, 0),
+            new(40, 8, 0), new(15, 15, 0), new(20, 3, 0), new(9, 15, 0)
+        };
+
         private List<Vector3> IceCreamPositions = new List<Vector3>()
-            { // parc and square
-                new (30, 26, 0), new (31, 16, 0)
-            };
+        {
+            // parc and square
+            new(30, 26, 0), new(31, 16, 0)
+        };
 
         private List<Vector3> BinPositions = new List<Vector3>()
-            {
-            new (3, 13, 0), new (14, 15, 0), new (38, 10, 0), new (22, 4, 0),
-            new (20, 10, 0), new (27, 13, 0)
-            };
-        
+        {
+            new(3, 13, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
+            new(20, 10, 0), new(27, 13, 0)
+        };
+
         private const int NPCCount = 20;
+
         public Scene LoadScene(Context context)
         {
-            // TODO entities
             List<Entity> entities = new List<Entity>();
 
             Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
-            
+
             Entity fountain = new Entity(context)
             {
                 Position = new Vector3(24, 12, 0),
                 Animation = new Animation(context.Assets.Sprites.Fountain),
                 Behavior = null,
             };
-            fountain.Collider = new CircleCollider(fountain, false, 2);
+            fountain.Collider = new RectangleCollider(fountain, false, 2, 0.1f);
             scene.AddEntity(fountain);
-            
+
             generateNPCs(scene, context);
             generateIceCream(scene, context);
             generateBins(scene, context);
-
+            generatePark(scene, context);
+            
+            TileMapLoader.AddTileColliders(scene, context);
             return scene;
         }
+
+        private void generatePark(Scene scene, Context context)
+        {
+            int minX = 19;
+            int minY = 21;
+            int maxX = 33;
+            int maxY=  29;
+
+            int miscCount = 70;
+            
+            Sprite[] misc = new[]
+            {
+                context.Assets.Sprites.ParkMisc1,
+                context.Assets.Sprites.ParkMisc2,
+                context.Assets.Sprites.ParkMisc3,
+                context.Assets.Sprites.ParkMisc4,
+            };
+
+            for (int i = 0; i < miscCount; i++)
+            {
+                Entity msc = new Entity(context)
+                {
+                    Position = new Vector3(
+                        Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble(),
+                        Utils.Random.Next(minY, maxY) + (float)Utils.Random.NextDouble(),
+                        0
+                        ),
+                    Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
+                    Behavior = null,
+                };
+                scene.AddEntity(msc);
+            }
+            
+            Entity pond = new Entity(context)
+            {
+                Position = new Vector3(27, 24, 0),
+                Animation = new Animation(context.Assets.Sprites.ParkPond),
+                IsFlat = true,
+            };
+            pond.Collider = new CircleCollider(pond, false, 1);
+            pond.Behavior = new Pond(pond);
+            scene.AddEntity(pond);
+        }
+
         private void generateNPCs(Scene scene, Context ctx)
         {
-            for (int i = 0; i < NPCCount; i++ )
+            for (int i = 0; i < NPCCount; i++)
             {
                 int idx = i % PersonInitial.Count;
-                
+
                 var person = new Entity(ctx)
                 {
                     Position = PersonInitial[idx],
                 };
-                
-                person.Behavior = new PersonBehavior(idx % 4 + 1, PersonTargets, person); // idx % 4 - chooses one of 4 person sprites
+
+                person.Behavior =
+                    new PersonBehavior(idx % 4 + 1, PersonTargets, person); // idx % 4 - chooses one of 4 person sprites
                 scene.AddEntity(person);
             }
         }
+
         private void generateIceCream(Scene scene, Context ctx)
         {
             var icecream = new Entity(ctx)
@@ -81,10 +133,11 @@ namespace yolo
                 Position = Utils.RandChoice(IceCreamPositions),
                 Animation = new Animation(ctx.Assets.Sprites.IcecreamStand)
             };
-            
-            icecream.Behavior =  new IceCreamStand(icecream);
+
+            icecream.Behavior = new IceCreamStand(icecream);
             scene.AddEntity(icecream);
         }
+
         private void generateBins(Scene scene, Context ctx)
         {
             int binStartIndex = ctx.Random.Next(0, BinPositions.Count - 1);
@@ -95,7 +148,7 @@ namespace yolo
                     Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
                 };
                 
-                //bin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
+                bin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
                 scene.AddEntity(bin);
             }
         }
@@ -107,9 +160,12 @@ namespace yolo
         {
             // TODO entities
             List<Entity> entities = new List<Entity>();
-            
-            return new Scene("dum", entities,
+
+            Scene scene = new Scene("dum", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.DumScene, context.Assets), context);
+            
+            TileMapLoader.AddTileColliders(scene, context);
+            return scene;
         }
     }
 
@@ -120,8 +176,11 @@ namespace yolo
             // TODO entities
             List<Entity> entities = new List<Entity>();
 
-            return new Scene("nemocnice", entities,
+            Scene scene = new Scene("nemocnice", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
+            
+            TileMapLoader.AddTileColliders(scene, context);
+            return scene;
         }
     }
 
@@ -132,13 +191,38 @@ namespace yolo
             // TODO entities
             List<Entity> entities = new List<Entity>();
 
-            return new Scene("obchod", entities,
+            Scene scene = new Scene("obchod", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.ObchodScene, context.Assets), context);
+            
+            TileMapLoader.AddTileColliders(scene, context);
+            return scene;
         }
     }
 
     static class TileMapLoader
     {
+        /// <summary>
+        /// Adds colliders to each non-walkable tile of the scene.
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <param name="context"></param>
+        public static void AddTileColliders(Scene scene, Context context)
+        {
+            for (int i = 0; i < scene.Tiles.Width; i++)
+            {
+                for (int j = 0; j < scene.Tiles.Height; j++)
+                {
+                    if (!scene.Tiles[i, j].Walkable)
+                    {
+                        Entity dummy = new Entity(context) {Position = new Vector3(i + 0.5f, j + 0.5f, 0)};
+                        dummy.Collider = new RectangleCollider(dummy, false, 1, 1);
+                        scene.AddEntity(dummy);
+                    }
+                }
+            }
+        }
+
+        
         public static Indexer2D<Tile> LoadIndexer(Texture2D src, AssetBank assets)
         {
             Dictionary<uint, Tile> map = new Dictionary<uint, Tile>
@@ -172,7 +256,7 @@ namespace yolo
 
                 {0x428b1du, assets.Tiles.ParkGrass},
                 {0x08668cu, assets.Tiles.ParkFence},
-                
+
                 {0x383838u, assets.Tiles.Cobble},
                 {0x402b2bu, assets.Tiles.Cobble1},
                 {0x361b1bu, assets.Tiles.Cobble2},

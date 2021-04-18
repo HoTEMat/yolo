@@ -77,17 +77,29 @@ namespace yolo {
                     float sx = Math.Sign(pos.X);
                     float sy = Math.Sign(pos.Y);
                     pos = new Vector2(Math.Abs(pos.X), Math.Abs(pos.Y));
-                
+
+                    float w = otherRectangleCollider.Width / 2f;
+                    float h = otherRectangleCollider.Height / 2f;
+                    
                     // we're above
-                    if (pos.X < otherRectangleCollider.Width && pos.X - Radius < otherRectangleCollider.Height)
-                        return new Vector3(0, -otherRectangleCollider.Height - (pos.X - Radius) * sy, 0);
+                    if (pos.X < w && pos.Y - Radius < h)
+                        return new Vector3(0, (h - (pos.Y - Radius)) * sy, 0);
                 
                     // we're to the right
-                    if (pos.Y < otherRectangleCollider.Height && pos.Y - Radius < otherRectangleCollider.Width)
-                        return new Vector3(otherRectangleCollider.Width - (pos.Y - Radius) * sx, 0, 0);
-                
+                    if (pos.Y < h && pos.X - Radius < w)
+                        return new Vector3((w - (pos.X - Radius)) * sx, 0, 0);
+
                     // we're at the corner (or inside, but we're fucked in that case)
-                    // TODO!
+                    Vector2 corner = new Vector2(w, h);
+
+                    if ((corner - pos).Length() < Radius)
+                    {
+                        Vector2 result = -(corner - pos);
+                        result.Normalize();
+                        result *= Radius - (corner - pos).Length();
+                        return new Vector3(result.X * sx, result.Y * sy, 0);
+                    }
+                    
                     break;
                 }
             }

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
-        public const float WalkSpeed = 1f; // TODO
+        public const float WalkSpeed = 2f; // TODO
         
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
@@ -31,26 +31,26 @@ namespace yolo {
         }
         
         public override void Update() {
-            var kbs = Keyboard.GetState();
-            HandleWalking(kbs);
-            HandleInteraction(kbs);
+            HandleWalking();
+            HandleInteraction();
         }
 
-        private void HandleWalking(KeyboardState kbs) {
+        private void HandleWalking() {
+            KeyboardManager kb = Context.Keyboard;
             Vector3 changeDir = Vector3.Zero;
-            if (kbs.IsKeyDown(Keys.Right)) {
+            if (kb.IsKeyDown(Keys.Right)) {
                 changeDir += new Vector3(1, 0, 0);
             }
 
-            if (kbs.IsKeyDown(Keys.Left)) {
+            if (kb.IsKeyDown(Keys.Left)) {
                 changeDir += new Vector3(-1, 0, 0);
             }
 
-            if (kbs.IsKeyDown(Keys.Up)) {
+            if (kb.IsKeyDown(Keys.Up)) {
                 changeDir += new Vector3(0, -1, 0);
             }
 
-            if (kbs.IsKeyDown(Keys.Down)) {
+            if (kb.IsKeyDown(Keys.Down)) {
                 changeDir += new Vector3(0, 1, 0);
             }
 
@@ -63,9 +63,10 @@ namespace yolo {
             orientationManager.UpdateOrientation(posChange);
         }
 
-        private void HandleInteraction(KeyboardState kbs) {
+        private void HandleInteraction() {
+            KeyboardManager kb = Context.Keyboard;
             var scene = Entity.Scene;
-            if (kbs.IsKeyDown(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
+            if (kb.IsKeyPressed(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
                 var achievement = Entity.Scene.SelectedInteractable?.Interact();
                 if (achievement != null)
                 {

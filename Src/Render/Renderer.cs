@@ -117,19 +117,20 @@ namespace yolo {
             };
 
             device.BlendState = BlendState.AlphaBlend;
+            device.DepthStencilState = DepthStencilState.Default;
 
             foreach (var pass in persp.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
             }
-            
+
             entityMesh.Dispose();
             entityMesh = new QuadBuffer();
-            foreach (var entity in scene.Entities.OrderBy(e => e.Position.Y)) {
+            foreach (var entity in scene.Entities.OrderBy(e => (e.IsFlat ? 0 : 1, e.Position.Y))) {
                 if (entity.Animation != null) {
-                    var sprite = entity.Animation.GetCurrentSprite();
+                    var sprite = entity.Animation.GetCurrentSprite(context);
 
-                    entityMesh.AddSprite(sprite, entity.Position);
+                    entityMesh.AddSprite(sprite, entity.Position, entity.IsFlat);
                 }
             }
 

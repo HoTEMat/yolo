@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class Scene {
@@ -24,11 +26,16 @@ namespace yolo {
         }
 
         public void Update() {
+            UpdateKeyboard();
             RemoveDestroyed();
             ResolveInteractable();
             UpdateEntities();
             ResolveCollisions();
             UpdateCamera();
+        }
+
+        private void UpdateKeyboard() {
+            ctx.Keyboard.RegisterState(Keyboard.GetState());
         }
 
         private void RemoveDestroyed() {
