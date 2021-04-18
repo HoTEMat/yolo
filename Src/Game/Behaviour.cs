@@ -276,6 +276,7 @@ namespace yolo {
 
     public class Doctor : Interactable
     {
+        private bool interacted;
         public Doctor(Entity entity) : base(entity)
         {
             Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
@@ -286,8 +287,9 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
-            if (Entity.Context.Player.IsGood)
+            if (Entity.Context.Player.IsGood && !interacted)
             {
+                interacted = true;
                 return AchievementType.ThankDoctor;
             }
 
