@@ -42,7 +42,7 @@ namespace yolo {
 
     public class DialogAnimation : IAnimation {
 
-        float charactersToPrint;
+        float charsToPrint;
         public string Text { get; set; }
         public float CharsPerSec { get; set; } = 10f;
         public Point DisplayChars { get; init; } = new(18, 3);
@@ -63,16 +63,15 @@ namespace yolo {
                 Texture = buffer,
             };
 
+            var font = ctx.Assets.Fonts.Font;
+
             var sb = ctx.SpriteBatch;
             var device = ctx.Graphics.GraphicsDevice;
             device.SetRenderTarget(buffer);
             sb.Begin(samplerState: SamplerState.PointClamp);
             {
-                int x, y;
-                x = y = 0;
-                for (int i = 0; i < (int)charactersToPrint; i++) {
-                    //char c =
-                }
+                sb.FillRectangle(buffer.Bounds, Color.White);
+                sb.DrawTextBlock(font, new(1, 1), Text.Substring(0, (int)charsToPrint), DisplayChars.X, 7, 1, Color.Black);
             }
             sb.End();
             device.SetRenderTarget(null);
@@ -81,7 +80,7 @@ namespace yolo {
         }
 
         public void Update(Context ctx) {
-            charactersToPrint += ctx.dSec * CharsPerSec;
+            charsToPrint += ctx.dSec * CharsPerSec;
         }
 
         public void Dispose() {
