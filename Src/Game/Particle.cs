@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 
 namespace yolo {
     public class Particle : Behaviour {
-        private readonly ISpriteSet sprite;
         public Vector3 Velocity { get; set; }
 
         public IInterpolation<float> ScaleInterpolation { get; init; }
@@ -10,9 +9,8 @@ namespace yolo {
         public float Duration { get; init; }
         private float RunningTime = 0;
 
-        public Particle(Entity entity, ISpriteSet sprite, IInterpolation<float> scaleInterpolation,
+        public Particle(Entity entity, IInterpolation<float> scaleInterpolation,
             IInterpolation<Vector3> velocityInterpolation, float duration) : base(entity) {
-            this.sprite = sprite;
             ScaleInterpolation = scaleInterpolation;
             VelocityInterpolation = velocityInterpolation;
             Duration = duration;
