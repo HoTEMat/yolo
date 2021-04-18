@@ -10,7 +10,7 @@ namespace yolo {
     }
 
     public class FirstLevelLoader : IWorldLoader {
-        public Vector3 PlayerStartVector => new Vector3(25, 16, 0);
+        public Vector3 PlayerStartVector => new Vector3(23.8f, 6.5f, 0);
         
         public World LoadWorld(Context context) {
             Scene mainScene = new MainSceneLoader().LoadScene(context);

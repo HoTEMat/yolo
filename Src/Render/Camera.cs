@@ -39,13 +39,6 @@ namespace yolo {
                 Center = Target.Position;
             }
 
-            if (kbs.IsKeyDown(Keys.Add)) {
-                EyeOffset += new Vector3(0, 0, speed);
-            }
-            if (kbs.IsKeyDown(Keys.Subtract)) {
-                EyeOffset += new Vector3(0, 0, -speed);
-            }
-
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
             View = Matrix.Identity;
