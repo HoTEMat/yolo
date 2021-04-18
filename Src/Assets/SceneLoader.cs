@@ -124,13 +124,13 @@ namespace yolo
             
             scene.AddEntity(duck1);
             
-            Entity duck1 = new Entity(context)
+            Entity duck2 = new Entity(context)
             {
                 Position = new Vector3(26.2f, 23.3f, 0),
                 Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
             };
             
-            scene.AddEntity(duck1);
+            scene.AddEntity(duck2);
 
             List<Vector3> treePositions = new List<Vector3>()
             {
