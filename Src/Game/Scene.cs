@@ -116,5 +116,10 @@ namespace yolo {
             Entities.AddRange(toBeAddedEntities);
             toBeAddedEntities = new List<Entity>();
         }
+
+        // Don't call this from the update loop.
+        public void RemoveTemporalEntitiesNow() {
+            Entities.RemoveAll(e => e.IsTemporal);
+        }
     }
 }

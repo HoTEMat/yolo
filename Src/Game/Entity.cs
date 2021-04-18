@@ -10,6 +10,7 @@ namespace yolo {
         public Behaviour Behavior { get; set; }
         public Context Context { get; set; }
         public bool Destroyed { get; private set; }
+        public bool IsTemporal { get; init; }
 
         public Entity(Context ctx) {
             Context = ctx;
