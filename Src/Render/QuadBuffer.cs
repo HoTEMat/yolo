@@ -77,20 +77,22 @@ namespace yolo {
                 swap(ref UVTopRight, ref UVBotRight);
             }
 
+            float e = 0.01f;
+
             if (!isFlat) {
 
                 AddQuad(
                     new T(new Vector3(quad[0].X, 0, quad[0].Y) + position, Vector3.UnitY.ToColor(), UVTopLeft),
                     new T(new Vector3(quad[1].X, 0, quad[1].Y) + position, Vector3.UnitY.ToColor(), UVTopRight),
-                    new T(new Vector3(quad[2].X, 0, quad[2].Y) + position, Vector3.UnitY.ToColor(), UVBotLeft),
-                    new T(new Vector3(quad[3].X, 0, quad[3].Y) + position, Vector3.UnitY.ToColor(), UVBotRight)
+                    new T(new Vector3(quad[2].X, e, quad[2].Y) + position, Vector3.UnitY.ToColor(), UVBotLeft),
+                    new T(new Vector3(quad[3].X, e, quad[3].Y) + position, Vector3.UnitY.ToColor(), UVBotRight)
                 );
 
             } else {
 
                 AddQuad(
-                    new T(new Vector3(quad[0].X, quad[0].Y, -0.01f) + position, Vector3.UnitY.ToColor(), UVTopLeft),
-                    new T(new Vector3(quad[1].X, quad[1].Y, -0.01f) + position, Vector3.UnitY.ToColor(), UVTopRight),
+                    new T(new Vector3(quad[0].X, quad[0].Y, -e) + position, Vector3.UnitY.ToColor(), UVTopLeft),
+                    new T(new Vector3(quad[1].X, quad[1].Y, -e) + position, Vector3.UnitY.ToColor(), UVTopRight),
                     new T(new Vector3(quad[2].X, quad[2].Y, 0) + position, Vector3.UnitY.ToColor(), UVBotLeft),
                     new T(new Vector3(quad[3].X, quad[3].Y, 0) + position, Vector3.UnitY.ToColor(), UVBotRight)
                 );
