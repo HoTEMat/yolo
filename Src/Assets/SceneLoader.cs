@@ -72,6 +72,13 @@ namespace yolo
             int minY = 21;
             int maxX = 33;
             int maxY=  29;
+            
+            SpriteEffects[] ef = new[]
+            {
+                SpriteEffects.FlipHorizontally,
+                SpriteEffects.None,
+            };
+            
 
             int miscCount = 150;
             
@@ -96,6 +103,7 @@ namespace yolo
                     Position = new Vector3( x, y, 0),
                     Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
                     Behavior = null,
+                    Effects = ef[Utils.Random.Next(0, ef.Length)],
                 };
                 scene.AddEntity(msc);
             }
@@ -113,21 +121,23 @@ namespace yolo
             Sprite[] duck = new[]
             {
                 context.Assets.Sprites.ParkDuck1,
-                context.Assets.Sprites.ParkDuck1,
+                context.Assets.Sprites.ParkDuck2,
             };
             
             Entity duck1 = new Entity(context)
             {
-                Position = new Vector3(27.3f, 24.3f, 0),
+                Position = new Vector3(27.3f, 24.4f, 0),
                 Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
+                Effects = ef[Utils.Random.Next(0, ef.Length)],
             };
             
             scene.AddEntity(duck1);
             
             Entity duck2 = new Entity(context)
             {
-                Position = new Vector3(26.2f, 23.3f, 0),
+                Position = new Vector3(26.8f, 23.6f, 0),
                 Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
+                Effects = ef[Utils.Random.Next(0, ef.Length)],
             };
             
             scene.AddEntity(duck2);
@@ -194,6 +204,7 @@ namespace yolo
             };
 
             icecream.Behavior = new IceCreamStand(icecream);
+            icecream.Collider = new RectangleCollider(icecream, false, 0.9f, 0.01f);
             scene.AddEntity(icecream);
         }
 
@@ -206,7 +217,8 @@ namespace yolo
                 {
                     Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
                 };
-                
+
+                bin.Collider = new RectangleCollider(bin, false, 0.5f, 0.01f);
                 bin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
                 scene.AddEntity(bin);
             }
