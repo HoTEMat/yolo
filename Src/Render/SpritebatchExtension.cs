@@ -43,5 +43,25 @@ namespace yolo {
                 curPosition = new Vector2(curPosition.X, curPosition.Y + lineHeight);
             }
         }
+
+        public static IList<string> SplitToLines(this string text, int charsPerRow) {
+
+            List<string> lines = new();
+            string[] words = text.Split(' ');
+            string curLine = "";
+            int wordIdx = 0;
+            while (wordIdx < words.Length) {
+                while (curLine.Length + words[wordIdx].Length < charsPerRow) {
+                    curLine += words[wordIdx];
+                    curLine += " ";
+                    wordIdx++;
+                    if (wordIdx >= words.Length) break;
+                }
+                lines.Add(curLine);
+                curLine = "";                
+            }
+
+            return lines;
+        }
     }
 }
