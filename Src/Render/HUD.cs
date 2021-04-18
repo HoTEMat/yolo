@@ -16,7 +16,6 @@ namespace yolo {
 
         public void Draw() {
             var device = context.Graphics.GraphicsDevice;
-            var camera = context.Camera;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
             context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
@@ -56,7 +55,7 @@ namespace yolo {
                 new Rectangle((int)(corner.X) + offset, (int)(corner.Y) + offset, clockWidth - 2 * offset, clockHeight - 2 * offset),
                 assets.Sprites.Paper.SourceRect,
                 Color.White);
-            DrawStringCentered(spriteBatch, content, corner - new Vector2(-clockWidth / 2, -clockHeight / 2), 8, Color.Black);
+            spriteBatch.DrawStringCentered(content, corner - new Vector2(-clockWidth / 2, -clockHeight / 2), 8, Color.Black);
         }
 
         private void DrawBasket(SpriteBatch spriteBatch,  Viewport viewport)
@@ -65,7 +64,7 @@ namespace yolo {
              spriteBatch.DrawSprite(assets.Sprites.Basket, pos, 3);
         }
 
-        private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
+        private void DrawBucketList(SpriteBatch spriteBatch, Vector2 position)
         {
             const int rowWidth = 14;
             const int rowHeight = 25;
@@ -93,7 +92,7 @@ namespace yolo {
                 assets.Sprites.Paper.SourceRect,
                 Color.White);
             
-            DrawStringCentered(spriteBatch, list.Header, new Vector2(position.X + paddingLeft + rowWidth * lm / 2f, position.Y + paddingTop + 2), 2, Color.Black);
+            spriteBatch.DrawStringCentered(list.Header, new Vector2(position.X + paddingLeft + rowWidth * lm / 2f, position.Y + paddingTop + 2), 2, Color.Black);
             
             spriteBatch.Draw(
                 assets.Sprites.Empty.Texture,
@@ -106,7 +105,7 @@ namespace yolo {
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight + 4);
                 string text = list.ItemText[listItem.Achievement] + (listItem.TotalCount > 1 ? " (" + listItem.DoneCount + "/" + listItem.TotalCount + ")" : "");
-                DrawString(spriteBatch, text, curPos, 2, Color.Black);
+                spriteBatch.DrawString(text, curPos, 2, Color.Black);
                 if (listItem.AllDone)
                 {
                     spriteBatch.Draw(assets.Sprites.Empty.Texture, 
@@ -114,18 +113,6 @@ namespace yolo {
                         assets.Sprites.Empty.SourceRect, Color.Black);
                 }
             }
-        }
-
-        private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, float scale, Color fontColor) {
-            spriteBatch.DrawString(assets.Fonts.Font, s, position, fontColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-        }
-
-        private void DrawStringCentered(SpriteBatch spriteBatch, string s, Vector2 center, float scale, Color fontColor) {
-            float charW = assets.Fonts.Font.Glyphs[0].Width;
-            float strW = s.Length * charW;
-            float strH = charW;
-            
-            DrawString(spriteBatch, s, center - new Vector2(strW / 2, strH / 2) * scale, scale, fontColor);
         }
     }
 }

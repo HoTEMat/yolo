@@ -284,9 +284,10 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
+            interacted = true;
+                
             if (Entity.Context.Player.IsGood && !interacted)
             {
-                interacted = true;
                 return AchievementType.ThankDoctor;
             }
 
