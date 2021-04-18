@@ -293,7 +293,7 @@ namespace yolo {
         {
             interacted = true;
 
-            if (Entity.Context.Player.IsGood && !interacted)
+            if (Entity.Context.Player.IsGood)
             {
                 return AchievementType.ThankDoctor;
             }
@@ -303,7 +303,7 @@ namespace yolo {
 
         public override bool CanInteract()
         {
-            return true;
+            return !interacted;
         }
     }
 
