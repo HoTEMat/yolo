@@ -92,21 +92,31 @@ namespace yolo {
     }
     public class Pond : Interactable
     {
+        private bool Peed { get; set; }
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
-            return Entity.Context.Player.IsGood ? AchievementType.FeedDucks : AchievementType.PeeInPond;
+            if (Entity.Context.Player.IsGood)
+            {
+                return AchievementType.FeedDucks;
+            }
+            Peed = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.ParkPondPee);
+            return AchievementType.PeeInPond;
         }
         public override bool CanInteract()
         {
-            return true;
+            return Entity.Context.Player.IsGood || (!Entity.Context.Player.IsGood && !Peed);
         }
 
         public Pond(Entity entity) : base(entity)
         {
+            Peed = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.ParkPond);
+            Entity.Animation.IsFlat = true;
         }
     }
 
