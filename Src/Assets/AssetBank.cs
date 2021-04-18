@@ -288,6 +288,7 @@ namespace yolo {
             };
 
             Vector2 origin16x16 = new(8, 16);
+            Vector2 origin32x16 = new(16, 16);
 
             Sprites = new SpriteBank {
                 Dev_Floor = new Sprite { Texture = Textures.Dev, SourceRect = new Rectangle(16, 48, 16, 16) },
@@ -300,7 +301,7 @@ namespace yolo {
                 TrashcanDown = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 16, 16, 16), Origin = origin16x16 },
                 Grafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16 },
                 IcecreamStand = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 112, 16, 16), Origin = origin16x16 },
-                Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin16x16 },
+                Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
 
                 // PARK
                 ParkDuck1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(16, 0, 16, 16) },

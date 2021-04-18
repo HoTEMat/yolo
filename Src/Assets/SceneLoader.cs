@@ -38,14 +38,6 @@ namespace yolo
         private const int NPCCount = 20;
         public Scene LoadScene(Context context)
         {
-            // move npcs up
-            for (int i = 0; i < PersonInitial.Count; i++)
-                PersonInitial[i] += new Vector3(0, 0, -1);
-            for (int i = 0; i < PersonTargets.Count; i++)
-                PersonTargets[i] += new Vector3(0, 0, -1);
-            for (int i = 0; i < IceCreamPositions.Count; i++)
-                IceCreamPositions[i] += new Vector3(0, 0, -1);
-            
             List<Entity> entities = new List<Entity>();
 
             Scene scene = new Scene("main", entities,
@@ -57,7 +49,7 @@ namespace yolo
                 Animation = new Animation(context.Assets.Sprites.Fountain),
                 Behavior = null,
             };
-            fountain.Collider = new CircleCollider(fountain, false, 2);
+            fountain.Collider = new RectangleCollider(fountain, false, 2, 0.1f);
             scene.AddEntity(fountain);
             
             generateNPCs(scene, context);

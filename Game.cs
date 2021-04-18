@@ -37,7 +37,7 @@ namespace yolo {
             Context.World = worldLoader.LoadWorld(Context);
 
             Entity player = CreatePlayer();
-            player.Position = new Vector3(30, 30, 0);
+            player.Position = new Vector3(25, 16, 0);
             Context.Player = (PlayerBehaviour)player.Behavior;
             Context.World.CurrentScene.AddEntity(player);
 

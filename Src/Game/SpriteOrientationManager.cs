@@ -37,11 +37,11 @@ namespace yolo {
             if (posChange.Length() < 10e-7f)
                 return null;
             
-            if (res < Math.PI / 4 && res > -Math.PI/4)
+            if (res <= Math.PI / 4 && res >= -Math.PI/4)
                 return PersonOrientation.Right;
             if (res < Math.PI * 3 / 4 && res > Math.PI/4)
                 return PersonOrientation.Down;
-            if (res < -Math.PI / 4 && res > -Math.PI* 3/4)
+            if (res <= -Math.PI / 4 && res > -Math.PI* 3/4)
                 return PersonOrientation.Up;
             return PersonOrientation.Left;
         }
