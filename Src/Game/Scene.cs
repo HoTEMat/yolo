@@ -12,6 +12,8 @@ namespace yolo {
         private List<Entity> toBeAddedEntities = new();
         public Indexer2D<Tile> Tiles { get; }
         public Interactable SelectedInteractable { get; private set; }
+        public Vector3 Tomovo { get; set; }
+
         private Context ctx;
 
         public Scene(string name, List<Entity> entities, Indexer2D<Tile> tiles, Context ctx) {

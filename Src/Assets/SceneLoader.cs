@@ -8,9 +8,10 @@ namespace yolo
     public interface ISceneLoader
     {
         Scene LoadScene(Context context);
+        Scene LoadScene(Context context, Vector3 tomovo);
     }
 
-    public class MainSceneLoader : ISceneLoader
+    public class MainSceneLoader
     {
         private List<List<Vector3>> PersonTargets = new List<List<Vector3>>()
         {
@@ -174,19 +175,27 @@ namespace yolo
                 scene.AddEntity(msc);
             }
             
-            // Scene Transports
-            Entity toStoreTransport = new Entity(context)
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(23.8f, 6.5f, 0), new Vector3(18.6f, 17.7f, 0), "nemocnice"));
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(34.7f, 8.5f, 0), new Vector3(10.5f, 18.5f, 0), "obchod"));
+            
+            List<Vector3> housePos = new List<Vector3>()
             {
-                Position = new Vector3(21, 15, 0),
-                Animation = new Animation(context.Assets.Sprites.Grandma)
+                new (1.52f, 13.49f, 0),
+                new (7.52f, 13.49f, 0),
+                new (10.52f, 13.49f, 0),
+                new (16.52f, 13.49f, 0),
+                new (38.52f, 8.49f, 0),
+                new (32.52f, 8.49f, 0),
+                new (27.52f, 6.49f, 0),
+                new (27.52f, 6.49f, 0),
+                new (22.52f, 3.49f, 0),
+                new (21.52f, 1.49f, 0),
             };
-            SceneTransporter toStoreTransportBehaviour = new SceneTransporter(
-                toStoreTransport,
-                "nemocnice",
-                new Vector3(2, 2, 0)
-            );
-            toStoreTransport.Behavior = toStoreTransportBehaviour;
-            scene.AddEntity(toStoreTransport);
+
+            var house = Utils.RandChoice(housePos);
+            
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context, house, new Vector3(19.5f, 26.5f, 0), "dum"));
+            scene.Tomovo = house;
         }
 
         private void generateNPCs(Scene scene, Context ctx)
@@ -237,6 +246,11 @@ namespace yolo
     {
         public Scene LoadScene(Context context)
         {
+            throw new NotImplementedException();
+        }
+
+        public Scene LoadScene(Context context, Vector3 mainSceneTomovo)
+        {
             // TODO entities
             List<Entity> entities = new List<Entity>();
 
@@ -250,6 +264,8 @@ namespace yolo
             };
             babiiii.Behavior = new Grandma(babiiii);
             scene.AddEntity(babiiii);
+            
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context, new Vector3(19.5f, 26.5f, 0), mainSceneTomovo, "main"));
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
@@ -273,6 +289,8 @@ namespace yolo
             };
             scene.AddEntity(msc);
             
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(18.6f, 17.7f, 0), new Vector3(23.8f, 6.5f, 0), "main"));
+            
             Entity msc2 = new Entity(context)
             {
                 Position = new Vector3( 14.8f, 16.6f, 0),
@@ -283,6 +301,11 @@ namespace yolo
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
+        }
+
+        public Scene LoadScene(Context context, Vector3 tomovo)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -337,8 +360,15 @@ namespace yolo
             fjeiofeajiofea.Collider = new RectangleCollider(fjeiofeajiofea, false, 1, 0.01f);
             scene.AddEntity(fjeiofeajiofea);
             
+            scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(10.5f, 18.5f, 0), new Vector3(34.7f, 8.5f, 0), "main"));
+            
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
+        }
+
+        public Scene LoadScene(Context context, Vector3 tomovo)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -363,6 +393,23 @@ namespace yolo
                     }
                 }
             }
+        }
+
+        public static Entity CreateTeleporter(Context context, Vector3 at, Vector3 to, string toStr)
+        {
+            Entity teleporter = new Entity(context)
+            {
+                Position = at,
+                Animation = new Animation(context.Assets.Sprites.Mark) {IsFlat = true},
+            };
+            SceneTransporter toStoreTransportBehaviour = new SceneTransporter(
+                teleporter,
+                toStr,
+                to
+            );
+            teleporter.Behavior = toStoreTransportBehaviour;
+
+            return teleporter;
         }
 
         
