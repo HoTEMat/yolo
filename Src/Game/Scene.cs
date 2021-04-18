@@ -98,14 +98,11 @@ namespace yolo {
         }
 
         private void ResolveCollisionsFor(Entity e) {
-            Vector3 totalPush = Vector3.Zero;
             foreach (Entity other in Entities) {
                 if (other.Collider != null && !other.Collider.Movable) {
-                    totalPush += e.Collider.PushFrom(other);
+                    e.Position += e.Collider.PushFrom(other);
                 }
             }
-
-            e.Position += totalPush;
         }
 
         private void UpdateCamera() {
