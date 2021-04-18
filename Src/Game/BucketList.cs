@@ -16,6 +16,7 @@ namespace yolo {
             {AchievementType.CleanGraffitti, "Clean up graffitti"},
             {AchievementType.FeedDucks, "Feed the ducks"},
             {AchievementType.ThankDoctor, "Thank the doctor"},
+            {AchievementType.BuyFromStand, "Buy something from market stand"},
 
             {AchievementType.ToppleBin, "Kick the bin"},
             {AchievementType.BadIceCream, "Throw away icecream"},
@@ -34,7 +35,7 @@ namespace yolo {
         public AchievementType[] GoodActions = new[]
         {
              AchievementType.EatIceCream, AchievementType.BuyFood, AchievementType.DeliverFood,
-            AchievementType.CleanGraffitti, AchievementType.FeedDucks, AchievementType.ThankDoctor
+            AchievementType.CleanGraffitti, AchievementType.FeedDucks, AchievementType.ThankDoctor, AchievementType.BuyFromStand
         };
         public AchievementType[] BadActionsMultiple = new[] {AchievementType.ToppleBin, AchievementType.CursePerson};
         public AchievementType[] BadActions = new[]
@@ -114,6 +115,7 @@ namespace yolo {
         ThankDoctor,
         CurseDoctor,
         BreakHospitalBed,
-        StealFood
+        StealFood,
+        BuyFromStand
     }
 }

@@ -326,6 +326,28 @@ namespace yolo {
             return Entity.Context.Player.IsGood == false && Broken == false;
         }
     }
+
+    public class MarketStand : Interactable
+    {
+        public MarketStand(Entity entity) : base(entity)
+        {
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            return AchievementType.BuyFromStand;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood;
+        }
+    }
     
     
 }
