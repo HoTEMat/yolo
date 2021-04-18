@@ -11,6 +11,7 @@ namespace yolo {
             Renderer = new Renderer(this);
             Hud = new HUD(this);
             Random = new Random();
+            FloatRandom = new FloatRandom(Random);
         }
 
         public GraphicsDeviceManager Graphics { get; init; }
@@ -22,8 +23,8 @@ namespace yolo {
         public Camera Camera { get; private set; }
         public Renderer Renderer { get; private set; }
         public HUD Hud { get; private set; }
-
         public Random Random { get; }
+        public FloatRandom FloatRandom { get; }
         public SpriteBatch SpriteBatch { get; set; }
 
         internal void Update(GameTime gameTime) {
