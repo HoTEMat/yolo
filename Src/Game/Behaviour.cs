@@ -101,15 +101,19 @@ namespace yolo {
         {
             if (Entity.Context.Player.IsGood)
             {
+                Fed = true;
                 return AchievementType.FeedDucks;
             }
             Peed = true;
             Entity.Animation.Reset(Entity.Context.Assets.Sprites.ParkPondPee);
             return AchievementType.PeeInPond;
         }
+
+        public bool Fed { get; set; }
+
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood || (!Entity.Context.Player.IsGood && !Peed);
+            return (Entity.Context.Player.IsGood && !Fed)|| (!Entity.Context.Player.IsGood && !Peed);
         }
 
         public Pond(Entity entity) : base(entity)
@@ -331,6 +335,8 @@ namespace yolo {
 
     public class MarketStand : Interactable
     {
+        private bool _bought = false;
+        
         public MarketStand(Entity entity) : base(entity)
         {
         }
@@ -342,11 +348,14 @@ namespace yolo {
 
         public override AchievementType? Interact()
         {
+            _bought = true;
             return AchievementType.BuyFromStand;
         }
 
         public override bool CanInteract()
         {
+            if (_bought) return false;
+            
             return Entity.Context.Player.IsGood;
         }
     }
