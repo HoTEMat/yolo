@@ -12,28 +12,50 @@ namespace yolo
         private const float walkSpeed = 1f;
         private SpriteOrientationManager orientationManager;
         
+        private bool interacted;
+        
+        private bool walking;
+        private float activityTime;
+        private float nextStopTime = (float)Utils.Random.NextDouble();
+        
         public PersonBehavior(int spriteNum, List<Vector3> targetPoints, Entity entity) : base(entity)
         {
             TargetPoints = targetPoints;
-            curTargetPoint = Utils.RandChoice(TargetPoints);
             orientationManager = new SpriteOrientationManager(spriteNum, Entity);
+            nextState();
         }
+        
         public override void Update()
         {
             this.Entity.Animation.Scale = 1f + 0.5f* MathF.Sin(5 * Context.TSec);
 
             var distanceFromTarget = (Position - curTargetPoint).Length();
-            if (distanceFromTarget <= 1) // ToDo: What is close distance?
+            if (distanceFromTarget <= 0.01)
             {
-                changeTarget();
+                nextState();
             }
-            var direction = curTargetPoint - Position;
-            direction.Normalize();
-            var delta = direction * walkSpeed * (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
-            Position += delta;
-            orientationManager.UpdateOrientation(delta);
+
+            float dt = (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
+
+            if (nextStopTime < 0.1 * activityTime * (walking ? 1 : 0.05))
+            {
+                walking = !walking;
+                nextStopTime = (float)Utils.Random.NextDouble();
+                activityTime = 0;
+            }
+
+            if (!walking)
+            {
+                var direction = curTargetPoint - Position;
+                direction.Normalize();
+                var delta = direction * walkSpeed * dt;
+                Position += delta;
+                orientationManager.UpdateOrientation(delta);
+            }
+            
+            activityTime += dt;
         }
-        private void changeTarget()
+        private void nextState()
         {
             curTargetPoint = Utils.RandChoice(TargetPoints);
         }
@@ -43,14 +65,14 @@ namespace yolo
             var rnd = Entity.Context.Random.NextDouble();
             if (rnd <= interactionSuccess) // success
             {
-                Entity.Destroy();
+                interacted = true;
                 return Entity.Context.Player.IsGood ? AchievementType.HugPerson : AchievementType.CursePerson;
             }
             return null;
         }
         public override bool CanInteract()
         {
-            return true;
+            return !interacted;
         }
     }
 }

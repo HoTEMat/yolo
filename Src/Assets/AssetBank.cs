@@ -32,6 +32,8 @@ namespace yolo {
 
             public Sprite Empty { get; init; }
 
+            public Sprite Paper { get; init; }
+            
             // OTHER
             public Sprite TrashcanUp { get; init; }
             public Sprite TrashcanDown { get; init; }
@@ -298,6 +300,8 @@ namespace yolo {
                 Dev_Wall = new Sprite { Texture = Textures.Dev, SourceRect = new Rectangle(0, 32, 16, 32) },
 
                 Empty = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 48, 16, 16) },
+                
+                Paper = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 48, 16, 16) },
 
                 // OTHER
                 TrashcanUp = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 0, 16, 16), Origin = origin16x16 },
