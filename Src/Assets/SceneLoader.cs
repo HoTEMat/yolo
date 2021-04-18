@@ -229,6 +229,14 @@ namespace yolo
             Scene scene = new Scene("dum", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.DumScene, context.Assets), context);
             
+            Entity babiiii = new Entity(context)
+            {
+                Position = new Vector3( 15.8f, 26.4f, 0),
+                Animation = new Animation(context.Assets.Sprites.Grandma),
+            };
+            babiiii.Behavior = new Grandma(babiiii);
+            scene.AddEntity(babiiii);
+            
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
         }
@@ -244,6 +252,21 @@ namespace yolo
             Scene scene = new Scene("nemocnice", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
             
+            Entity msc = new Entity(context)
+            {
+                Position = new Vector3( 15.7f, 16.8f, 0),
+                Animation = new Animation(context.Assets.Sprites.HospitalDoctorEntity),
+            };
+            scene.AddEntity(msc);
+            
+            Entity msc2 = new Entity(context)
+            {
+                Position = new Vector3( 14.8f, 16.6f, 0),
+                Animation = new Animation(context.Assets.Sprites.HospitalBedEntity),
+            };
+            msc2.Collider = new RectangleCollider(msc2, false, 1, 0.01f);
+            scene.AddEntity(msc2);
+            
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
         }
@@ -258,6 +281,46 @@ namespace yolo
 
             Scene scene = new Scene("obchod", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.ObchodScene, context.Assets), context);
+            
+            Entity fukyou = new Entity(context)
+            {
+                Position = new Vector3( 11.99f, 18.58f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
+            };
+            fukyou.Collider = new RectangleCollider(fukyou, false, 2, 0.01f);
+            scene.AddEntity(fukyou);
+            
+            Entity fukyou2 = new Entity(context)
+            {
+                Position = new Vector3( 11.99f, 19.45f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
+            };
+            fukyou2.Collider = new RectangleCollider(fukyou2, false, 2, 0.01f);
+            scene.AddEntity(fukyou2);
+            
+            Entity fuk3 = new Entity(context)
+            {
+                Position = new Vector3( 14.5f, 19.45f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
+            };
+            fuk3.Collider = new RectangleCollider(fuk3, false, 2, 0.01f);
+            scene.AddEntity(fuk3);
+            
+            Entity fjefea = new Entity(context)
+            {
+                Position = new Vector3( 14.5f, 18.58f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
+            };
+            fjefea.Collider = new RectangleCollider(fjefea, false, 2, 0.01f);
+            scene.AddEntity(fjefea);
+            
+            Entity fjeiofeajiofea = new Entity(context)
+            {
+                Position = new Vector3( 19.2f, 18.48f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketCheckoutEntity),
+            };
+            fjeiofeajiofea.Collider = new RectangleCollider(fjeiofeajiofea, false, 1, 0.01f);
+            scene.AddEntity(fjeiofeajiofea);
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
@@ -299,6 +362,7 @@ namespace yolo
                 {0xe4e4e4u, assets.Tiles.HospitalWindow1},
                 {0xadadadu, assets.Tiles.HospitalWindow2},
                 {0x584848u, assets.Tiles.HospitalWall},
+                {0x472f2fu, assets.Tiles.HospitalWallFlat},
                 {0x817676u, assets.Tiles.HospitalTableL},
                 {0x6d6262u, assets.Tiles.HospitalTableR},
                 {0x423535u, assets.Tiles.HospitalDoctor},
@@ -309,6 +373,7 @@ namespace yolo
                 {0x7bfc91u, assets.Tiles.HouseElevatorL},
                 {0x80ca8cu, assets.Tiles.HouseElevatorR},
                 {0x1dff43u, assets.Tiles.HouseWall},
+                {0x04340cu, assets.Tiles.HouseWallFlat},
 
                 {0x197653u, assets.Tiles.MarketL},
                 {0x0d5b3du, assets.Tiles.MarketR},
@@ -318,6 +383,7 @@ namespace yolo
                 {0xbf740fu, assets.Tiles.MarketCheckoutR},
                 {0xd2a05du, assets.Tiles.MarketWall},
                 {0x9d9d9du, assets.Tiles.MarketFloor},
+                {0xbe781au, assets.Tiles.MarketWallFlat},
 
                 {0x428b1du, assets.Tiles.ParkGrass},
                 {0x08668cu, assets.Tiles.ParkFence},
