@@ -187,4 +187,26 @@ namespace yolo {
             return Entity.Context.Player.IsGood == false;
         }
     }
+
+    public class CashRegister : Interactable
+    {
+        public CashRegister(Entity entity) : base(entity)
+        {
+        }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            Entity.Context.Player.PickGroceries();
+            return AchievementType.BuyFood;
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood && !Entity.Context.Player.HasGroceries;
+        }
+    }
+    
+    
 }
