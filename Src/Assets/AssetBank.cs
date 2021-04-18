@@ -7,7 +7,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Effect = Microsoft.Xna.Framework.Graphics.Effect;
 
 namespace yolo {
-    class AssetBank {
+    public class AssetBank {
         private ContentManager content;
 
         public Effect Perspective { get; private set; }

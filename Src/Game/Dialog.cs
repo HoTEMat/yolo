@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace yolo {
 
-    class DialogInfo {
+    public class DialogInfo {
         List<string> sentences = new List<string>();
         public IReadOnlyList<string> Sentences => sentences;
 
@@ -42,7 +42,7 @@ namespace yolo {
 
     }
 
-    class DialogBehavior : Behaviour {
+    public class DialogBehavior : Behaviour {
 
         List<string> linesToDisplay;
 
