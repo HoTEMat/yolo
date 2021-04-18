@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class Scene {
-        private const float InteractableDistanceThreshold = 10; // TODO
+        private const float InteractableDistanceThreshold = 1; // TODO
 
         public string Name { get; }
         public List<Entity> Entities { get; }
