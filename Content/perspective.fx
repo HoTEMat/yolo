@@ -9,6 +9,7 @@
 #endif
 
 float4x4 view_projection;
+float4 tone;
 float3 sun_direction = float3(1,2,4);
 
 Texture2D SpriteTexture : register(t0);
@@ -50,7 +51,7 @@ float4 SpritePixelShader(PixelInput p) : COLOR0{
     
     float intensity = max(dot(sun_direction, p.Normal.xyz), 0.1);
     intensity = 1;
-    return diffuse * intensity;
+    return diffuse * intensity * tone;
 }
 
 technique FloorPlane {

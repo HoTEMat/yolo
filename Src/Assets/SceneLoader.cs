@@ -93,9 +93,10 @@ namespace yolo
                 Entity msc = new Entity(context)
                 {
                     Position = new Vector3( x, y, 0),
-                    Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
+                    Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]) {
+                        Effects = ef[Utils.Random.Next(0, ef.Length)]
+                    },
                     Behavior = null,
-                    Effects = ef[Utils.Random.Next(0, ef.Length)],
                 };
                 scene.AddEntity(msc);
             }
@@ -103,8 +104,9 @@ namespace yolo
             Entity pond = new Entity(context)
             {
                 Position = new Vector3(27, 24, 0),
-                Animation = new Animation(context.Assets.Sprites.ParkPond),
-                IsFlat = true,
+                Animation = new Animation(context.Assets.Sprites.ParkPond) {
+                    IsFlat = true
+                },                
             };
             pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
@@ -119,8 +121,9 @@ namespace yolo
             Entity duck1 = new Entity(context)
             {
                 Position = new Vector3(27.3f, 24.4f, 0),
-                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
-                Effects = ef[Utils.Random.Next(0, ef.Length)],
+                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]) {
+                    Effects = ef[Utils.Random.Next(0, ef.Length)],
+                },
             };
             
             scene.AddEntity(duck1);
@@ -128,8 +131,9 @@ namespace yolo
             Entity duck2 = new Entity(context)
             {
                 Position = new Vector3(26.8f, 23.6f, 0),
-                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]),
-                Effects = ef[Utils.Random.Next(0, ef.Length)],
+                Animation = new Animation(duck[Utils.Random.Next(0, duck.Length)]) {
+                    Effects = ef[Utils.Random.Next(0, ef.Length)],
+                },
             };
             
             scene.AddEntity(duck2);
