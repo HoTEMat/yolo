@@ -34,10 +34,13 @@ namespace yolo {
 
             public Sprite Paper { get; init; }
             
+            public Sprite Mark { get; init; }
+            
             // OTHER
             public Sprite TrashcanUp { get; init; }
             public Sprite TrashcanDown { get; init; }
             public Sprite Grafitti { get; init; }
+            public Sprite FadedGrafitti { get; init; }
             public Sprite IcecreamStand { get; init; }
             public Sprite Fountain { get; init; }
 
@@ -308,11 +311,14 @@ namespace yolo {
                 Empty = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 48, 16, 16) },
                 
                 Paper = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 48, 16, 16) },
+                
+                Mark = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(192, 32, 16, 16) },
 
                 // OTHER
                 TrashcanUp = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 0, 16, 16), Origin = origin16x16 },
                 TrashcanDown = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 16, 16, 16), Origin = origin16x16 },
                 Grafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16 },
+                FadedGrafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16, Tone = Color.LightGray},
                 IcecreamStand = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 112, 16, 16), Origin = origin16x16 },
                 Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
 
