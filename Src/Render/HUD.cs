@@ -19,8 +19,14 @@ namespace yolo {
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
             context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            
             DrawClock(context.SpriteBatch, new Vector2(150, 90), GetClockContent());
             DrawBucketList(context.SpriteBatch, new Vector2(25, 200));
+            if (context.Player.HasGroceries)
+            {
+                DrawBasket(context.SpriteBatch, viewport);
+            }
+            
             context.SpriteBatch.End();
         }
 
@@ -44,6 +50,12 @@ namespace yolo {
                 assets.Sprites.Empty.SourceRect,
                 Color.White);
             DrawStringCentered(spriteBatch, content, center, 8, Color.White);
+        }
+
+        private void DrawBasket(SpriteBatch spriteBatch,  Viewport viewport)
+        {
+            Vector2 pos = new Vector2(10, viewport.Height - 60);
+             spriteBatch.DrawSprite(assets.Sprites.Basket, pos, 3);
         }
 
         private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
