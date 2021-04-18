@@ -68,10 +68,10 @@ namespace yolo {
 
                         // top facing quad
                         terrainMesh.AddQuad(
-                            new(new(x, y, -2), -Vector3.UnitZ, t.Sprite.UVTopLeft),
-                            new(new(x + 1, y, -2), -Vector3.UnitZ, t.Sprite.UVTopRight),
-                            new(new(x, y + 1, -2), -Vector3.UnitZ, t.Sprite.UVTopLeft + UVOnePixel),
-                            new(new(x + 1, y + 1, -2), -Vector3.UnitZ, t.Sprite.UVTopRight + UVOnePixel)
+                            new(new(x, y, -height), -Vector3.UnitZ, t.Sprite.UVTopLeft),
+                            new(new(x + 1, y, -height), -Vector3.UnitZ, t.Sprite.UVTopRight),
+                            new(new(x, y + 1, -height), -Vector3.UnitZ, t.Sprite.UVTopLeft + UVOnePixel),
+                            new(new(x + 1, y + 1, -height), -Vector3.UnitZ, t.Sprite.UVTopRight + UVOnePixel)
                         );
                     }
                 }

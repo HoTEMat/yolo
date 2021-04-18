@@ -44,8 +44,8 @@ namespace yolo
             {
                 Position = new Vector3(24, 12, 0),
                 Animation = new Animation(context.Assets.Sprites.Fountain),
-                Behavior = null,
             };
+            fountain.Behavior = new Fountain(fountain);
             fountain.Collider = new RectangleCollider(fountain, false, 2, 0.1f);
             scene.AddEntity(fountain);
 
@@ -106,10 +106,11 @@ namespace yolo
                 Position = new Vector3(27, 24, 0),
                 Animation = new Animation(context.Assets.Sprites.ParkPond) {
                     IsFlat = true
-                },                
+                }
             };
             pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
+            
             scene.AddEntity(pond);
             
             Sprite[] duck = new[]
