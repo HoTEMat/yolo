@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class World {
@@ -52,6 +53,12 @@ namespace yolo {
         public void Update() {
             TimeToLive -= (float) context.GameTime.ElapsedGameTime.TotalSeconds;
             CurrentScene.Update();
+            
+            
+            // TODO: remove this
+            if (context.Keyboard.IsKeyPressed(Keys.I)) {
+                context.Game.StartIntro();
+            }
         }
         
         public void Destroy() {

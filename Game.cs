@@ -91,6 +91,8 @@ namespace yolo {
         }
 
         protected override void Draw(GameTime gameTime) {
+            Context.Graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            
             currentController.Draw(gameTime);
             base.Draw(gameTime);
         }
@@ -160,6 +162,7 @@ namespace yolo {
         }
 
         public override void Draw(GameTime gameTime) {
+            ctx.Renderer.Draw();
             introWindow.Draw();
         }
 
@@ -183,7 +186,7 @@ namespace yolo {
         }
 
         public override void Draw(GameTime gameTime) {
-            outroWindow.Draw(gameTime);
+            outroWindow.Draw();
         }
 
         

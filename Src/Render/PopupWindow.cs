@@ -31,6 +31,15 @@ namespace yolo {
             } else if (context.Keyboard.IsKeyPressed(Keys.Right)) {
                 selectedButton = (selectedButton + 1) % buttonsCount;
             }
+
+            bool good;
+            if (context.Keyboard.IsKeyPressed(Keys.G)) {
+                good = true;
+            } else if (context.Keyboard.IsKeyPressed(Keys.B)) {
+                good = false;
+            } else return;
+            
+            context.Game.EndIntro(good);
             //context.Game.EndIntro(true); // TODO
         }
 
@@ -39,22 +48,17 @@ namespace yolo {
             var viewport = context.Graphics.GraphicsDevice.Viewport;
             SpriteBatch sb = context.SpriteBatch;
             Rectangle bounds = viewport.Bounds;
-            Console.WriteLine(bounds);
             
             sb.Begin(samplerState: SamplerState.PointClamp);
             DrawTransparentBackground(sb, bounds);
-            sb.DrawStringCentered("Intro!!!!!", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 5, Color.Blue); 
+            sb.DrawStringCentered("Choose your role", new Vector2(bounds.Width / 2f, bounds.Height / 3f), 5, Color.Black);
+            sb.DrawStringCentered("(G)ood or (B)ad?", new Vector2(bounds.Width / 2f, bounds.Height / 3f + 50), 4, Color.Black);
             
             sb.End();
         }
 
         private void DrawTransparentBackground(SpriteBatch sb, Rectangle screenBounds) {
-            sb.FillRectangle(screenBounds, new Color(Color.Black, 1));
-            //sb.DrawRectangle(new Rectangle(100, 100, 200, 200), Color.Black);
-        }
-        
-        private void DrawButton(int x, int y) {
-            
+            sb.FillRectangle(screenBounds, new Color(Color.Black, 0.5f));
         }
     }
 
