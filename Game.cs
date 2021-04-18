@@ -183,7 +183,7 @@ namespace yolo {
         }
 
         public override void Draw(GameTime gameTime) {
-            outroWindow.Draw(gameTime);
+            outroWindow.Draw();
         }
 
         

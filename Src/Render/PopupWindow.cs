@@ -65,7 +65,10 @@ namespace yolo {
         }
         public override void Update(GameTime gameTime)
         {
-            return;
+            if (context.Keyboard.IsKeyDown(Keys.Enter))
+            {
+                context.Game.StartGame();
+            }
         }
         public override void Draw()
         {
@@ -76,15 +79,16 @@ namespace yolo {
                 new Rectangle(0, 0, viewport.Width, viewport.Width), 
                 context.Assets.Sprites.Empty.SourceRect, Color.White );
           
-            sb.DrawStringCentered("You died..", new Vector2(viewport.Width/2, 20), 8, Color.White);
+            sb.DrawStringCentered("You died..", new Vector2(viewport.Width/2, viewport.Height/6), 8, Color.White);
             
-            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, 100), 3, Color.White);
+            sb.DrawStringCentered("Score: " + context.Score.Value, new Vector2(viewport.Width/2, viewport.Height/2), 3, Color.White);
             
             /*sb.Draw(context.Assets.Sprites.Paper.Texture, 
                 new Rectangle(0, 300, viewport.Width, viewport.Width), 
                 context.Assets.Sprites.Empty.SourceRect, Color.White );*/
             
-            sb.DrawStringCentered("Play again", new Vector2(viewport.Width/2, 300), 6, Color.White);
+            sb.DrawStringCentered("Play again", new Vector2(viewport.Width/2, 2 * viewport.Height/3), 6, Color.White);
+            sb.DrawStringCentered("[Press enter]", new Vector2(viewport.Width/2, 5 * viewport.Height/6), 2, Color.White);
             sb.End();
         }
     }
