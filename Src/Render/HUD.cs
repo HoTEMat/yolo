@@ -43,15 +43,15 @@ namespace yolo {
                 new Rectangle((int)(center.X + toUpperLeft.X), (int)(center.Y + toUpperLeft.Y), clockWidth, clockHeight),
                 assets.Sprites.Empty.SourceRect,
                 Color.White);
-            DrawStringCentered(spriteBatch, content, center, 8);
+            DrawStringCentered(spriteBatch, content, center, 8, Color.White);
         }
 
         private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
         {
             const int rowWidth = 200;
             const int rowHeight = 30;
-            const int paddingLeft = 5;
-            const int paddingTop = 5;
+            const int paddingLeft = 15;
+            const int paddingTop = 15;
             var list = context.Player.TodoList;
             spriteBatch.Draw(
                 assets.Sprites.Empty.Texture,
@@ -59,25 +59,32 @@ namespace yolo {
                 assets.Sprites.Empty.SourceRect,
                 Color.White);
             var curPos = new Vector2(position.X + paddingLeft, position.Y + paddingTop);
-            DrawString(spriteBatch, list.Header, curPos, 2);
+            DrawString(spriteBatch, list.Header, curPos, 2, Color.White);
             foreach (var listItem in list.Items)
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
-                string text = list.ItemText[listItem.Achievement] + " : " + (listItem.TotalCount - listItem.DoneCount).ToString() ;
-                DrawString(spriteBatch, text, curPos, 1);
+                int remCount = listItem.TotalCount - listItem.DoneCount;
+                string text = remCount > 1 ? list.ItemText[listItem.Achievement] + " : " + remCount : list.ItemText[listItem.Achievement];
+                DrawString(spriteBatch, text, curPos, 1, Color.White);
+                if (listItem.AllDone)
+                {
+                    spriteBatch.Draw(assets.Sprites.Empty.Texture, 
+                        new Rectangle((int)curPos.X + 30, (int)curPos.Y, rowWidth - 20, 1),
+                        assets.Sprites.Empty.SourceRect, Color.White);
+                }
             }
         }
 
-        private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, int scale) {
-            spriteBatch.DrawString(assets.Fonts.Font, s, position, Color.Red, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+        private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, int scale, Color fontColor) {
+            spriteBatch.DrawString(assets.Fonts.Font, s, position, fontColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
-        private void DrawStringCentered(SpriteBatch spriteBatch, string s, Vector2 center, int scale) {
+        private void DrawStringCentered(SpriteBatch spriteBatch, string s, Vector2 center, int scale, Color fontColor) {
             float charW = assets.Fonts.Font.Glyphs[0].Width;
             float strW = s.Length * charW;
             float strH = charW;
             
-            DrawString(spriteBatch, s, center - new Vector2(strW / 2, strH / 2) * scale, scale);
+            DrawString(spriteBatch, s, center - new Vector2(strW / 2, strH / 2) * scale, scale, fontColor);
         }
     }
 }
