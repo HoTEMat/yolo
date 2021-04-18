@@ -46,18 +46,17 @@ namespace yolo {
         List<string> linesToDisplay;
 
         public DialogBehavior(Entity e, DialogInfo info) : base(e) {
-            foreach (var tense in info.Sentences) {
+            /*foreach (var tense in info.Sentences) {
                 linesToDisplay = tense.SplitToLines(info.Size.X).ToList();
-            }
+            }*/
         }
 
         public override void Update() {
 
-            if (context.Keyboard.IsKeyPressed(Keys.F)) {
+            /*if (context.Keyboard.IsKeyPressed(Keys.F)) {
                 context.Player.FreezeFor = 0;
                 Entity.Destroy();
-            }
-
+            }*/
         }
     }
 }

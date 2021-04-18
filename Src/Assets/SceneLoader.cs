@@ -365,6 +365,41 @@ namespace yolo
         }
     }
 
+    public class NemocniceSceneLoader2 : ISceneLoader
+    {
+        public Scene LoadScene(Context context)
+        {
+            // TODO entities
+            List<Entity> entities = new List<Entity>();
+
+            Scene scene = new Scene("nemocnice", entities,
+                TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
+            
+            Entity doctor = new Entity(context)
+            {
+                Position = new Vector3( 15.7f, 16.8f, 0),
+            };
+            //doctor.Behavior = new IntroDoctorBehavior(doctor);
+            scene.AddEntity(doctor);
+            
+            Entity bed = new Entity(context)
+            {
+                Position = new Vector3( 14.8f, 16.6f, 0),
+            };
+            bed.Behavior = new HospitalBed(bed);
+            bed.Collider = new RectangleCollider(bed, false, 1, 0.01f);
+            scene.AddEntity(bed);
+            
+            TileMapLoader.AddTileColliders(scene, context);
+            return scene;
+        }
+
+        public Scene LoadScene(Context context, Vector3 tomovo)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    
     public class NemocniceSceneLoader : ISceneLoader
     {
         public Scene LoadScene(Context context)

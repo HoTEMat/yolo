@@ -40,7 +40,7 @@ namespace yolo {
         public void Dispose() { }
     }
 
-    public class DialogAnimation : IAnimation {
+    public class DialogAnimation : Animation {
 
         float charsToPrint;
         public string Text { get; set; }
@@ -85,6 +85,10 @@ namespace yolo {
 
         public void Dispose() {
             buffer.Dispose();
+        }
+
+        public DialogAnimation() : base(null)
+        {
         }
     }
 }
