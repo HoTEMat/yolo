@@ -39,10 +39,6 @@ namespace yolo {
 
             HandleWalking();
             HandleInteraction();
-
-            if (Context.Keyboard.IsKeyPressed(Keys.L)) {
-                ShowHearts();
-            }
         }
 
         private void HandleWalking() {
@@ -54,8 +50,6 @@ namespace yolo {
                 orientationManager.Dead();
                 return;
             }
-
-
             
             if (kb.IsKeyDown(Keys.Right)) {
                 changeDir += new Vector3(1, 0, 0);
