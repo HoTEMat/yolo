@@ -100,7 +100,6 @@ namespace yolo
             {
                 foreach (var standPosition in standPositions)
                 {
-                    Console.WriteLine(i);
                     Vector3 delta = new Vector3(i * 1.5f, 0, 0);
                     
                     Entity stand1 = new Entity(context)
@@ -171,8 +170,6 @@ namespace yolo
                 {
                     int r = Utils.Random.Next(0, bush.Length);
                     
-                    Console.WriteLine(r);
-                        
                     Entity bushent = new Entity(context)
                     {
                         Position = new Vector3(x, y, 0),
