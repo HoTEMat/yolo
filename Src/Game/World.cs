@@ -58,9 +58,9 @@ namespace yolo {
             
             
             // TODO: remove this
-            if (context.Keyboard.IsKeyPressed(Keys.I)) {
-                context.Game.StartIntro();
-            }
+            //if (context.Keyboard.IsKeyPressed(Keys.I)) {
+            //    context.Game.StartIntro();
+           // }
         }
         
         public void Destroy() {

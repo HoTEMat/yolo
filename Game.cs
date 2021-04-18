@@ -39,9 +39,13 @@ namespace yolo {
             
             StartGame();
         }
-
+        
         // Only call this once per game.
         public void StartGame() {
+            currentController = new InfoScreenController(Context);
+        }
+
+        public void InfoScreenDone() {
             // Hack: Player is good at first in the intro scene
             PlayingGameController controller = new PlayingGameController(Context, true);
             controller.StartLevel(new IntroLevelLoader());
@@ -107,6 +111,22 @@ namespace yolo {
 
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);
+    }
+    
+    public class InfoScreenController : Controller {
+        private InfoWindow infoWindow;
+        
+        public InfoScreenController(Context ctx) : base(ctx) {
+            infoWindow = new InfoWindow(ctx);
+        }
+
+        public override void Update(GameTime gameTime) {
+            infoWindow.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime) {
+            infoWindow.Draw();
+        }
     }
 
     public class PlayingGameController : Controller {
@@ -187,13 +207,6 @@ namespace yolo {
 
         public override void Draw(GameTime gameTime) {
             outroWindow.Draw();
-        }
-
-        
-        // TODO: call this
-        private void HandleRestart() {
-            ctx.World.Destroy();
-            ctx.Game.StartGame();
         }
     }
 }
