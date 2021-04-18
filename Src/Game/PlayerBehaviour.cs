@@ -74,7 +74,11 @@ namespace yolo {
                 var achievement = Entity.Scene.SelectedInteractable?.Interact();
                 if (achievement != null)
                 {
-                    TodoList.ProcessAchievement((AchievementType)achievement);
+                    bool crossed = TodoList.TryCrossingOut((AchievementType)achievement);
+                    if (crossed)
+                    {
+                        Context.Score.addScoreForAchievement(Context.TSec);
+                    }
                 }
             }
         }
