@@ -183,21 +183,24 @@ namespace yolo {
     }
     public class Tree : Interactable
     {
+        private bool AlreadyInteracted { get; set; }
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
+            AlreadyInteracted = true;
             return AchievementType.YellOnTree;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false;
+            return Entity.Context.Player.IsGood == false && AlreadyInteracted == false;
         }
 
         public Tree(Entity entity) : base(entity)
         {
+            AlreadyInteracted = false;
         }
     }
 
