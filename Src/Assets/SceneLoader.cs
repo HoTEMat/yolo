@@ -46,11 +46,7 @@ namespace yolo
             Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
 
-            Entity fountain = new Entity(context)
-            {
-                Position = new Vector3(24, 12, 0),
-                Animation = new Animation(context.Assets.Sprites.Fountain),
-            };
+            Entity fountain = new Entity(context) {Position = new Vector3(24, 12, 0),};
             fountain.Behavior = new Fountain(fountain);
             fountain.Collider = new RectangleCollider(fountain, false, 2, 0.1f);
             scene.AddEntity(fountain);
@@ -121,9 +117,6 @@ namespace yolo
             Entity pond = new Entity(context)
             {
                 Position = new Vector3(27, 24, 0),
-                Animation = new Animation(context.Assets.Sprites.ParkPond) {
-                    IsFlat = true
-                }
             };
             pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
@@ -298,22 +291,22 @@ namespace yolo
             Scene scene = new Scene("nemocnice", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
             
-            Entity msc = new Entity(context)
+            Entity doctor = new Entity(context)
             {
                 Position = new Vector3( 15.7f, 16.8f, 0),
-                Animation = new Animation(context.Assets.Sprites.HospitalDoctorEntity),
             };
-            scene.AddEntity(msc);
+            doctor.Behavior = new Doctor(doctor);
+            scene.AddEntity(doctor);
             
             scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(18.6f, 17.7f, 0), new Vector3(23.8f, 6.5f, 0), "main"));
             
-            Entity msc2 = new Entity(context)
+            Entity bed = new Entity(context)
             {
                 Position = new Vector3( 14.8f, 16.6f, 0),
-                Animation = new Animation(context.Assets.Sprites.HospitalBedEntity),
             };
-            msc2.Collider = new RectangleCollider(msc2, false, 1, 0.01f);
-            scene.AddEntity(msc2);
+            bed.Behavior = new HospitalBed(bed);
+            bed.Collider = new RectangleCollider(bed, false, 1, 0.01f);
+            scene.AddEntity(bed);
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
@@ -338,8 +331,8 @@ namespace yolo
             Entity fukyou = new Entity(context)
             {
                 Position = new Vector3( 11.99f, 18.58f, 0),
-                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
             };
+            fukyou.Behavior = new GroceryStand(fukyou);
             fukyou.Collider = new RectangleCollider(fukyou, false, 2, 0.01f);
             scene.AddEntity(fukyou);
             

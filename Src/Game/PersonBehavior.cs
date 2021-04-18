@@ -6,7 +6,7 @@ namespace yolo
 {
     public class PersonBehavior : Interactable
     {
-        private const double interactionSuccess = 0.5;
+        private const double interactionSuccess = 1;
         private List<Vector3> TargetPoints;
         private Vector3 curTargetPoint;
         private const float walkSpeed = 1f;

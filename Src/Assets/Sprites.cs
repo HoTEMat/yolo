@@ -26,11 +26,25 @@ namespace yolo {
         public SpriteEffects Effects { get; set; } = SpriteEffects.None;
         public Rectangle SourceRect {
             get => sourceRect;
-            set { sourceRect = value; Origin = value.Size.ToVector2() / 2f; }
+            set {
+                sourceRect = value;
+                if (!originSet) {
+                    origin = value.Size.ToVector2() / 2f;
+                }
+            }
         }
         private Rectangle sourceRect;
+        bool originSet = false;
 
-        public Vector2 Origin { get; set; } = Vector2.Zero;
+        public Vector2 Origin {
+            get => origin;
+            set {
+                origin = value;
+                originSet = true;
+            }
+        }
+
+        private Vector2 origin = Vector2.Zero;
         public Color Tone { get; set; } = Color.White;
         public bool Loops => false;
         public float Scale { get; set; } = 1f;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,9 +36,8 @@ namespace yolo {
             if (w == null)
                 return "---";
             int ttl = (int) w.TimeToLive;
-            int minutes = ttl % 60;
-            int seconds = ttl / 60;
-            return minutes + ":" + seconds;
+            int seconds = ttl % 60;
+            return seconds + "";
         }
 
         private void DrawClock(SpriteBatch spriteBatch, Vector2 center, string content) {
@@ -60,38 +60,48 @@ namespace yolo {
 
         private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
         {
-            const int rowWidth = 200;
-            const int rowHeight = 30;
+            const int rowWidth = 14;
+            const int rowHeight = 25;
             const int paddingLeft = 15;
             const int paddingTop = 15;
             var list = context.Player.TodoList;
+
+            int lm = 0;
+            foreach (var listItem in list.Items)
+            {
+                string text = list.ItemText[listItem.Achievement] + (listItem.TotalCount > 1 ? " (" + listItem.DoneCount + "/" + listItem.TotalCount + ")" : "");
+                lm = Math.Max(lm, text.Length);
+            }
+            
+            // pozadí
             spriteBatch.Draw(
                 assets.Sprites.Paper.Texture,
-                new Rectangle((int)position.X + paddingLeft, (int)position.Y + paddingTop, rowWidth, rowHeight * (list.Items.Count + 1)),
+                new Rectangle((int)position.X, (int)position.Y, rowWidth * lm + 2 * paddingTop, rowHeight * (list.Items.Count + 1) + 2 * paddingLeft),
                 assets.Sprites.Paper.SourceRect,
                 Color.White);
+            
+            DrawStringCentered(spriteBatch, list.Header, new Vector2(position.X + paddingLeft + rowWidth * lm / 2f, position.Y + paddingTop + 2), 2, Color.Black);
+            
             var curPos = new Vector2(position.X + paddingLeft, position.Y + paddingTop);
-            DrawString(spriteBatch, list.Header, curPos, 2, Color.White);
             foreach (var listItem in list.Items)
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
-                int remCount = listItem.TotalCount - listItem.DoneCount;
-                string text = remCount > 1 ? list.ItemText[listItem.Achievement] + " : " + remCount : list.ItemText[listItem.Achievement];
-                DrawString(spriteBatch, text, curPos, 1, Color.Black);
+                string text = list.ItemText[listItem.Achievement] + (listItem.TotalCount > 1 ? " (" + listItem.DoneCount + "/" + listItem.TotalCount + ")" : "");
+                DrawString(spriteBatch, text, curPos, 2, Color.Black);
                 if (listItem.AllDone)
                 {
                     spriteBatch.Draw(assets.Sprites.Empty.Texture, 
-                        new Rectangle((int)curPos.X, (int)curPos.Y + 4, rowWidth - 50, 1),
-                        assets.Sprites.Empty.SourceRect, Color.White);
+                        new Rectangle((int)curPos.X, (int)curPos.Y + 6, rowWidth * text.Length, 3),
+                        assets.Sprites.Empty.SourceRect, Color.Black);
                 }
             }
         }
 
-        private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, int scale, Color fontColor) {
+        private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, float scale, Color fontColor) {
             spriteBatch.DrawString(assets.Fonts.Font, s, position, fontColor, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
-        private void DrawStringCentered(SpriteBatch spriteBatch, string s, Vector2 center, int scale, Color fontColor) {
+        private void DrawStringCentered(SpriteBatch spriteBatch, string s, Vector2 center, float scale, Color fontColor) {
             float charW = assets.Fonts.Font.Glyphs[0].Width;
             float strW = s.Length * charW;
             float strH = charW;

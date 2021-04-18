@@ -92,21 +92,31 @@ namespace yolo {
     }
     public class Pond : Interactable
     {
+        private bool Peed { get; set; }
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
-            return Entity.Context.Player.IsGood ? AchievementType.FeedDucks : AchievementType.PeeInPond;
+            if (Entity.Context.Player.IsGood)
+            {
+                return AchievementType.FeedDucks;
+            }
+            Peed = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.ParkPondPee);
+            return AchievementType.PeeInPond;
         }
         public override bool CanInteract()
         {
-            return true;
+            return Entity.Context.Player.IsGood || (!Entity.Context.Player.IsGood && !Peed);
         }
 
         public Pond(Entity entity) : base(entity)
         {
+            Peed = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.ParkPond);
+            Entity.Animation.IsFlat = true;
         }
     }
 
@@ -173,28 +183,34 @@ namespace yolo {
     }
     public class Tree : Interactable
     {
+        private bool AlreadyInteracted { get; set; }
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
+            AlreadyInteracted = true;
             return AchievementType.YellOnTree;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false;
+            return Entity.Context.Player.IsGood == false && AlreadyInteracted == false;
         }
 
         public Tree(Entity entity) : base(entity)
         {
+            AlreadyInteracted = false;
         }
     }
 
     public class Fountain : Interactable
     {
+        private bool Peed { get; set;}
         public Fountain(Entity entity) : base(entity)
         {
+            Peed = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.Fountain);
         }
         public override void Update()
         {
@@ -202,11 +218,13 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
+            Peed = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.FountainPee);
             return AchievementType.PeeInFountain;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false;
+            return Entity.Context.Player.IsGood == false && Peed == false;
         }
     }
 
@@ -227,6 +245,85 @@ namespace yolo {
         public override bool CanInteract()
         {
             return Entity.Context.Player.IsGood && !Entity.Context.Player.HasGroceries;
+        }
+    }
+
+    public class GroceryStand : Interactable
+    {
+        public bool Robed { get; set; }
+        public GroceryStand(Entity entity) : base(entity)
+        {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.MarketIsleEntity);
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            Entity.Context.Player.PickGroceries();
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.MarketIsleStolenEntity);
+            return AchievementType.StealFood;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false && Robed == false && Entity.Context.Player.HasGroceries == false;
+        }
+    }
+
+    public class Doctor : Interactable
+    {
+        public Doctor(Entity entity) : base(entity)
+        {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
+        }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            if (Entity.Context.Player.IsGood)
+            {
+                return AchievementType.ThankDoctor;
+            }
+
+            return AchievementType.CurseDoctor;
+        }
+
+        public override bool CanInteract()
+        {
+            return true;
+        }
+    }
+
+    public class HospitalBed : Interactable
+    {
+        private bool Broken { get; set; }
+        public HospitalBed(Entity entity) : base(entity)
+        {
+            Broken = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalBedEntity);
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            Broken = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.HospitalBedBrokenEntity);
+            return AchievementType.BreakHospitalBed;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false && Broken == false;
         }
     }
     

@@ -4,7 +4,7 @@ namespace yolo {
     public class BucketList {
         public List<BucketListItem> Items;
 
-        public string Header = "Bucket list:";
+        public string Header = "Bucket list";
 
         public Dictionary<AchievementType, string> ItemText = new Dictionary<AchievementType, string>()
         {
@@ -15,6 +15,7 @@ namespace yolo {
             {AchievementType.DeliverFood, "Bring groceries to grandma's house"},
             {AchievementType.CleanGraffitti, "Clean up graffitti"},
             {AchievementType.FeedDucks, "Feed the ducks"},
+            {AchievementType.ThankDoctor, "Thank the doctor"},
 
             {AchievementType.ToppleBin, "Kick the bin"},
             {AchievementType.BadIceCream, "Throw away icecream"},
@@ -22,20 +23,25 @@ namespace yolo {
             {AchievementType.DoGraffitti, "Make some graffitti"},
             {AchievementType.PeeInPond, "Pee in the pond"},
             {AchievementType.PeeInFountain, "Pee in the fountain"},
-            {AchievementType.YellOnTree, "Yell at a tree"}
+            {AchievementType.YellOnTree, "Yell at a tree"},
+            {AchievementType.CurseDoctor, "Curse the doctor"},
+            {AchievementType.BreakHospitalBed, "Break hospital bed"},
+            {AchievementType.StealFood, "Steal groceries"}
+            
         };
 
         public AchievementType[] GoodActionsMultiple = new[] {AchievementType.PutUpBin, AchievementType.HugPerson};
         public AchievementType[] GoodActions = new[]
         {
              AchievementType.EatIceCream, AchievementType.BuyFood, AchievementType.DeliverFood,
-            AchievementType.CleanGraffitti, AchievementType.FeedDucks
+            AchievementType.CleanGraffitti, AchievementType.FeedDucks, AchievementType.ThankDoctor
         };
         public AchievementType[] BadActionsMultiple = new[] {AchievementType.ToppleBin, AchievementType.CursePerson};
         public AchievementType[] BadActions = new[]
         {
             AchievementType.BadIceCream, AchievementType.DoGraffitti, AchievementType.PeeInPond, 
-            AchievementType.PeeInFountain, AchievementType.YellOnTree
+            AchievementType.PeeInFountain, AchievementType.YellOnTree, AchievementType.CurseDoctor, 
+            AchievementType.BreakHospitalBed, AchievementType.StealFood
         };
 
         public void FillBucketList(bool isGood)
@@ -44,7 +50,7 @@ namespace yolo {
             {
                 var multipleG = Utils.RandChoice(GoodActionsMultiple);
                 Items.Add(new BucketListItem(multipleG, 3)); // ToDo: Constants?
-                var otherG = Utils.RandChooseN(GoodActions, 2);
+                var otherG = Utils.RandChooseN(GoodActions, 3);
                 foreach (var itemType in otherG)
                 {
                     Items.Add(new BucketListItem(itemType, 1));
@@ -54,7 +60,7 @@ namespace yolo {
             // is bad
             var multipleB = Utils.RandChoice(BadActionsMultiple);
             Items.Add(new BucketListItem(multipleB, 3)); // ToDo: Constants?
-            var otherB = Utils.RandChooseN(BadActions, 2);
+            var otherB = Utils.RandChooseN(BadActions, 3);
             foreach (var itemType in otherB)
             {
                 Items.Add(new BucketListItem(itemType, 1));
@@ -104,6 +110,10 @@ namespace yolo {
         BuyFood,
         DeliverFood,
         DoGraffitti,
-        CleanGraffitti
+        CleanGraffitti,
+        ThankDoctor,
+        CurseDoctor,
+        BreakHospitalBed,
+        StealFood
     }
 }
