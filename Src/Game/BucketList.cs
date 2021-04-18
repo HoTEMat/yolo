@@ -8,24 +8,25 @@ namespace yolo {
 
         public Dictionary<AchievementType, string> ItemText = new Dictionary<AchievementType, string>()
         {
-            {AchievementType.PutUpBin, "Put up the bin"},
+            {AchievementType.PutUpBin, "Put up a bin"},
             {AchievementType.EatIceCream, "Eat an icecream"},
-            {AchievementType.HugPerson, "Hug people"},
+            {AchievementType.HugPerson, "Hug a person"},
             {AchievementType.BuyFood, "Buy groceries"},
             {AchievementType.DeliverFood, "Bring groceries to grandma's house"},
-            {AchievementType.CleanGraffitti, "Clean up graffitti"},
+            {AchievementType.CleanGraffitti, "Clean up graffiti"},
             {AchievementType.FeedDucks, "Feed the ducks"},
             {AchievementType.ThankDoctor, "Thank the doctor"},
+            {AchievementType.BuyFromStand, "Buy something from the market"},
 
-            {AchievementType.ToppleBin, "Kick the bin"},
+            {AchievementType.ToppleBin, "Kick a bin"},
             {AchievementType.BadIceCream, "Throw away icecream"},
-            {AchievementType.CursePerson, "Curse people"},
-            {AchievementType.DoGraffitti, "Make some graffitti"},
+            {AchievementType.CursePerson, "Curse at a person"},
+            {AchievementType.DoGraffitti, "Paint graffiti"},
             {AchievementType.PeeInPond, "Pee in the pond"},
             {AchievementType.PeeInFountain, "Pee in the fountain"},
             {AchievementType.YellOnTree, "Yell at a tree"},
-            {AchievementType.CurseDoctor, "Curse the doctor"},
-            {AchievementType.BreakHospitalBed, "Break hospital bed"},
+            {AchievementType.CurseDoctor, "Curse at the doctor"},
+            {AchievementType.BreakHospitalBed, "Break the hospital bed"},
             {AchievementType.StealFood, "Steal groceries"}
             
         };
@@ -34,7 +35,7 @@ namespace yolo {
         public AchievementType[] GoodActions = new[]
         {
              AchievementType.EatIceCream, AchievementType.BuyFood, AchievementType.DeliverFood,
-            AchievementType.CleanGraffitti, AchievementType.FeedDucks, AchievementType.ThankDoctor
+            AchievementType.CleanGraffitti, AchievementType.FeedDucks, AchievementType.ThankDoctor, AchievementType.BuyFromStand
         };
         public AchievementType[] BadActionsMultiple = new[] {AchievementType.ToppleBin, AchievementType.CursePerson};
         public AchievementType[] BadActions = new[]
@@ -114,6 +115,7 @@ namespace yolo {
         ThankDoctor,
         CurseDoctor,
         BreakHospitalBed,
-        StealFood
+        StealFood,
+        BuyFromStand
     }
 }

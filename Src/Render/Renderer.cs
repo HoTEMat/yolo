@@ -138,18 +138,13 @@ namespace yolo {
                 shader.Parameters["intensity"].SetValue(1f);
 
                 if (anim.Highlighted) {
-                    if ((int)(context.TSec * 10) % 2 == 0) {
-                        shader.Parameters["intensity"].SetValue(1f);
-                    } else {
-                        shader.Parameters["intensity"].SetValue(2f);
-                    }
+                    shader.Parameters["intensity"].SetValue(2f);
                 }
 
                 shader.CurrentTechnique = shader.Techniques["Entity"];
                 shader.Parameters["view_projection"].SetValue(viewProjection);
                 shader.Parameters["tone"].SetValue(sprite.Tone.ToVector4());
                 shader.Parameters["SpriteTexture"].SetValue(sprite.Texture);
-                //shader.Parameters["pixelSize"].SetValue(new Vector2(1f / sprite.SourceRect.Width, 1f / sprite.SourceRect.Height));
 
                 foreach (var pass in shader.CurrentTechnique.Passes) {
                     pass.Apply();

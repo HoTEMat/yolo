@@ -15,26 +15,52 @@ namespace yolo
     {
         private List<List<Vector3>> PersonTargets = new List<List<Vector3>>()
         {
+            // CITY
             new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
-            new() { new(21, 22, 0), new(23, 25, 0), new(20, 28, 0), new(28, 26.5f, 0), new(31, 27.5f, 0), new(31, 22, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            new() { new(1, 14, 0), new(20, 14, 0), new(21, 8, 0), new(29, 8, 0), new(31, 14, 0), new(31, 14, 0), new(20, 16, 0), },
+            
             new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
-        };
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            new() { new(31, 9, 0), new(40, 9, 0), new(26, 9, 0), new(30, 9, 0), new(26, 14, 0), new(19, 14, 0), },
+            
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            new() { new (19, 17, 0), new (28, 18, 0), new (33, 17, 0), new (32, 9, 0), new (21, 9, 0), new (21, 9, 0), new (21, 2, 0), }, 
+            
+            // PARK
+            new() { new(21, 22, 0), new(23, 25, 0), new(20, 28, 0), new(28, 26.5f, 0), new(31, 27.5f, 0), new(31, 22, 0), },
+            new() { new (23, 22, 0), new (27, 21, 0), new (31, 24, 0), new (26, 26, 0), new (20, 25, 0), }, };
 
         private List<Vector3> IceCreamPositions = new List<Vector3>()
         {
-            // parc and square
-            new(30, 26, 0), new(31, 16, 0)
+            
+            new (32.5f, 17, 0),
+            new (31.5f, 25, 0),
+            
         };
 
         private List<Vector3> BinPositions = new List<Vector3>()
         {
-            new(3, 13, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
-            new(20, 10, 0), new(27, 13, 0)
+            new (22.1f, 2.3f, 0),
+            new (20.8f, 7.3f, 0),
+            new (20.6f, 13.7f, 0),
+            new (12f, 13.7f, 0),
+            new (2f, 13.7f, 0),
+            new (25f, 17.1f, 0),
+            new (27.3f, 10.5f, 0),
+            new (39.3f, 8.9f, 0),
         };
 
         private List<Vector3> GraffittiPositions = new List<Vector3>()
         {
-            new Vector3(9, 13, 0) //, new Vector3(28, 6, 0), new Vector3(21, 1, 0),new Vector3(36, 8, 0)
+            new (3, 13.01f, 0),
+            new (26, 6.01f, 0),
+            new (36, 8.01f, 0),
+            new (30, 21.01f, 0),
+            new (21, 21.01f, 0),
         };
 
         private const int NPCCount = 20;
@@ -56,6 +82,38 @@ namespace yolo
             generateBins(scene, context);
             generatePark(scene, context);
             generateGraffitti(scene, context);
+            
+            List<Vector3> standPositions = new List<Vector3>()
+            {
+                new (27f, 17f, 0),
+                new (28f, 18.5f, 0),
+            };
+
+            Sprite[] stands = new[]
+            {
+                context.Assets.Sprites.MarketStand1,
+                context.Assets.Sprites.MarketStand2,
+                context.Assets.Sprites.MarketStand3,
+            };
+
+            for (int i = 0; i < 3; i++)
+            {
+                foreach (var standPosition in standPositions)
+                {
+                    Console.WriteLine(i);
+                    Vector3 delta = new Vector3(i * 1.5f, 0, 0);
+                    
+                    Entity stand1 = new Entity(context)
+                    {
+                        Position = standPosition + delta,
+                        Animation = new Animation(Utils.RandChoice(stands)),
+                    };
+                    stand1.Behavior = new MarketStand(stand1);
+                    stand1.Collider = new RectangleCollider(stand1, false, 1, 0.1f);
+                    scene.AddEntity(stand1);
+                }
+                
+            }
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
@@ -95,6 +153,12 @@ namespace yolo
                 context.Assets.Sprites.ParkMisc4,
             };
             
+            Sprite[] bush = new[]
+            {
+                context.Assets.Sprites.ParkBush1,
+                context.Assets.Sprites.ParkBush2,
+            };
+            
             for (int i = 0; i < miscCount; i++)
             {
                 float x = Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble();
@@ -102,16 +166,36 @@ namespace yolo
 
                 if (x > 26 && x < 28 && y > 23 && y < 25)
                     continue;
-                
-                Entity msc = new Entity(context)
+
+                if (Utils.Random.NextDouble() < 0.05)
                 {
-                    Position = new Vector3( x, y, 0),
-                    Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]) {
-                        Effects = ef[Utils.Random.Next(0, ef.Length)]
-                    },
-                    Behavior = null,
-                };
-                scene.AddEntity(msc);
+                    int r = Utils.Random.Next(0, bush.Length);
+                    
+                    Console.WriteLine(r);
+                        
+                    Entity bushent = new Entity(context)
+                    {
+                        Position = new Vector3(x, y, 0),
+                        Animation = new Animation(bush[r])
+                        {
+                            Effects = ef[Utils.Random.Next(0, ef.Length)]
+                        },
+                    };
+                    bushent.Collider = new RectangleCollider(bushent, false, (r == 0 ? 0.5f : 0.85f), 0.01f);
+                    scene.AddEntity(bushent);
+                }
+                else
+                {
+                    Entity msc = new Entity(context)
+                    {
+                        Position = new Vector3(x, y, 0),
+                        Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)])
+                        {
+                            Effects = ef[Utils.Random.Next(0, ef.Length)]
+                        },
+                    };
+                    scene.AddEntity(msc);
+                }
             }
             
             Entity pond = new Entity(context)
@@ -328,37 +412,49 @@ namespace yolo
             Scene scene = new Scene("obchod", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.ObchodScene, context.Assets), context);
             
-            Entity fukyou = new Entity(context)
+            Entity isle1 = new Entity(context)
             {
-                Position = new Vector3( 11.99f, 18.58f, 0),
+                Position = new Vector3( 12f, 18.58f, 0),
             };
-            fukyou.Behavior = new GroceryStand(fukyou);
-            fukyou.Collider = new RectangleCollider(fukyou, false, 2, 0.01f);
-            scene.AddEntity(fukyou);
+            isle1.Behavior = new GroceryStand(isle1);
+            isle1.Collider = new RectangleCollider(isle1, false, 2, 0.01f);
+            scene.AddEntity(isle1);
             
-            Entity fukyou2 = new Entity(context)
+            Entity isle2 = new Entity(context)
             {
-                Position = new Vector3( 11.99f, 19.45f, 0),
+                Position = new Vector3( 12f, 19.45f, 0),
                 Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
             };
-            fukyou2.Collider = new RectangleCollider(fukyou2, false, 2, 0.01f);
-            scene.AddEntity(fukyou2);
+            isle2.Collider = new RectangleCollider(isle2, false, 2, 0.01f);
+            isle2.Behavior = new GroceryStand(isle1);
+            scene.AddEntity(isle2);
             
-            Entity fuk3 = new Entity(context)
+            Entity isle3 = new Entity(context)
             {
                 Position = new Vector3( 14.5f, 19.45f, 0),
                 Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
             };
-            fuk3.Collider = new RectangleCollider(fuk3, false, 2, 0.01f);
-            scene.AddEntity(fuk3);
+            isle3.Collider = new RectangleCollider(isle3, false, 2, 0.01f);
+            isle3.Behavior = new GroceryStand(isle1);
+            scene.AddEntity(isle3);
             
-            Entity fjefea = new Entity(context)
+            Entity isle4 = new Entity(context)
             {
                 Position = new Vector3( 14.5f, 18.58f, 0),
                 Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
             };
-            fjefea.Collider = new RectangleCollider(fjefea, false, 2, 0.01f);
-            scene.AddEntity(fjefea);
+            isle4.Collider = new RectangleCollider(isle4, false, 2, 0.01f);
+            isle4.Behavior = new GroceryStand(isle1);
+            scene.AddEntity(isle4);
+            
+            Entity isle5 = new Entity(context)
+            {
+                Position = new Vector3( 17f, 19.45f, 0),
+                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
+            };
+            isle5.Collider = new RectangleCollider(isle5, false, 2, 0.01f);
+            isle5.Behavior = new GroceryStand(isle1);
+            scene.AddEntity(isle5);
             
             Entity fjeiofeajiofea = new Entity(context)
             {

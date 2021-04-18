@@ -61,6 +61,10 @@ namespace yolo {
             public Sprite ParkTreeSmall { get; init; }
             public Sprite ParkFence { get; init; }
 
+            public Sprite MarketStand1 { get; init; }
+            public Sprite MarketStand2 { get; init; }
+            public Sprite MarketStand3 { get; init; }
+            
             // PEOPLE
 
             public Sprite Person1Down { get; init; }
@@ -75,6 +79,7 @@ namespace yolo {
             public Sprite Person1Left { get; init; }
             public Sprite Person1Left1 { get; init; }
             public Sprite Person1Left2 { get; init; }
+            public Sprite Person1Dead { get; init; }
 
             public Sprite Person2Down { get; init; }
             public Sprite Person2Down1 { get; init; }
@@ -88,6 +93,7 @@ namespace yolo {
             public Sprite Person2Left { get; init; }
             public Sprite Person2Left1 { get; init; }
             public Sprite Person2Left2 { get; init; }
+            public Sprite Person2Dead { get; init; }
 
             public Sprite Person3Down { get; init; }
             public Sprite Person3Down1 { get; init; }
@@ -101,6 +107,7 @@ namespace yolo {
             public Sprite Person3Left { get; init; }
             public Sprite Person3Left1 { get; init; }
             public Sprite Person3Left2 { get; init; }
+            public Sprite Person3Dead { get; init; }
 
             public Sprite Person4Down { get; init; }
             public Sprite Person4Down1 { get; init; }
@@ -114,6 +121,7 @@ namespace yolo {
             public Sprite Person4Left { get; init; }
             public Sprite Person4Left1 { get; init; }
             public Sprite Person4Left2 { get; init; }
+            public Sprite Person4Dead { get; init; }
 
             // HOUSES
             public Sprite House1L { get; init; }
@@ -322,7 +330,7 @@ namespace yolo {
                 TrashcanUp = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 0, 16, 16), Origin = origin16x16 },
                 TrashcanDown = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 16, 16, 16), Origin = origin16x16 },
                 Grafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16 },
-                FadedGrafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16, Tone = Color.LightGray},
+                FadedGrafitti = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 64, 32, 16), Origin = origin16x16, Tone = Color.FromNonPremultiplied(100, 100, 100, 20), },
                 IcecreamStand = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 112, 16, 16), Origin = origin16x16 },
                 Fountain = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 160, 32, 16), Origin = origin32x16 },
                 FountainPee = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 176, 32, 16), Origin = origin32x16 },
@@ -336,12 +344,16 @@ namespace yolo {
                 ParkMisc4 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 16, 16, 16), Origin = origin16x16 },
                 ParkPond = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 0, 32, 32), Origin = origin32x32 },
                 ParkPondPee = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 192, 32, 32), Origin = origin32x32 },
-                ParkBush1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 32, 16, 16) },
-                ParkBush2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16) },
+                ParkBush1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 32, 16, 16), Origin = origin16x16 },
+                ParkBush2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 48, 16, 16), Origin = origin16x16 },
                 ParkGrass = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16) },
                 ParkTreeLarge = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32), Origin = originTree},
                 ParkTreeSmall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32) , Origin = originTree},
                 ParkFence = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 80, 16, 16) },
+                
+                MarketStand1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(256, 112, 16, 16), Origin = origin16x16},
+                MarketStand2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 112, 16, 16), Origin = origin16x16},
+                MarketStand3 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 128, 16, 16), Origin = origin16x16},
 
                 // PEOPLE
                 Person1Down = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16), Origin = origin16x16 },
@@ -395,6 +407,11 @@ namespace yolo {
                 Person4Left = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 208, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
                 Person4Left1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 192, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
                 Person4Left2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 176, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
+                
+                Person1Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 128, 16, 16), Origin = origin16x16 },
+                Person2Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 144, 16, 16), Origin = origin16x16 },
+                Person3Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 160, 16, 16), Origin = origin16x16 },
+                Person4Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 176, 16, 16), Origin = origin16x16 },
 
                 // HOUSES
                 House1L = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 0, 16, 32) },

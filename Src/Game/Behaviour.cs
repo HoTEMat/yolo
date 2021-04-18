@@ -73,18 +73,20 @@ namespace yolo {
 
     public class IceCreamStand : Interactable
     {
+        private bool interacted;
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
+            interacted = false;
             return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
         }
 
         public override bool CanInteract()
         {
-            return true; // you can always eat icecream
+            return !interacted;
         }
         public IceCreamStand(Entity entity) : base(entity)
         {
@@ -101,15 +103,19 @@ namespace yolo {
         {
             if (Entity.Context.Player.IsGood)
             {
+                Fed = true;
                 return AchievementType.FeedDucks;
             }
             Peed = true;
             Entity.Animation.Reset(Entity.Context.Assets.Sprites.ParkPondPee);
             return AchievementType.PeeInPond;
         }
+
+        public bool Fed { get; set; }
+
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood || (!Entity.Context.Player.IsGood && !Peed);
+            return (Entity.Context.Player.IsGood && !Fed)|| (!Entity.Context.Player.IsGood && !Peed);
         }
 
         public Pond(Entity entity) : base(entity)
@@ -276,6 +282,7 @@ namespace yolo {
 
     public class Doctor : Interactable
     {
+        private bool interacted;
         public Doctor(Entity entity) : base(entity)
         {
             Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
@@ -286,9 +293,9 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
-            Context.Game.StartIntro(); // TODO
-            if (Entity.Context.Player.IsGood)
+            if (Entity.Context.Player.IsGood && !interacted)
             {
+                interacted = true;
                 return AchievementType.ThankDoctor;
             }
 
@@ -325,6 +332,33 @@ namespace yolo {
         public override bool CanInteract()
         {
             return Entity.Context.Player.IsGood == false && Broken == false;
+        }
+    }
+
+    public class MarketStand : Interactable
+    {
+        private bool _bought = false;
+        
+        public MarketStand(Entity entity) : base(entity)
+        {
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            _bought = true;
+            return AchievementType.BuyFromStand;
+        }
+
+        public override bool CanInteract()
+        {
+            if (_bought) return false;
+            
+            return Entity.Context.Player.IsGood;
         }
     }
     
