@@ -34,7 +34,7 @@ namespace yolo {
                 Entity.Destroy();
             } else {
                 Velocity = VelocityInterpolation.Interpolate(t);
-                Entity.Scale = ScaleInterpolation.Interpolate(t);
+                Entity.Animation.Scale = ScaleInterpolation.Interpolate(t);
             }
         }
 

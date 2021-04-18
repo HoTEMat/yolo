@@ -49,7 +49,9 @@ namespace yolo {
 
         private Entity CreatePlayer() {
             Entity player = new Entity(Context);
-            player.Behavior = new PlayerBehaviour(true, new BucketList(new List<BucketListItem>()), 1, player);
+            var bucketList = new BucketList(new List<BucketListItem>());
+            bucketList.FillBucketList(true);
+            player.Behavior = new PlayerBehaviour(true, bucketList, 1, player);
             player.Collider = new CircleCollider(player, true, .1f);
             player.Position = new Vector3(25, 16, 0);
             return player;
