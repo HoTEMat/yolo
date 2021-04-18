@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -12,6 +13,7 @@ namespace yolo
         private SpriteOrientationManager orientationManager;
         
         private bool interacted;
+        private int point = 0;
         
         private bool walking;
         private float activityTime;
@@ -21,11 +23,16 @@ namespace yolo
         {
             TargetPoints = targetPoints;
             orientationManager = new SpriteOrientationManager(spriteNum, Entity);
-            nextState();
+
+            point = Utils.Random.Next(0, targetPoints.Count);
+            Position = targetPoints[point];
+            curTargetPoint = targetPoints[point];
         }
         
         public override void Update()
         {
+            this.Entity.Animation.Scale = 1f + 0.5f* MathF.Sin(5 * Context.TSec);
+
             var distanceFromTarget = (Position - curTargetPoint).Length();
             if (distanceFromTarget <= 0.01)
             {
@@ -34,7 +41,7 @@ namespace yolo
 
             float dt = (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
 
-            if (nextStopTime < 0.1 * activityTime * (walking ? 1 : 0.05))
+            if (nextStopTime < 0.1 * activityTime * (walking ? 1 : 0.1))
             {
                 walking = !walking;
                 nextStopTime = (float)Utils.Random.NextDouble();
@@ -49,22 +56,34 @@ namespace yolo
                 Position += delta;
                 orientationManager.UpdateOrientation(delta);
             }
+            else
+                orientationManager.UpdateOrientation(Vector3.Zero);
             
             activityTime += dt;
         }
         private void nextState()
         {
-            curTargetPoint = Utils.RandChoice(TargetPoints);
+            if (point == 0)
+                point += 1;
+            else if (point == TargetPoints.Count - 1)
+                point -= 1;
+            else
+                point = point += Utils.Random.Next(-1, 2);
+                    
+            curTargetPoint = new Vector3(
+                TargetPoints[point].X + (float)Utils.Random.NextDouble(),
+                TargetPoints[point].Y + (float)Utils.Random.NextDouble(),
+                TargetPoints[point].Z);
         }
         public override AchievementType? Interact()
         {
             // curse or hug
             var rnd = Entity.Context.Random.NextDouble();
+            interacted = true;
+            
             if (rnd <= interactionSuccess) // success
-            {
-                interacted = true;
                 return Entity.Context.Player.IsGood ? AchievementType.HugPerson : AchievementType.CursePerson;
-            }
+            
             return null;
         }
         public override bool CanInteract()

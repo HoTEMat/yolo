@@ -14,6 +14,15 @@ namespace yolo {
             Score = new Score();
         }
 
+        /// <summary>
+        /// Delta time in Seconds
+        /// </summary>
+        public float dSec => (float)GameTime.ElapsedGameTime.TotalSeconds;
+        /// <summary>
+        /// Total time in Seconds
+        /// </summary>
+        public float TSec => (float)GameTime.TotalGameTime.TotalSeconds;
+
         public GraphicsDeviceManager Graphics { get; init; }
         public KeyboardManager Keyboard { get; init; }
         public GameTime GameTime { get; private set; }
