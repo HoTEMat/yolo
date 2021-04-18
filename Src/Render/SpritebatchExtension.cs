@@ -17,6 +17,10 @@ namespace yolo {
         public static void DrawSprite(this SpriteBatch sb, Sprite sprite, Vector3 position) {
             sb.Draw(sprite.Texture, new Vector2(position.X, position.Y), sprite.SourceRect, sprite.Tone, 0f, sprite.Origin, 1 / 16f, sprite.Effects, position.Z);
         }
+        public static Color ToColor(this Vector3 vec) {
+            Color c = Color.FromNonPremultiplied(new Vector4(vec + new Vector3(1), 2) / 2);
+            return c;
+        }
 
         public static void DrawTextBlock(this SpriteBatch sb, SpriteFont font, Vector2 position, string text,
             int charsPerRow, int lineHeight, int scale, Color fontColor)

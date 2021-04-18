@@ -29,37 +29,37 @@ namespace yolo {
 
                     if (t.Flat) {
                         terrainMesh.AddQuad(
-                            new(new(x, y, 0), -Vector3.UnitZ, t.Sprite.UVTopLeft),
-                            new(new(x + 1, y, 0), -Vector3.UnitZ, t.Sprite.UVTopRight),
-                            new(new(x, y + 1, 0), -Vector3.UnitZ, t.Sprite.UVBotLeft),
-                            new(new(x + 1, y + 1, 0), -Vector3.UnitZ, t.Sprite.UVBotRight)
+                            new(new(x, y, 0), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopLeft),
+                            new(new(x + 1, y, 0), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopRight),
+                            new(new(x, y + 1, 0), (-Vector3.UnitZ).ToColor(), t.Sprite.UVBotLeft),
+                            new(new(x + 1, y + 1, 0), (-Vector3.UnitZ).ToColor(), t.Sprite.UVBotRight)
                             );
                     } else {
                         // front facing quad
                         if (y == tiles.Height - 1 || tiles[x, y + 1].Height < height) {
                             terrainMesh.AddQuad(
-                                new(new(x, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopLeft),
-                                new(new(x + 1, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopRight),
-                                new(new(x, y + 1, 0), Vector3.UnitY, t.Sprite.UVBotLeft),
-                                new(new(x + 1, y + 1, 0), Vector3.UnitY, t.Sprite.UVBotRight)
+                                new(new(x, y + 1, -height), (Vector3.UnitY).ToColor(), t.Sprite.UVTopLeft),
+                                new(new(x + 1, y + 1, -height), (Vector3.UnitY).ToColor(), t.Sprite.UVTopRight),
+                                new(new(x, y + 1, 0), (Vector3.UnitY).ToColor(), t.Sprite.UVBotLeft),
+                                new(new(x + 1, y + 1, 0), (Vector3.UnitY).ToColor(), t.Sprite.UVBotRight)
                             );
                         }
                         // right facing quad
                         if (x == tiles.Width - 1 || tiles[x + 1, y].Height < height) {
                             terrainMesh.AddQuad(
-                                new(new(x + 1, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
-                                new(new(x + 1, y, -height), Vector3.UnitX, t.Sprite.UVTopRight),
-                                new(new(x + 1, y + 1, 0), Vector3.UnitX, t.Sprite.UVBotLeft),
-                                new(new(x + 1, y, 0), Vector3.UnitX, t.Sprite.UVBotRight)
+                                new(new(x + 1, y + 1, -height), (Vector3.UnitX).ToColor(), t.Sprite.UVTopLeft),
+                                new(new(x + 1, y, -height), (Vector3.UnitX).ToColor(), t.Sprite.UVTopRight),
+                                new(new(x + 1, y + 1, 0), (Vector3.UnitX).ToColor(), t.Sprite.UVBotLeft),
+                                new(new(x + 1, y, 0), (Vector3.UnitX).ToColor(), t.Sprite.UVBotRight)
                             );
                         }
                         // left facing quad
                         if (x == 0 || tiles[x - 1, y].Height < height) {
                             terrainMesh.AddQuad(
-                                new(new(x, y, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
-                                new(new(x, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopRight),
-                                new(new(x, y, 0), Vector3.UnitX, t.Sprite.UVBotLeft),
-                                new(new(x, y + 1, 0), Vector3.UnitX, t.Sprite.UVBotRight)
+                                new(new(x, y, -height), (-Vector3.UnitX).ToColor(), t.Sprite.UVTopLeft),
+                                new(new(x, y + 1, -height), (-Vector3.UnitX).ToColor(), t.Sprite.UVTopRight),
+                                new(new(x, y, 0), (-Vector3.UnitX).ToColor(), t.Sprite.UVBotLeft),
+                                new(new(x, y + 1, 0), (-Vector3.UnitX).ToColor(), t.Sprite.UVBotRight)
                             );
                         }
 
@@ -67,10 +67,10 @@ namespace yolo {
 
                         // top facing quad
                         terrainMesh.AddQuad(
-                            new(new(x, y, -height), -Vector3.UnitZ, t.Sprite.UVTopLeft),
-                            new(new(x + 1, y, -height), -Vector3.UnitZ, t.Sprite.UVTopRight),
-                            new(new(x, y + 1, -height), -Vector3.UnitZ, t.Sprite.UVTopLeft + UVOnePixel),
-                            new(new(x + 1, y + 1, -height), -Vector3.UnitZ, t.Sprite.UVTopRight + UVOnePixel)
+                            new(new(x, y, -height), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopLeft),
+                            new(new(x + 1, y, -height), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopRight),
+                            new(new(x, y + 1, -height), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopLeft + UVOnePixel),
+                            new(new(x + 1, y + 1, -height), (-Vector3.UnitZ).ToColor(), t.Sprite.UVTopRight + UVOnePixel)
                         );
                     }
                 }
@@ -96,9 +96,9 @@ namespace yolo {
 
 
             var shader = context.Assets.Perspective;
-            shader.CurrentTechnique = shader.Techniques["FloorPlane"];
 
             var viewProjection = camera.View * projection;
+            shader.CurrentTechnique = shader.Techniques["Terrain"];
             shader.Parameters["view_projection"].SetValue(viewProjection);
             shader.Parameters["SpriteTexture"].SetValue(context.Assets.Textures.Main);
 
@@ -122,25 +122,41 @@ namespace yolo {
             }
 
             foreach (var entity in scene.Entities.Where(e => e.Animation != null).OrderBy(e => (e.Animation.IsFlat ? 0f : 1f, e.Position.Y))) {
-                using var entityMesh = new QuadBuffer();
 
-                var sprite = entity.Animation.GetCurrentSprite(context);
-                entityMesh.AddSprite(sprite, entity.Position, entity.Animation.IsFlat);
+                var sb = context.SpriteBatch;
+                var anim = entity.Animation;
+                var sprite = anim.GetCurrentSprite(context);
+
+                device.SetRenderTarget(null);
+                using var entityMesh = new QuadBuffer();
+                entityMesh.AddSprite(sprite, entity.Position, anim.IsFlat);
 
                 entityMesh.Transfer(device);
                 device.SetVertexBuffer(entityMesh.VertexBuffer);
                 device.Indices = entityMesh.IndexBuffer;
 
+                shader.Parameters["intensity"].SetValue(1f);
+
+                if (anim.Highlighted) {
+                    if ((int)(context.TSec * 10) % 2 == 0) {
+                        shader.Parameters["intensity"].SetValue(1f);
+                    } else {
+                        shader.Parameters["intensity"].SetValue(2f);
+                    }
+                }
+
+                shader.CurrentTechnique = shader.Techniques["Entity"];
+                shader.Parameters["view_projection"].SetValue(viewProjection);
                 shader.Parameters["tone"].SetValue(sprite.Tone.ToVector4());
                 shader.Parameters["SpriteTexture"].SetValue(sprite.Texture);
+                //shader.Parameters["pixelSize"].SetValue(new Vector2(1f / sprite.SourceRect.Width, 1f / sprite.SourceRect.Height));
 
                 foreach (var pass in shader.CurrentTechnique.Passes) {
                     pass.Apply();
                     device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, entityMesh.IndexBuffer.IndexCount / 3);
                 }
+
             }
-
-
         }
     }
 }
