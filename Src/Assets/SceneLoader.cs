@@ -73,7 +73,7 @@ namespace yolo
             int maxX = 33;
             int maxY=  29;
 
-            int miscCount = 70;
+            int miscCount = 150;
             
             Sprite[] misc = new[]
             {
@@ -82,16 +82,19 @@ namespace yolo
                 context.Assets.Sprites.ParkMisc3,
                 context.Assets.Sprites.ParkMisc4,
             };
-
+            
             for (int i = 0; i < miscCount; i++)
             {
+                float x = Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble();
+                float y = Utils.Random.Next(minY, maxY) + (float)Utils.Random.NextDouble();
+
+                if ((x > 26 && x < 28 && y > 23 && y < 25))
+                    continue;
+                
                 Entity msc = new Entity(context)
                 {
-                    Position = new Vector3(
-                        Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble(),
-                        Utils.Random.Next(minY, maxY) + (float)Utils.Random.NextDouble(),
-                        0
-                        ),
+                    
+                    Position = new Vector3( x, y, 0),
                     Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
                     Behavior = null,
                 };
@@ -107,6 +110,41 @@ namespace yolo
             pond.Collider = new CircleCollider(pond, false, 1);
             pond.Behavior = new Pond(pond);
             scene.AddEntity(pond);
+
+            List<Vector3> treePositions = new List<Vector3>()
+            {
+                new Vector3(21, 24, 0),
+                new Vector3(23, 27, 0),
+                new Vector3(28, 28, 0),
+                new Vector3(31, 23, 0),
+                new Vector3(29, 22, 0),
+            };
+            
+            Sprite[] trees = {
+                context.Assets.Sprites.ParkTreeSmall,
+                context.Assets.Sprites.ParkTreeLarge,
+            };
+
+            foreach (var treePosition in treePositions)
+            {
+                int r = Utils.Random.Next(0, trees.Length);
+                
+                Entity msc = new Entity(context)
+                {
+                    Position = treePosition,
+                    Animation = new Animation(trees[r]),
+                }; 
+            
+                ICollider[] treeCols = new[]
+                {
+                    new RectangleCollider(msc, false, 0.25f, 0.01f),
+                    new RectangleCollider(msc, false, 0.5f, 0.01f),
+                };
+
+                msc.Collider = treeCols[r];
+                msc.Behavior = new Tree(msc);
+                scene.AddEntity(msc);
+            }
         }
 
         private void generateNPCs(Scene scene, Context ctx)
