@@ -16,14 +16,16 @@ namespace yolo {
         public float TimeToLive { get; private set; }
         private Context context;
         private SceneSwitchInfo? plannedSceneSwitch;
+        public bool hud;
 
-        public World(List<Scene> scenes, Scene currentScene, float timeToLive, Context context) {
+        public World(List<Scene> scenes, Scene currentScene, float timeToLive, Context context, bool hud = true) {
             this.context = context;
             Scenes = scenes.ToDictionary(scene => scene.Name);
             CurrentScene = currentScene;
             TimeToLive = timeToLive;
+            this.hud = hud;
         }
-
+        
         public void SwitchToScene(string newSceneName, Vector3 playerPosition) {
             plannedSceneSwitch = new SceneSwitchInfo {
                 SceneName = newSceneName,
