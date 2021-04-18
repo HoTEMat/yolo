@@ -41,9 +41,11 @@ namespace yolo {
         public Bin(bool isOverturned, Entity entity) : base(entity)
         {
             IsOverturned = isOverturned;
-            Entity.Animation = IsOverturned
-                ? new Animation(Entity.Context.Assets.Sprites.TrashcanDown)
-                : new Animation(Entity.Context.Assets.Sprites.TrashcanUp);
+            if (IsOverturned) {
+                Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.TrashcanDown);
+            } else {
+                Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.TrashcanUp);
+            }
         }
         public override void Update()
         {
