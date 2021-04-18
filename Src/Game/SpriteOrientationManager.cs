@@ -45,13 +45,34 @@ namespace yolo {
                 return PersonOrientation.Up;
             return PersonOrientation.Left;
         }
+
+        public void Dead()
+        {
+            switch (spriteNum)
+            {
+                case 1:
+                    entity.ChangeSpriteTo(entity.Context.Assets.Sprites.Person1Dead);
+                    break;
+                case 2:
+                    entity.ChangeSpriteTo(entity.Context.Assets.Sprites.Person2Dead);
+                    break;
+                case 3:
+                    entity.ChangeSpriteTo(entity.Context.Assets.Sprites.Person3Dead);
+                    break;
+                case 4:
+                    entity.ChangeSpriteTo(entity.Context.Assets.Sprites.Person4Dead);
+                    break;
+            }
+
+        }
     }
     
     public enum PersonOrientation {
         Up,
         Right,
         Down,
-        Left
+        Left,
+        Dead
     }
 }
 

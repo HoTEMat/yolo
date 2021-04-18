@@ -48,6 +48,15 @@ namespace yolo {
         private void HandleWalking() {
             KeyboardManager kb = Context.Keyboard;
             Vector3 changeDir = Vector3.Zero;
+
+            if (Context.World.TimeToLive <= 0)
+            {
+                orientationManager.Dead();
+                return;
+            }
+
+
+            
             if (kb.IsKeyDown(Keys.Right)) {
                 changeDir += new Vector3(1, 0, 0);
             }
