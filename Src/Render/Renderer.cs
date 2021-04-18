@@ -9,11 +9,9 @@ namespace yolo {
         private Context context;
 
         private QuadBuffer terrainMesh;
-        private QuadBuffer entityMesh;
 
         public Renderer(Context context) {
             this.context = context;
-            entityMesh = new();
             terrainMesh = new QuadBuffer();
         }
 
@@ -98,12 +96,12 @@ namespace yolo {
                 1 / 16f, 100f);
 
 
-            var persp = context.Assets.Perspective;
-            persp.CurrentTechnique = persp.Techniques["FloorPlane"];
+            var shader = context.Assets.Perspective;
+            shader.CurrentTechnique = shader.Techniques["FloorPlane"];
 
             var viewProjection = camera.View * projection;
-            persp.Parameters["view_projection"].SetValue(viewProjection);
-            persp.Parameters["SpriteTexture"].SetValue(context.Assets.Textures.Main);
+            shader.Parameters["view_projection"].SetValue(viewProjection);
+            shader.Parameters["SpriteTexture"].SetValue(context.Assets.Textures.Main);
 
             device.SetVertexBuffer(terrainMesh.VertexBuffer);
             device.Indices = terrainMesh.IndexBuffer;
@@ -119,29 +117,30 @@ namespace yolo {
             device.BlendState = BlendState.AlphaBlend;
             device.DepthStencilState = DepthStencilState.Default;
 
-            foreach (var pass in persp.CurrentTechnique.Passes) {
+            foreach (var pass in shader.CurrentTechnique.Passes) {
                 pass.Apply();
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainMesh.IndexBuffer.IndexCount / 3);
             }
 
-            entityMesh.Dispose();
-            entityMesh = new QuadBuffer();
-            foreach (var entity in scene.Entities.OrderBy(e => (e.IsFlat ? 0 : 1, e.Position.Y))) {
-                if (entity.Animation != null) {
-                    var sprite = entity.Animation.GetCurrentSprite(context);
+            foreach (var entity in scene.Entities.Where(e => e.Animation != null).OrderBy(e => (e.Animation.IsFlat ? 0f : 1f, e.Position.Y))) {
+                using var entityMesh = new QuadBuffer();
 
-                    entityMesh.AddSprite(sprite, entity.Position, entity.IsFlat);
+                var sprite = entity.Animation.GetCurrentSprite(context);
+                entityMesh.AddSprite(sprite, entity.Position, entity.Animation.IsFlat);
+
+                entityMesh.Transfer(device);
+                device.SetVertexBuffer(entityMesh.VertexBuffer);
+                device.Indices = entityMesh.IndexBuffer;
+
+                shader.Parameters["tone"].SetValue(sprite.Tone.ToVector4());
+
+                foreach (var pass in shader.CurrentTechnique.Passes) {
+                    pass.Apply();
+                    device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, entityMesh.IndexBuffer.IndexCount / 3);
                 }
             }
 
-            entityMesh.Transfer(device);
-            device.SetVertexBuffer(entityMesh.VertexBuffer);
-            device.Indices = entityMesh.IndexBuffer;
 
-            foreach (var pass in persp.CurrentTechnique.Passes) {
-                pass.Apply();
-                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, entityMesh.IndexBuffer.IndexCount / 3);
-            }
         }
     }
 }
