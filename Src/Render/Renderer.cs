@@ -133,6 +133,7 @@ namespace yolo {
                 device.Indices = entityMesh.IndexBuffer;
 
                 shader.Parameters["tone"].SetValue(sprite.Tone.ToVector4());
+                shader.Parameters["SpriteTexture"].SetValue(sprite.Texture);
 
                 foreach (var pass in shader.CurrentTechnique.Passes) {
                     pass.Apply();

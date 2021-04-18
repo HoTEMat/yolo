@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 
 namespace yolo {
     public class World {
-        public static readonly Vector2 Forward = new Vector2(0, 1);
-        public static readonly Vector2 Backward = new Vector2(0, -1);
-        public static readonly Vector2 Left = new Vector2(-1, 0);
-        public static readonly Vector2 Right = new Vector2(1, 0);
+        public static readonly Vector3 Forward = new Vector3(0, 1, 0);
+        public static readonly Vector3 Backward = new Vector3(0, -1, 0);
+        public static readonly Vector3 Left = new Vector3(-1, 0, 0);
+        public static readonly Vector3 Right = new Vector3(1, 0, 0);
+        public static readonly Vector3 Up = new Vector3(0, 0, -1);
 
         public Dictionary<string, Scene> Scenes { get; }
         public Scene CurrentScene { get; private set; }

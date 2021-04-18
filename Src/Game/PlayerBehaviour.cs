@@ -33,6 +33,10 @@ namespace yolo {
         public override void Update() {
             HandleWalking();
             HandleInteraction();
+
+            if (Context.Keyboard.IsKeyPressed(Keys.L)) {
+                ShowHearts();
+            }
         }
 
         private void HandleWalking() {
@@ -73,6 +77,12 @@ namespace yolo {
                     TodoList.ProcessAchievement((AchievementType)achievement);
                 }
             }
+        }
+
+        private void ShowHearts() {
+            Vector3 pos = Entity.Position + World.Up * 1.3f + World.Backward * 0.001f;
+            ParticleSystemGenerator.HearthsGenerator(Entity.Scene, Context)
+                .Generate(Context.Assets.Sprites.HeartGood, pos);
         }
     }
 }

@@ -31,8 +31,6 @@ namespace yolo
         
         public override void Update()
         {
-            this.Entity.Animation.Scale = 1f + 0.5f* MathF.Sin(5 * Context.TSec);
-
             var distanceFromTarget = (Position - curTargetPoint).Length();
             if (distanceFromTarget <= 0.01)
             {
