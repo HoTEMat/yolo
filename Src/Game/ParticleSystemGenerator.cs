@@ -44,7 +44,8 @@ namespace yolo {
         private void AddSprite(ISpriteSet sprite, Vector3 position) {
             Entity particle = new Entity(ctx) {
                 Animation = new Animation(sprite),
-                Position = position
+                Position = position,
+                IsTemporal = true
             };
             Particle behaviour = new Particle(particle, ScaleInterpolation, VelocityInterpolation, Duration);
             particle.Behavior = behaviour;

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class Scene {
-        private const float InteractableDistanceThreshold = 1; // TODO
+        private const float InteractableDistanceThreshold = 0.7f; // TODO
 
         public string Name { get; }
         public List<Entity> Entities { get; }
@@ -67,7 +67,7 @@ namespace yolo {
             float selectedDistance = 0; // dummy value
             foreach (Entity e in Entities) {
                 if (e.Behavior is Interactable interactable && interactable.CanInteract()) {
-                    float distance = (e.Position - playerPos).Length();
+                    float distance = e.GetDistanceFrom(ctx.Player.Entity);
                     if (distance <= InteractableDistanceThreshold &&
                         (selected == null || selectedDistance > distance)) {
                         selected = interactable;
@@ -115,6 +115,11 @@ namespace yolo {
         private void InsertAddedEntities() {
             Entities.AddRange(toBeAddedEntities);
             toBeAddedEntities = new List<Entity>();
+        }
+
+        // Don't call this from the update loop.
+        public void RemoveTemporalEntitiesNow() {
+            Entities.RemoveAll(e => e.IsTemporal);
         }
     }
 }

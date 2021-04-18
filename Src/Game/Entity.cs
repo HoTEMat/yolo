@@ -10,6 +10,7 @@ namespace yolo {
         public Behaviour Behavior { get; set; }
         public Context Context { get; set; }
         public bool Destroyed { get; private set; }
+        public bool IsTemporal { get; init; }
 
         public Entity(Context ctx) {
             Context = ctx;
@@ -33,6 +34,16 @@ namespace yolo {
                 Animation.Dispose();
             }
             Destroyed = true;
+        }
+
+        public float GetDistanceFrom(Entity other) {
+            // Distance between centers
+            float centerDst = (other.Position - Position).Length();
+            // Distance from our center to other's border
+            float dstFromOtherBorder = other.Collider?.DistanceFromBorderTo(Position) ?? centerDst;
+            // Distance from other's center to our border
+            float dstToOurBorder = Collider?.DistanceFromBorderTo(other.Position) ?? centerDst;
+            return dstFromOtherBorder + dstToOurBorder - centerDst;
         }
     }
 }
