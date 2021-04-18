@@ -319,6 +319,7 @@ namespace yolo
                 Position = new Vector3( 19.2f, 18.48f, 0),
                 Animation = new Animation(context.Assets.Sprites.MarketCheckoutEntity),
             };
+            fjeiofeajiofea.Behavior = new CashRegister(fjeiofeajiofea);
             fjeiofeajiofea.Collider = new RectangleCollider(fjeiofeajiofea, false, 1, 0.01f);
             scene.AddEntity(fjeiofeajiofea);
             
