@@ -7,7 +7,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Effect = Microsoft.Xna.Framework.Graphics.Effect;
 
 namespace yolo {
-    public class AssetBank {
+    class AssetBank {
         private ContentManager content;
 
         public Effect Perspective { get; private set; }
@@ -285,6 +285,11 @@ namespace yolo {
 
         public class FontBank {
             public SpriteFont Font { get; set; }
+        }
+
+        public DialogBank Dialogs { get; private set; }
+        public class DialogBank {
+            public DialogInfo DoctorDialog { get; set; }
         }
 
         public void LoadContent(ContentManager Content) {
@@ -624,7 +629,11 @@ namespace yolo {
                 Font = FontLoader.CreateFont(Textures.SpriteFont)
             };
 
-
+            Dialogs = new DialogBank {
+                DoctorDialog = new DialogInfo(new[] {
+                    "Hello", "You die"
+                }),
+            };
         }
     }
 }
