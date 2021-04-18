@@ -5,8 +5,12 @@ using System;
 namespace yolo {
 
     public interface IAnimation : IDisposable {
-        public void Update(Context ctx);
-        public Sprite GetCurrentSprite(Context ctx);
+        void Update(Context ctx);
+        Sprite GetCurrentSprite(Context ctx);
+        void Reset(ISpriteSet spriteset);
+        bool Highlighted {get; set;}
+
+
     }
 
     public class Animation : IAnimation {
