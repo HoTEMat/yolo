@@ -50,8 +50,8 @@ namespace yolo {
         {
             const int rowWidth = 200;
             const int rowHeight = 30;
-            const int paddingLeft = 5;
-            const int paddingTop = 5;
+            const int paddingLeft = 15;
+            const int paddingTop = 15;
             var list = context.Player.TodoList;
             spriteBatch.Draw(
                 assets.Sprites.Empty.Texture,
@@ -63,8 +63,15 @@ namespace yolo {
             foreach (var listItem in list.Items)
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
-                string text = list.ItemText[listItem.Achievement] + " : " + (listItem.TotalCount - listItem.DoneCount).ToString() ;
+                int remCount = listItem.TotalCount - listItem.DoneCount;
+                string text = remCount > 1 ? list.ItemText[listItem.Achievement] + " : " + remCount : list.ItemText[listItem.Achievement];
                 DrawString(spriteBatch, text, curPos, 1, Color.White);
+                if (listItem.AllDone)
+                {
+                    spriteBatch.Draw(assets.Sprites.Empty.Texture, 
+                        new Rectangle((int)curPos.X + 30, (int)curPos.Y, rowWidth - 20, 1),
+                        assets.Sprites.Empty.SourceRect, Color.White);
+                }
             }
         }
 
