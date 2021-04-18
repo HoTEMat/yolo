@@ -79,6 +79,7 @@ namespace yolo {
             public Sprite Person1Left { get; init; }
             public Sprite Person1Left1 { get; init; }
             public Sprite Person1Left2 { get; init; }
+            public Sprite Person1Dead { get; init; }
 
             public Sprite Person2Down { get; init; }
             public Sprite Person2Down1 { get; init; }
@@ -92,6 +93,7 @@ namespace yolo {
             public Sprite Person2Left { get; init; }
             public Sprite Person2Left1 { get; init; }
             public Sprite Person2Left2 { get; init; }
+            public Sprite Person2Dead { get; init; }
 
             public Sprite Person3Down { get; init; }
             public Sprite Person3Down1 { get; init; }
@@ -105,6 +107,7 @@ namespace yolo {
             public Sprite Person3Left { get; init; }
             public Sprite Person3Left1 { get; init; }
             public Sprite Person3Left2 { get; init; }
+            public Sprite Person3Dead { get; init; }
 
             public Sprite Person4Down { get; init; }
             public Sprite Person4Down1 { get; init; }
@@ -118,6 +121,7 @@ namespace yolo {
             public Sprite Person4Left { get; init; }
             public Sprite Person4Left1 { get; init; }
             public Sprite Person4Left2 { get; init; }
+            public Sprite Person4Dead { get; init; }
 
             // HOUSES
             public Sprite House1L { get; init; }
@@ -403,6 +407,11 @@ namespace yolo {
                 Person4Left = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 208, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
                 Person4Left1 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 192, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
                 Person4Left2 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(32, 176, 16, 16), Origin = origin16x16, Effects = SpriteEffects.FlipHorizontally },
+                
+                Person1Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 128, 16, 16), Origin = origin16x16 },
+                Person2Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 144, 16, 16), Origin = origin16x16 },
+                Person3Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 160, 16, 16), Origin = origin16x16 },
+                Person4Dead = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 176, 16, 16), Origin = origin16x16 },
 
                 // HOUSES
                 House1L = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 0, 16, 32) },
