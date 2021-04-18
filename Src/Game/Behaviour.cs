@@ -286,6 +286,7 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
+            Context.Game.StartIntro(); // TODO
             if (Entity.Context.Player.IsGood)
             {
                 return AchievementType.ThankDoctor;

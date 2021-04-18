@@ -52,7 +52,6 @@ namespace yolo {
         public void Update() {
             TimeToLive -= (float) context.GameTime.ElapsedGameTime.TotalSeconds;
             CurrentScene.Update();
-            context.Game.TriggerRestartCheck();
         }
         
         public void Destroy() {

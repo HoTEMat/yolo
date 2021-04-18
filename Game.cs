@@ -8,8 +8,9 @@ namespace yolo {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Context Context;
-        // If not null, the game will be restarted after Update loop finishes
-        private IWorldLoader willRestartTo;
+        private Controller currentController;
+        // If not null, control will be handed to this controller
+        public Controller WillTransitionTo { get; set; }
 
         public Game() {
             graphics = new GraphicsDeviceManager(this);
@@ -32,52 +33,35 @@ namespace yolo {
 
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             Context.SpriteBatch = spriteBatch;
             Context.Assets.LoadContent(Content);
+            DrawUtils.Font = Context.Assets.Fonts.Font;
             
-            Entity player = CreatePlayer();
-            Context.Player = (PlayerBehaviour)player.Behavior;
-
-            StartLevel(new FirstLevelLoader());
+            StartGame();
         }
 
-        private void StartLevel(IWorldLoader worldLoader) {
-            Context.Score = new Score();
-            
-            Entity player = CreatePlayer();
-            Context.Player = (PlayerBehaviour)player.Behavior;
-
-            Context.World = worldLoader.LoadWorld(Context);
-            Context.World.CurrentScene.AddEntity(player);
-
-            Context.Camera.Target = player;
-            Context.Camera.Update();
-
-            Context.Renderer.RebuildTerrainMesh();
+        // Only call this once per game.
+        public void StartGame() {
+            // Hack: Player is good at first in the intro scene
+            PlayingGameController controller = new PlayingGameController(Context, true);
+            controller.StartLevel(new IntroLevelLoader());
+            currentController = controller;
         }
 
-        public void Restart(IWorldLoader newWorldLoader) {
-            willRestartTo = newWorldLoader;
+        public void StartIntro() {
+            // Don't destroy World.
+            WillTransitionTo = new IntroScreenController(Context);
         }
 
-        // Dont call this if you dont know what you are doing
-        public void TriggerRestartCheck() {
-            if (willRestartTo != null) {
-                Context.World.Destroy();
-                StartLevel(willRestartTo);
-                willRestartTo = null;
-            }
+        // Can be called by entities
+        public void GameOver() {
+            WillTransitionTo = new GameOverScreenController(Context);
         }
 
-        private Entity CreatePlayer() {
-            Entity player = new Entity(Context);
-            var bucketList = new BucketList(new List<BucketListItem>());
-            bucketList.FillBucketList(true);
-            player.Behavior = new PlayerBehaviour(true, bucketList, 1, player);
-            player.Collider = new CircleCollider(player, true, .1f);
-            player.Position = new Vector3(25, 16, 0);
-            return player;
+        public void EndIntro(bool isGood) {
+            PlayingGameController controller = new PlayingGameController(Context, isGood);
+            controller.StartLevel(new FirstLevelLoader());
+            WillTransitionTo = controller;
         }
 
         protected override void Update(GameTime gameTime) {
@@ -85,17 +69,121 @@ namespace yolo {
                 Exit();
 
             Context.Update(gameTime);
-            Context.World.Update();
-
+            Context.Keyboard.RegisterState(Keyboard.GetState());
+            CheckTransition();
+            currentController.Update(gameTime);
             base.Update(gameTime);
         }
 
+        private void CheckTransition() {
+            if (WillTransitionTo != null) {
+                currentController = WillTransitionTo;
+                WillTransitionTo = null;
+
+                if (currentController is IntroScreenController) {
+                    Context.World.CurrentScene.RemoveTemporalEntitiesNow();
+                }
+            }
+        }
+
         protected override void Draw(GameTime gameTime) {
-
-            Context.Renderer.Draw();
-            Context.Hud.Draw();
-
+            currentController.Draw(gameTime);
             base.Draw(gameTime);
+        }
+    }
+
+    public abstract class Controller {
+        protected Context ctx;
+
+        protected Controller(Context ctx) {
+            this.ctx = ctx;
+        }
+
+        public abstract void Update(GameTime gameTime);
+        public abstract void Draw(GameTime gameTime);
+    }
+
+    public class PlayingGameController : Controller {
+        private bool playerIsGood;
+        public PlayingGameController(Context ctx, bool playerIsGood) : base(ctx) {
+            this.playerIsGood = playerIsGood;
+        }
+
+        public override void Update(GameTime gameTime) {
+            ctx.Update(gameTime);
+            ctx.World.Update();
+        }
+
+        public override void Draw(GameTime gameTime) {
+            ctx.Renderer.Draw();
+            ctx.Hud.Draw();
+        }
+        
+        public void StartLevel(IWorldLoader worldLoader) {
+            ctx.Score = new Score();
+            
+            Entity player = CreatePlayer(worldLoader.PlayerStartVector);
+            ctx.Player = (PlayerBehaviour)player.Behavior;
+
+            ctx.World = worldLoader.LoadWorld(ctx);
+            ctx.World.CurrentScene.AddEntity(player);
+
+            ctx.Camera.Target = player;
+            ctx.Camera.Update();
+
+            ctx.Renderer.RebuildTerrainMesh();
+        }
+        
+        private Entity CreatePlayer(Vector3 pos) {
+            Entity player = new Entity(ctx);
+            var bucketList = new BucketList(new List<BucketListItem>());
+            bucketList.FillBucketList(true);
+            player.Behavior = new PlayerBehaviour(playerIsGood, bucketList, 1, player);
+            player.Collider = new CircleCollider(player, true, .1f);
+            player.Position = pos;
+            return player;
+        }
+    }
+
+    public class IntroScreenController : Controller {
+        private IntroWindow introWindow;
+        public IntroScreenController(Context ctx) : base(ctx) {
+            introWindow = new IntroWindow(ctx);
+        }
+
+        public override void Update(GameTime gameTime) {
+            introWindow.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime) {
+            introWindow.Draw();
+        }
+
+        // TODO: call this
+        private void HandleChosen(bool isGood) {
+            PlayingGameController newController = new PlayingGameController(ctx, isGood);
+            newController.StartLevel(new FirstLevelLoader());
+            ctx.Game.WillTransitionTo = newController;
+        }
+    }
+
+    public class GameOverScreenController : Controller {
+        public GameOverScreenController(Context ctx) : base(ctx) {
+        }
+
+        public override void Update(GameTime gameTime) {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Draw(GameTime gameTime) {
+            throw new System.NotImplementedException();
+        }
+
+        
+        // TODO: call this
+        private void HandleRestart() {
+            ctx.World.Destroy();
+            ctx.Game.StartGame();
         }
     }
 }

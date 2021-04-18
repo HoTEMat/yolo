@@ -43,7 +43,6 @@ namespace yolo {
         }
 
         public void Update() {
-            UpdateKeyboard();
             RemoveDestroyed();
             ResolveInteractable();
             UpdateEntities();
@@ -51,10 +50,6 @@ namespace yolo {
             InsertAddedEntities();
             UpdateCamera();
             ctx.World.TriggerSceneSwitchCheck();
-        }
-
-        private void UpdateKeyboard() {
-            ctx.Keyboard.RegisterState(Keyboard.GetState());
         }
 
         private void RemoveDestroyed() {
