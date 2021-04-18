@@ -11,6 +11,7 @@ namespace yolo {
             Renderer = new Renderer(this);
             Hud = new HUD(this);
             Random = new Random();
+            Score = new Score();
         }
 
         public GraphicsDeviceManager Graphics { get; init; }
@@ -22,6 +23,8 @@ namespace yolo {
         public Camera Camera { get; private set; }
         public Renderer Renderer { get; private set; }
         public HUD Hud { get; private set; }
+        
+        public Score Score { get; set; }
 
         public Random Random { get; }
         public SpriteBatch SpriteBatch { get; set; }
