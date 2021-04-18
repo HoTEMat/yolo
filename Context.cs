@@ -14,6 +14,7 @@ namespace yolo {
         }
 
         public GraphicsDeviceManager Graphics { get; init; }
+        public KeyboardManager Keyboard { get; init; }
         public GameTime GameTime { get; private set; }
         public AssetBank Assets { get; private set; }
         public World World { get; set; }

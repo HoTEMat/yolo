@@ -147,8 +147,8 @@ namespace yolo
                 {
                     Position = BinPositions[(binStartIndex + i) % BinPositions.Count],
                 };
-
-                //t pbin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
+                
+                bin.Behavior =new Bin(ctx.Player.IsGood, bin);  // if player is good - generate overturned bins
                 scene.AddEntity(bin);
             }
         }

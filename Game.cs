@@ -21,7 +21,8 @@ namespace yolo {
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             Context = new Context {
-                Graphics = graphics
+                Graphics = graphics,
+                Keyboard = new KeyboardManager()
             };
 
             base.Initialize();
@@ -32,13 +33,12 @@ namespace yolo {
 
             Context.SpriteBatch = spriteBatch;
             Context.Assets.LoadContent(Content);
+            Entity player = CreatePlayer();
+            Context.Player = (PlayerBehaviour)player.Behavior;
 
             IWorldLoader worldLoader = new FirstLevelLoader();
             Context.World = worldLoader.LoadWorld(Context);
 
-            Entity player = CreatePlayer();
-            player.Position = new Vector3(25, 16, 0);
-            Context.Player = (PlayerBehaviour)player.Behavior;
             Context.World.CurrentScene.AddEntity(player);
 
             Context.Camera.Target = player;
@@ -51,6 +51,7 @@ namespace yolo {
             Entity player = new Entity(Context);
             player.Behavior = new PlayerBehaviour(true, new BucketList(new List<BucketListItem>()), 1, player);
             player.Collider = new CircleCollider(player, true, .1f);
+            player.Position = new Vector3(25, 16, 0);
             return player;
         }
 
