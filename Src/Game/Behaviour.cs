@@ -244,6 +244,32 @@ namespace yolo {
             return Entity.Context.Player.IsGood && !Entity.Context.Player.HasGroceries;
         }
     }
+
+    public class GroceryStand : Interactable
+    {
+        public bool Robed { get; set; }
+        public GroceryStand(Entity entity) : base(entity)
+        {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.MarketIsleEntity);
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            Entity.Context.Player.PickGroceries();
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.MarketIsleStolenEntity);
+            return AchievementType.StealFood;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false && Robed == false && Entity.Context.Player.HasGroceries == false;
+        }
+    }
     
     
 }

@@ -331,8 +331,8 @@ namespace yolo
             Entity fukyou = new Entity(context)
             {
                 Position = new Vector3( 11.99f, 18.58f, 0),
-                Animation = new Animation(context.Assets.Sprites.MarketIsleEntity),
             };
+            fukyou.Behavior = new GroceryStand(fukyou);
             fukyou.Collider = new RectangleCollider(fukyou, false, 2, 0.01f);
             scene.AddEntity(fukyou);
             
