@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -30,14 +31,15 @@ namespace yolo {
     }
 
     public class IntroLevelLoader : IWorldLoader {
-        public Vector3 PlayerStartVector => new Vector3(18.6f, 17.7f, 0);
+        public Vector3 PlayerStartVector => new Vector3(14.8f, 17.0f, 0);
 
         public World LoadWorld(Context context) {
-            Scene nemocniceScene = new NemocniceSceneLoader().LoadScene(context);
+            Scene nemocniceScene = new NemocniceSceneLoader2().LoadScene(context);
             List<Scene> scenes = new List<Scene>
             {
                 nemocniceScene,
             };
+
             return new World(scenes, nemocniceScene, 60, context);
         }
     }

@@ -5,36 +5,33 @@ using Microsoft.Xna.Framework.Input;
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 4f; // TODO
-        
-        public float FreezeFor { get; set; }
+
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
         public BucketList TodoList { get; }
         private SpriteOrientationManager orientationManager;
-        
-        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum, Entity entity) : base(entity)
-        {
+        public float FreezeFor { get; set; }
+
+        public PlayerBehaviour(bool isGood, BucketList todoList, int spriteNum, Entity entity) : base(entity) {
             IsGood = isGood;
             TodoList = todoList;
             HasGroceries = false;
             orientationManager = new SpriteOrientationManager(spriteNum, Entity);
         }
 
-        public void HandInGroceries()
-        {
+        public void HandInGroceries() {
             HasGroceries = false;
             // ToDo : stop displaying groceries symbol
         }
-        public void PickGroceries()
-        {
+        public void PickGroceries() {
             HasGroceries = true;
             // ToDo: start displaying groceries
         }
-        
+
         public override void Update() {
 
             if (FreezeFor > 0) {
-                FreezeFor -= context.dSec;
+                FreezeFor -= Entity.Context.dSec;
                 return;
             } else {
                 FreezeFor = 0;
@@ -71,7 +68,7 @@ namespace yolo {
                 changeDir.Normalize();
             }
 
-            Vector3 posChange = changeDir * WalkSpeed * (float) Context.GameTime.ElapsedGameTime.TotalSeconds;
+            Vector3 posChange = changeDir * WalkSpeed * (float)Context.GameTime.ElapsedGameTime.TotalSeconds;
             Position += posChange;
             orientationManager.UpdateOrientation(posChange);
         }
@@ -87,18 +84,16 @@ namespace yolo {
             //if (Context.Keyboard.IsKeyPressed(Keys.R)) {
             //    Context.Game.Restart(new FirstLevelLoader());
             //}
-            
-            
+
+
             KeyboardManager kb = Context.Keyboard;
             var scene = Entity.Scene;
             if (kb.IsKeyPressed(Keys.F) && (scene.SelectedInteractable?.CanInteract() ?? false)) {
                 var achievement = Entity.Scene.SelectedInteractable?.Interact();
-                if (achievement != null)
-                {
+                if (achievement != null) {
                     ShowHearts();
                     bool crossed = TodoList.TryCrossingOut((AchievementType)achievement);
-                    if (crossed)
-                    {
+                    if (crossed) {
                         Context.Score.addScoreForAchievement(Context.TSec);
                     }
                 }

@@ -453,9 +453,9 @@ namespace yolo {
                 HospitalDoctor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 0, 16, 32) },
                 HospitalFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16) },
                 
-                HospitalDoctorEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 32, 16, 32) },
-                HospitalBedEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 32, 32, 32) },
-                HospitalBedBrokenEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 48, 32, 32) },
+                HospitalDoctorEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 32, 16, 16), Origin = origin16x16},
+                HospitalBedEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 32, 32, 16), Origin = origin32x16},
+                HospitalBedBrokenEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(288, 48, 32, 16), Origin = origin32x16},
 
                 MarketWall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 48, 16, 32) },
                 MarketFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(320, 80, 16, 16) },
