@@ -32,6 +32,11 @@ namespace yolo
             new(20, 10, 0), new(27, 13, 0)
         };
 
+        private List<Vector3> GraffittiPositions = new List<Vector3>()
+        {
+            new Vector3(9, 13, 0) //, new Vector3(28, 6, 0), new Vector3(21, 1, 0),new Vector3(36, 8, 0)
+        };
+
         private const int NPCCount = 20;
 
         public Scene LoadScene(Context context)
@@ -54,9 +59,20 @@ namespace yolo
             generateIceCream(scene, context);
             generateBins(scene, context);
             generatePark(scene, context);
+            generateGraffitti(scene, context);
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
+        }
+
+        private void generateGraffitti(Scene scene, Context context)
+        {
+            var graffitti = new Entity(context)
+            {
+                Position = Utils.RandChoice(GraffittiPositions)
+            };
+            graffitti.Behavior = new Graffitti(graffitti, context.Player.IsGood); // player good - graffitti visible to clean
+            scene.AddEntity(graffitti);
         }
 
         private void generatePark(Scene scene, Context context)
