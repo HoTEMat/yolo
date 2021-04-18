@@ -6,6 +6,7 @@ namespace yolo {
     public class PlayerBehaviour : Behaviour {
         public const float WalkSpeed = 4f; // TODO
         
+        public float FreezeFor { get; set; }
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
         public BucketList TodoList { get; }
@@ -31,6 +32,14 @@ namespace yolo {
         }
         
         public override void Update() {
+
+            if (FreezeFor > 0) {
+                FreezeFor -= context.dSec;
+                return;
+            } else {
+                FreezeFor = 0;
+            }
+
             HandleWalking();
             HandleInteraction();
 

@@ -5,8 +5,12 @@ using System;
 namespace yolo {
 
     public interface IAnimation : IDisposable {
-        public void Update(Context ctx);
-        public Sprite GetCurrentSprite(Context ctx);
+        void Update(Context ctx);
+        Sprite GetCurrentSprite(Context ctx);
+        void Reset(ISpriteSet spriteset);
+        bool Highlighted { get; set; }
+        public float Scale { get; set; }
+        bool IsFlat { get; set; }
     }
 
     public class Animation : IAnimation {
@@ -46,6 +50,9 @@ namespace yolo {
         public string Text { get; set; }
         public float CharsPerSec { get; set; } = 10f;
         public Point DisplayChars { get; init; } = new(18, 3);
+        public bool Highlighted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float Scale { get; set; } = 1f;
+        public bool IsFlat { get => true; set => throw new NotImplementedException(); }
 
         RenderTarget2D buffer;
         void initBuffer(Context ctx) {
@@ -85,6 +92,10 @@ namespace yolo {
 
         public void Dispose() {
             buffer.Dispose();
+        }
+
+        public void Reset(ISpriteSet spriteset) {
+            throw new NotImplementedException();
         }
     }
 }

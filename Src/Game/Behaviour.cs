@@ -6,8 +6,10 @@ namespace yolo {
         public Behaviour(Entity entity)
         {
             Entity = entity;
+            context = entity.Context;
         }
-        
+
+        protected Context context { get; private set; }
         public Entity Entity { get; }
         public Vector3 Position {
             get => Entity.Position;
@@ -73,18 +75,20 @@ namespace yolo {
 
     public class IceCreamStand : Interactable
     {
+        private bool interacted;
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
+            interacted = false;
             return Entity.Context.Player.IsGood ? AchievementType.EatIceCream : AchievementType.BadIceCream;
         }
 
         public override bool CanInteract()
         {
-            return true; // you can always eat icecream
+            return !interacted;
         }
         public IceCreamStand(Entity entity) : base(entity)
         {
@@ -92,7 +96,6 @@ namespace yolo {
     }
     public class Pond : Interactable
     {
-        private bool Peed { get; set; }
         public override void Update()
         {
             return;
@@ -109,6 +112,7 @@ namespace yolo {
             return AchievementType.PeeInPond;
         }
 
+        public bool Peed { get; set; }
         public bool Fed { get; set; }
 
         public override bool CanInteract()
@@ -118,9 +122,6 @@ namespace yolo {
 
         public Pond(Entity entity) : base(entity)
         {
-            Peed = false;
-            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.ParkPond);
-            Entity.Animation.IsFlat = true;
         }
     }
 
@@ -137,7 +138,7 @@ namespace yolo {
             }
             Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.FadedGrafitti);
         }
-        
+
         public override void Update()
         {
             return;
@@ -162,7 +163,7 @@ namespace yolo {
             return Entity.Context.Player.IsGood == Visible;
         }
 
-        
+
     }
     public class Grandma : Interactable
     {
@@ -187,34 +188,28 @@ namespace yolo {
     }
     public class Tree : Interactable
     {
-        private bool AlreadyInteracted { get; set; }
         public override void Update()
         {
             return;
         }
         public override AchievementType? Interact()
         {
-            AlreadyInteracted = true;
             return AchievementType.YellOnTree;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false && AlreadyInteracted == false;
+            return Entity.Context.Player.IsGood == false;
         }
 
         public Tree(Entity entity) : base(entity)
         {
-            AlreadyInteracted = false;
         }
     }
 
     public class Fountain : Interactable
     {
-        private bool Peed { get; set;}
         public Fountain(Entity entity) : base(entity)
         {
-            Peed = false;
-            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.Fountain);
         }
         public override void Update()
         {
@@ -222,13 +217,11 @@ namespace yolo {
         }
         public override AchievementType? Interact()
         {
-            Peed = true;
-            Entity.Animation.Reset(Entity.Context.Assets.Sprites.FountainPee);
             return AchievementType.PeeInFountain;
         }
         public override bool CanInteract()
         {
-            return Entity.Context.Player.IsGood == false && Peed == false;
+            return Entity.Context.Player.IsGood == false;
         }
     }
 
@@ -336,7 +329,7 @@ namespace yolo {
     public class MarketStand : Interactable
     {
         private bool _bought = false;
-        
+
         public MarketStand(Entity entity) : base(entity)
         {
         }
@@ -355,10 +348,10 @@ namespace yolo {
         public override bool CanInteract()
         {
             if (_bought) return false;
-            
+
             return Entity.Context.Player.IsGood;
         }
     }
-    
-    
+
+
 }
