@@ -277,12 +277,10 @@ namespace yolo {
         {
             Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
         }
-
         public override void Update()
         {
             return;
         }
-
         public override AchievementType? Interact()
         {
             if (Entity.Context.Player.IsGood)
@@ -296,6 +294,33 @@ namespace yolo {
         public override bool CanInteract()
         {
             return true;
+        }
+    }
+
+    public class HospitalBed : Interactable
+    {
+        private bool Broken { get; set; }
+        public HospitalBed(Entity entity) : base(entity)
+        {
+            Broken = false;
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalBedEntity);
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            Broken = true;
+            Entity.Animation.Reset(Entity.Context.Assets.Sprites.HospitalBedBrokenEntity);
+            return AchievementType.BreakHospitalBed;
+        }
+
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood == false && Broken == false;
         }
     }
     

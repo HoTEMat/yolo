@@ -300,13 +300,13 @@ namespace yolo
             
             scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(18.6f, 17.7f, 0), new Vector3(23.8f, 6.5f, 0), "main"));
             
-            Entity msc2 = new Entity(context)
+            Entity bed = new Entity(context)
             {
                 Position = new Vector3( 14.8f, 16.6f, 0),
-                Animation = new Animation(context.Assets.Sprites.HospitalBedEntity),
             };
-            msc2.Collider = new RectangleCollider(msc2, false, 1, 0.01f);
-            scene.AddEntity(msc2);
+            bed.Behavior = new HospitalBed(bed);
+            bed.Collider = new RectangleCollider(bed, false, 1, 0.01f);
+            scene.AddEntity(bed);
             
             TileMapLoader.AddTileColliders(scene, context);
             return scene;
