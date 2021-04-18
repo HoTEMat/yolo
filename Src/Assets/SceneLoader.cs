@@ -34,7 +34,7 @@ namespace yolo
 
         private List<Vector3> GraffittiPositions = new List<Vector3>()
         {
-            new Vector3(9, 13, 0) //, new Vector3(28, 6, 0), new Vector3(21, 1, 0),new Vector3(36, 8, 0)
+            new Vector3(9, 13, 0), new Vector3(28, 6, 0), new Vector3(21, 1, 0),new Vector3(36, 8, 0)
         };
 
         private const int NPCCount = 20;
