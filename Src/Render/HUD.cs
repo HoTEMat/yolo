@@ -63,7 +63,7 @@ namespace yolo {
             foreach (var listItem in list.Items)
             {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
-                string text = list.ItemText[listItem.Achievement];
+                string text = list.ItemText[listItem.Achievement] + " : " + (listItem.TotalCount - listItem.DoneCount).ToString() ;
                 DrawString(spriteBatch, text, curPos, 1);
             }
         }
