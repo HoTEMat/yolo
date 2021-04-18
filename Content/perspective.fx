@@ -63,7 +63,8 @@ float2 pixelSize;
 float4 EntityPixel(PixelInput p) : COLOR0{
 	float4 diffuse = tex2D(TextureSampler, p.TexCoord.xy);
 
-	diffuse.rgb *= intensity * tone;
+	diffuse.rgb *= intensity;
+	diffuse *= tone;
 
 	return diffuse;
 }
