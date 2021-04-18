@@ -28,7 +28,7 @@ namespace yolo
 
         private List<Vector3> BinPositions = new List<Vector3>()
         {
-            new(3, 13, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
+            new(3, 14, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
             new(20, 10, 0), new(27, 13, 0)
         };
 
