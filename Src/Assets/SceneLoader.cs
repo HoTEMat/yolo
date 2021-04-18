@@ -68,6 +68,45 @@ namespace yolo
 
         private void generatePark(Scene scene, Context context)
         {
+            int minX = 19;
+            int minY = 21;
+            int maxX = 33;
+            int maxY=  29;
+
+            int miscCount = 70;
+            
+            Sprite[] misc = new[]
+            {
+                context.Assets.Sprites.ParkMisc1,
+                context.Assets.Sprites.ParkMisc2,
+                context.Assets.Sprites.ParkMisc3,
+                context.Assets.Sprites.ParkMisc4,
+            };
+
+            for (int i = 0; i < miscCount; i++)
+            {
+                Entity msc = new Entity(context)
+                {
+                    Position = new Vector3(
+                        Utils.Random.Next(minX, maxX) + (float)Utils.Random.NextDouble(),
+                        Utils.Random.Next(minY, maxY) + (float)Utils.Random.NextDouble(),
+                        0
+                        ),
+                    Animation = new Animation(misc[Utils.Random.Next(0, misc.Length)]),
+                    Behavior = null,
+                };
+                scene.AddEntity(msc);
+            }
+            
+            Entity pond = new Entity(context)
+            {
+                Position = new Vector3(27, 24, 0),
+                Animation = new Animation(context.Assets.Sprites.ParkPond),
+                IsFlat = true,
+            };
+            pond.Collider = new CircleCollider(pond, false, 2);
+            pond.Behavior = new Pond(pond);
+            scene.AddEntity(pond);
         }
 
         private void generateNPCs(Scene scene, Context ctx)
