@@ -6,8 +6,8 @@ namespace yolo
 
         public void addScoreForAchievement(float elapsedTime)
         {
-            const int maxPoints = 100;
-            Value += (int) (maxPoints / (elapsedTime / 10));
+            const int Points = 10;
+            Value += Points;
         }
         
         public Score()
