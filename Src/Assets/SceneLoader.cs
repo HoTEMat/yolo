@@ -13,36 +13,62 @@ namespace yolo
     public class MainSceneLoader : ISceneLoader
     {
         private List<Vector3> PersonTargets = new List<Vector3>()
-            { // points between which NPCs are moving
-                new (1, 14, 0), new (40, 9, 0), new (20, 28, 0), new (33, 25, 0), 
-                new (33, 18, 0), new (21, 2, 0), new (25, 13, 0)
-            };
+        {
+            // points between which NPCs are moving
+            new(1, 14, 0), new(40, 9, 0), new(20, 28, 0), new(33, 25, 0),
+            new(33, 18, 0), new(21, 2, 0), new(25, 13, 0)
+        };
 
         private List<Vector3> PersonInitial = new List<Vector3>()
-            { // points where NPCs are generated
-                new (30, 27, 0), new (22, 24, 0), new (5, 14, 0), new (19, 9, 0), 
-                new (28, 17, 0), new (22, 9, 0), new (29, 13, 0), new (35, 9, 0),
-                new (40, 8, 0), new (15, 15, 0), new (20, 3, 0), new (9, 15, 0)
-            };
+        {
+            // points where NPCs are generated
+            new(30, 27, 0), new(22, 24, 0), new(5, 14, 0), new(19, 9, 0),
+            new(28, 17, 0), new(22, 9, 0), new(29, 13, 0), new(35, 9, 0),
+            new(40, 8, 0), new(15, 15, 0), new(20, 3, 0), new(9, 15, 0)
+        };
+
         private List<Vector3> IceCreamPositions = new List<Vector3>()
-            { // parc and square
-                new (30, 26, 0), new (31, 16, 0)
-            };
+        {
+            // parc and square
+            new(30, 26, 0), new(31, 16, 0)
+        };
 
         private List<Vector3> BinPositions = new List<Vector3>()
-            {
-            new (3, 13, 0), new (14, 15, 0), new (38, 10, 0), new (22, 4, 0),
-            new (20, 10, 0), new (27, 13, 0)
-            };
-        
+        {
+            new(3, 13, 0), new(14, 15, 0), new(38, 10, 0), new(22, 4, 0),
+            new(20, 10, 0), new(27, 13, 0)
+        };
+
         private const int NPCCount = 20;
+
+        /// <summary>
+        /// Adds colliders to each non-walkable tile of the scene.
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <param name="context"></param>
+        private void addTileColliders(Scene scene, Context context)
+        {
+            for (int i = 0; i < scene.Tiles.Width; i++)
+            {
+                for (int j = 0; j < scene.Tiles.Height; j++)
+                {
+                    if (!scene.Tiles[i, j].Walkable)
+                    {
+                        Entity dummy = new Entity(context) {Position = new Vector3(i + 0.5f, j + 0.5f, 0)};
+                        dummy.Collider = new RectangleCollider(dummy, false, 1, 1);
+                        scene.AddEntity(dummy);
+                    }
+                }
+            }
+        }
+
         public Scene LoadScene(Context context)
         {
             List<Entity> entities = new List<Entity>();
 
             Scene scene = new Scene("main", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.MainScene, context.Assets), context);
-            
+
             Entity fountain = new Entity(context)
             {
                 Position = new Vector3(24, 12, 0),
