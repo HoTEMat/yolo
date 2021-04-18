@@ -19,8 +19,14 @@ namespace yolo {
             var viewport = context.Graphics.GraphicsDevice.Viewport;
 
             context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            
             DrawClock(context.SpriteBatch, new Vector2(150, 90), GetClockContent());
             DrawBucketList(context.SpriteBatch, new Vector2(25, 200));
+            if (context.Player.HasGroceries)
+            {
+                DrawBasket(context.SpriteBatch, viewport);
+            }
+            
             context.SpriteBatch.End();
         }
 
@@ -46,6 +52,12 @@ namespace yolo {
             DrawStringCentered(spriteBatch, content, center, 8, Color.White);
         }
 
+        private void DrawBasket(SpriteBatch spriteBatch,  Viewport viewport)
+        {
+            Vector2 pos = new Vector2(10, viewport.Height - 60);
+             spriteBatch.DrawSprite(assets.Sprites.Basket, pos, 3);
+        }
+
         private void DrawBucketList( SpriteBatch spriteBatch, Vector2 position)
         {
             const int rowWidth = 200;
@@ -54,9 +66,9 @@ namespace yolo {
             const int paddingTop = 15;
             var list = context.Player.TodoList;
             spriteBatch.Draw(
-                assets.Sprites.Empty.Texture,
+                assets.Sprites.Paper.Texture,
                 new Rectangle((int)position.X + paddingLeft, (int)position.Y + paddingTop, rowWidth, rowHeight * (list.Items.Count + 1)),
-                assets.Sprites.Empty.SourceRect,
+                assets.Sprites.Paper.SourceRect,
                 Color.White);
             var curPos = new Vector2(position.X + paddingLeft, position.Y + paddingTop);
             DrawString(spriteBatch, list.Header, curPos, 2, Color.White);
@@ -65,11 +77,11 @@ namespace yolo {
                 curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
                 int remCount = listItem.TotalCount - listItem.DoneCount;
                 string text = remCount > 1 ? list.ItemText[listItem.Achievement] + " : " + remCount : list.ItemText[listItem.Achievement];
-                DrawString(spriteBatch, text, curPos, 1, Color.White);
+                DrawString(spriteBatch, text, curPos, 1, Color.Black);
                 if (listItem.AllDone)
                 {
                     spriteBatch.Draw(assets.Sprites.Empty.Texture, 
-                        new Rectangle((int)curPos.X + 30, (int)curPos.Y, rowWidth - 20, 1),
+                        new Rectangle((int)curPos.X, (int)curPos.Y + 4, rowWidth - 50, 1),
                         assets.Sprites.Empty.SourceRect, Color.White);
                 }
             }

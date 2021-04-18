@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 
 namespace yolo {
@@ -41,9 +42,11 @@ namespace yolo {
         public Bin(bool isOverturned, Entity entity) : base(entity)
         {
             IsOverturned = isOverturned;
-            Entity.Animation = IsOverturned
-                ? new Animation(Entity.Context.Assets.Sprites.TrashcanDown)
-                : new Animation(Entity.Context.Assets.Sprites.TrashcanUp);
+            if (IsOverturned) {
+                Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.TrashcanDown);
+            } else {
+                Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.TrashcanUp);
+            }
         }
         public override void Update()
         {
@@ -187,4 +190,26 @@ namespace yolo {
             return Entity.Context.Player.IsGood == false;
         }
     }
+
+    public class CashRegister : Interactable
+    {
+        public CashRegister(Entity entity) : base(entity)
+        {
+        }
+        public override void Update()
+        {
+            return;
+        }
+        public override AchievementType? Interact()
+        {
+            Entity.Context.Player.PickGroceries();
+            return AchievementType.BuyFood;
+        }
+        public override bool CanInteract()
+        {
+            return Entity.Context.Player.IsGood && !Entity.Context.Player.HasGroceries;
+        }
+    }
+    
+    
 }

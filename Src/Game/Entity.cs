@@ -16,7 +16,11 @@ namespace yolo {
         }
 
         public void ChangeSpriteTo(ISpriteSet spriteSet) {
-            Animation = new Animation(spriteSet);
+            if (Animation == null) {
+                Animation = new Animation(spriteSet);
+            } else {
+                Animation.Reset(spriteSet);
+            }
         }
 
         public void Update() {

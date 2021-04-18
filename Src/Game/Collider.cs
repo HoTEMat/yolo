@@ -82,11 +82,11 @@ namespace yolo {
                     float h = otherRectangleCollider.Height / 2f;
                     
                     // we're above
-                    if (pos.X < w && pos.Y - Radius < h)
+                    if (pos.X <= w && pos.Y - Radius <= h)
                         return new Vector3(0, (h - (pos.Y - Radius)) * sy, 0);
                 
                     // we're to the right
-                    if (pos.Y < h && pos.X - Radius < w)
+                    if (pos.Y <= h && pos.X - Radius <= w)
                         return new Vector3((w - (pos.X - Radius)) * sx, 0, 0);
 
                     // we're at the corner (or inside, but we're fucked in that case)

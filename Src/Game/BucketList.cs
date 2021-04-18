@@ -64,11 +64,7 @@ namespace yolo {
         public BucketList(List<BucketListItem> items) {
             Items = items;
         }
-
-        public void ProcessAchievement(AchievementType achievement)
-        {
-            TryCrossingOut(achievement);
-        }
+        
         public bool TryCrossingOut(AchievementType achievement) {
             int idx = Items.FindIndex(i => i.Achievement == achievement);
             if (idx == -1)

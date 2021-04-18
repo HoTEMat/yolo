@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace yolo {
     public class PlayerBehaviour : Behaviour {
-        public const float WalkSpeed = 2f; // TODO
+        public const float WalkSpeed = 4f; // TODO
         
         public bool IsGood { get; }
         public bool HasGroceries { get; set; }
@@ -74,8 +74,12 @@ namespace yolo {
                 var achievement = Entity.Scene.SelectedInteractable?.Interact();
                 if (achievement != null)
                 {
-                    TodoList.ProcessAchievement((AchievementType)achievement);
                     ShowHearts();
+                    bool crossed = TodoList.TryCrossingOut((AchievementType)achievement);
+                    if (crossed)
+                    {
+                        Context.Score.addScoreForAchievement(Context.TSec);
+                    }
                 }
             }
         }

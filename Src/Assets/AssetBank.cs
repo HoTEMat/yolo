@@ -144,6 +144,8 @@ namespace yolo {
             public Sprite HospitalTableR { get; init; }
             public Sprite HospitalFloor { get; init; }
             public Sprite HospitalDoctor { get; init; }
+            public Sprite HospitalBedEntity { get; init; }
+            public Sprite HospitalDoctorEntity { get; init; }
 
             public Sprite MarketIsleL { get; init; }
             public Sprite MarketIsleR { get; init; }
@@ -151,6 +153,8 @@ namespace yolo {
             public Sprite MarketCheckoutR { get; init; }
             public Sprite MarketWall { get; init; }
             public Sprite MarketFloor { get; init; }
+            public Sprite MarketCheckoutEntity { get; init; }
+            public Sprite MarketIsleEntity { get; init; }
 
             public Sprite HouseStairL { get; init; }
             public Sprite HouseStairR { get; init; }
@@ -213,6 +217,7 @@ namespace yolo {
             public Tile HospitalWindow1 { get; init; }
             public Tile HospitalWindow2 { get; init; }
             public Tile HospitalWall { get; init; }
+            public Tile HospitalWallFlat { get; init; }
             public Tile HospitalTableL { get; init; }
             public Tile HospitalTableR { get; init; }
             public Tile HospitalDoctor { get; init; }
@@ -223,6 +228,7 @@ namespace yolo {
             public Tile HouseElevatorL { get; init; }
             public Tile HouseElevatorR { get; init; }
             public Tile HouseWall { get; init; }
+            public Tile HouseWallFlat { get; init; }
 
             public Tile MarketIsleL { get; init; }
             public Tile MarketIsleR { get; init; }
@@ -230,7 +236,7 @@ namespace yolo {
             public Tile MarketCheckoutR { get; init; }
             public Tile MarketFloor { get; init; }
             public Tile MarketWall { get; init; }
-
+            public Tile MarketWallFlat { get; init; } 
             public Tile Cobble { get; init; } // 565656
             public Tile Cobble1 { get; init; }
             public Tile Cobble2 { get; init; }
@@ -323,7 +329,7 @@ namespace yolo {
                 ParkGrass = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(64, 0, 16, 16) },
                 ParkTreeLarge = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(112, 0, 16, 32), Origin = originTree},
                 ParkTreeSmall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(128, 0, 16, 32) , Origin = originTree},
-                ParkFence = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(48, 112, 16, 16) },
+                ParkFence = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 80, 16, 16) },
 
                 // PEOPLE
                 Person1Down = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(0, 32, 16, 16), Origin = origin16x16 },
@@ -412,6 +418,9 @@ namespace yolo {
                 HospitalWall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(352, 0, 16, 32) },
                 HospitalDoctor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 0, 16, 32) },
                 HospitalFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(272, 32, 16, 16) },
+                
+                HospitalDoctorEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 32, 16, 32) },
+                HospitalBedEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(304, 32, 32, 32) },
 
                 MarketWall = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 48, 16, 32) },
                 MarketFloor = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(320, 80, 16, 16) },
@@ -419,6 +428,9 @@ namespace yolo {
                 MarketCheckoutR = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(368, 48, 16, 32) },
                 MarketIsleL = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(320, 48, 16, 32) },
                 MarketIsleR = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(336, 48, 16, 32) },
+                
+                MarketIsleEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(384, 80, 32, 32) },
+                MarketCheckoutEntity = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(368, 80, 16, 32) },
 
                 HouseStairL = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(160, 80, 16, 32) },
                 HouseStairR = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(176, 80, 16, 32) },
@@ -439,7 +451,7 @@ namespace yolo {
                 Cobble9 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(80, 96, 16, 16) },
                 Cobble10 = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(96, 96, 16, 16) },
 
-                Grandma = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(224, 96, 16, 16) },
+                Grandma = new Sprite { Texture = Textures.Main, SourceRect = new Rectangle(224, 96, 16, 16), Origin = origin16x16  },
             };
 
             Tiles = new TileBank {
@@ -449,12 +461,13 @@ namespace yolo {
                 Empty = new Tile { Sprite = Sprites.Empty },
 
                 ParkGrass = new Tile { Sprite = Sprites.ParkGrass }, //
-                ParkFence = new Tile { Sprite = Sprites.ParkFence, Flat = false }, //
+                ParkFence = new Tile { Sprite = Sprites.ParkFence, Flat = false , Walkable = false}, //
 
                 HospitalFloor = new Tile { Sprite = Sprites.HospitalFloor },  //
                 HospitalWindow1 = new Tile { Sprite = Sprites.HospitalWindow1, Walkable = false, Flat = false }, //
                 HospitalWindow2 = new Tile { Sprite = Sprites.HospitalWindow2, Walkable = false, Flat = false }, //
                 HospitalWall = new Tile { Sprite = Sprites.HospitalWall, Walkable = false, Flat = false }, //
+                HospitalWallFlat = new Tile { Sprite = Sprites.HospitalWall, Walkable = false, Flat = true }, //
                 HospitalTableL = new Tile { Sprite = Sprites.HospitalTableL, Walkable = false, Flat = false }, //
                 HospitalTableR = new Tile { Sprite = Sprites.HospitalTableR, Walkable = false, Flat = false }, //
                 HospitalDoctor = new Tile { Sprite = Sprites.HospitalDoctor, Walkable = false, Flat = false }, //
@@ -465,12 +478,14 @@ namespace yolo {
                 HouseElevatorL = new Tile { Sprite = Sprites.HouseElevatorL, Walkable = false, Flat = false }, //
                 HouseElevatorR = new Tile { Sprite = Sprites.HouseElevatorR, Walkable = false, Flat = false }, //
                 HouseWall = new Tile { Sprite = Sprites.HouseWall, Walkable = false, Flat = false }, //
+                HouseWallFlat = new Tile { Sprite = Sprites.HouseWall, Walkable = false }, //
 
                 MarketIsleL = new Tile { Sprite = Sprites.MarketIsleL, Walkable = false, Flat = false },//
                 MarketIsleR = new Tile { Sprite = Sprites.MarketIsleR, Walkable = false, Flat = false },//
                 MarketCheckoutL = new Tile { Sprite = Sprites.MarketCheckoutL, Walkable = false, Flat = false },//
                 MarketCheckoutR = new Tile { Sprite = Sprites.MarketCheckoutR, Walkable = false, Flat = false },//
                 MarketWall = new Tile { Sprite = Sprites.MarketWall, Walkable = false, Flat = false },//
+                MarketWallFlat = new Tile { Sprite = Sprites.MarketWall, Walkable = false},//
                 MarketFloor = new Tile { Sprite = Sprites.MarketFloor },//
 
                 // HOUSES
