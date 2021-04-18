@@ -71,6 +71,7 @@ namespace yolo {
         {
             if (context.Keyboard.IsKeyDown(Keys.Enter))
             {
+                context.World?.Destroy();
                 context.Game.StartGame();
             }
         }
