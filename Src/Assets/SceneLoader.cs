@@ -291,12 +291,12 @@ namespace yolo
             Scene scene = new Scene("nemocnice", entities,
                 TileMapLoader.LoadIndexer(context.Assets.Textures.NemocniceScene, context.Assets), context);
             
-            Entity msc = new Entity(context)
+            Entity doctor = new Entity(context)
             {
                 Position = new Vector3( 15.7f, 16.8f, 0),
-                Animation = new Animation(context.Assets.Sprites.HospitalDoctorEntity),
             };
-            scene.AddEntity(msc);
+            doctor.Behavior = new Doctor(doctor);
+            scene.AddEntity(doctor);
             
             scene.AddEntity(TileMapLoader.CreateTeleporter(context,  new Vector3(18.6f, 17.7f, 0), new Vector3(23.8f, 6.5f, 0), "main"));
             

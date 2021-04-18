@@ -270,6 +270,34 @@ namespace yolo {
             return Entity.Context.Player.IsGood == false && Robed == false && Entity.Context.Player.HasGroceries == false;
         }
     }
+
+    public class Doctor : Interactable
+    {
+        public Doctor(Entity entity) : base(entity)
+        {
+            Entity.ChangeSpriteTo(Entity.Context.Assets.Sprites.HospitalDoctorEntity);
+        }
+
+        public override void Update()
+        {
+            return;
+        }
+
+        public override AchievementType? Interact()
+        {
+            if (Entity.Context.Player.IsGood)
+            {
+                return AchievementType.ThankDoctor;
+            }
+
+            return AchievementType.CurseDoctor;
+        }
+
+        public override bool CanInteract()
+        {
+            return true;
+        }
+    }
     
     
 }
