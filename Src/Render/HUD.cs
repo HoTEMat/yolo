@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,9 +15,13 @@ namespace yolo {
             var device = context.Graphics.GraphicsDevice;
             var camera = context.Camera;
             var viewport = context.Graphics.GraphicsDevice.Viewport;
+
+            var bucketList = new BucketList(new List<BucketListItem>());
+            bucketList.FillBucketList(true);
             
             context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             DrawClock(context.SpriteBatch, new Vector2(150, 90), GetClockContent());
+            DrawBucketList(bucketList, context.SpriteBatch, new Vector2(150, 90 + 150));
             context.SpriteBatch.End();
         }
 
@@ -40,6 +45,26 @@ namespace yolo {
                 assets.Sprites.Empty.SourceRect,
                 Color.White);
             DrawStringCentered(spriteBatch, content, center, 8);
+        }
+
+        private void DrawBucketList(BucketList list, SpriteBatch spriteBatch, Vector2 position)
+        {
+            const int rowWidth = 500;
+            const int rowHeight = 20;
+            //var list = context.Player.TodoList;
+            spriteBatch.Draw(
+                assets.Sprites.Empty.Texture,
+                new Rectangle((int)position.X, (int)position.Y, rowWidth, rowHeight * list.Items.Count),
+                assets.Sprites.Empty.SourceRect,
+                Color.White);
+            var curPos = position;
+            DrawString(spriteBatch, list.Header, curPos, 1);
+            foreach (var listItem in list.Items)
+            {
+                curPos = new Vector2(curPos.X, curPos.Y + rowHeight);
+                string text = list.ItemText[listItem.Achievement];
+                DrawString(spriteBatch, text, curPos, 1);
+            }
         }
 
         private void DrawString(SpriteBatch spriteBatch, string s, Vector2 position, int scale) {
