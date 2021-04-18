@@ -84,8 +84,8 @@ namespace yolo {
             } else {
 
                 AddQuad(
-                    new T(new Vector3(topLeft.X, topLeft.Y, 0) + position, Vector3.UnitY, UVTopLeft),
-                    new T(new Vector3(topRight.X, topRight.Y, 0) + position, Vector3.UnitY, UVTopRight),
+                    new T(new Vector3(topLeft.X, topLeft.Y, -0.01f) + position, Vector3.UnitY, UVTopLeft),
+                    new T(new Vector3(topRight.X, topRight.Y, -0.01f) + position, Vector3.UnitY, UVTopRight),
                     new T(new Vector3(botLeft.X, botLeft.Y, 0) + position, Vector3.UnitY, UVBotLeft),
                     new T(new Vector3(botRight.X, botRight.Y, 0) + position, Vector3.UnitY, UVBotRight)
                 );

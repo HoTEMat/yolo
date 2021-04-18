@@ -1,10 +1,11 @@
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace yolo {
 
-    public interface IAnimation {
+    public interface IAnimation : IDisposable {
         public void Update(Context ctx);
-        public Sprite GetCurrentSprite();
+        public Sprite GetCurrentSprite(Context ctx);
     }
 
     public class Animation : IAnimation {
@@ -25,18 +26,39 @@ namespace yolo {
             millis += (float) ctx.GameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public Sprite GetCurrentSprite() {
+        public Sprite GetCurrentSprite(Context ctx) {
             return sprites.GetSpriteAt((int)millis);
         }
+
+        public void Dispose() {}
     }
 
     public class DialogAnimation : IAnimation {
-        public Sprite GetCurrentSprite() {
+
+        int characters;
+        string actualText;
+        public string Text { get; set; }
+        public double MillisPerLetter { get; set; }
+
+        RenderTarget2D buffer;
+        void initBuffer(Context ctx) {
+            buffer = new RenderTarget2D(ctx.Graphics.GraphicsDevice, 32, 20);
+        }
+
+        public Sprite GetCurrentSprite(Context ctx) {
+            if (buffer == null) {
+                initBuffer(ctx);
+            }
+
             throw new NotImplementedException();
         }
 
         public void Update(Context ctx) {
             throw new NotImplementedException();
+        }
+
+        public void Dispose() {
+            buffer.Dispose();
         }
     }
 }

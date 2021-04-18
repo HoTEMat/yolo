@@ -25,6 +25,9 @@ namespace yolo {
         }
 
         public void Destroy() {
+            if (Animation != null) {
+                Animation.Dispose();
+            }
             Destroyed = true;
         }
     }

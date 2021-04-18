@@ -103,7 +103,7 @@ namespace yolo
             
             Entity pond = new Entity(context)
             {
-                Position = new Vector3(27, 24, -0.01f),
+                Position = new Vector3(27, 24, 0),
                 Animation = new Animation(context.Assets.Sprites.ParkPond),
                 IsFlat = true,
             };
