@@ -25,6 +25,7 @@ namespace yolo {
                 for (int x = 0; x < tiles.Width; x++) {
 
                     Tile t = tiles[x, y];
+                    float height = t.Height;
 
                     if (t.Flat) {
                         terrainMesh.AddQuad(
@@ -34,10 +35,8 @@ namespace yolo {
                             new(new(x + 1, y + 1, 0), -Vector3.UnitZ, t.Sprite.UVBotRight)
                             );
                     } else {
-                        float height = t.Sprite.SourceRect.Height / 16f;
-
                         // front facing quad
-                        if (y == tiles.Height - 1 || tiles[x, y + 1].Flat) {
+                        if (y == tiles.Height - 1 || tiles[x, y + 1].Height < height) {
                             terrainMesh.AddQuad(
                                 new(new(x, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopLeft),
                                 new(new(x + 1, y + 1, -height), Vector3.UnitY, t.Sprite.UVTopRight),
@@ -46,7 +45,7 @@ namespace yolo {
                             );
                         }
                         // right facing quad
-                        if (x == tiles.Width - 1 || tiles[x + 1, y].Flat) {
+                        if (x == tiles.Width - 1 || tiles[x + 1, y].Height < height) {
                             terrainMesh.AddQuad(
                                 new(new(x + 1, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
                                 new(new(x + 1, y, -height), Vector3.UnitX, t.Sprite.UVTopRight),
@@ -55,7 +54,7 @@ namespace yolo {
                             );
                         }
                         // left facing quad
-                        if (x == 0 || tiles[x - 1, y].Flat) {
+                        if (x == 0 || tiles[x - 1, y].Height < height) {
                             terrainMesh.AddQuad(
                                 new(new(x, y, -height), Vector3.UnitX, t.Sprite.UVTopLeft),
                                 new(new(x, y + 1, -height), Vector3.UnitX, t.Sprite.UVTopRight),
