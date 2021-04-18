@@ -9,7 +9,7 @@ namespace yolo {
 
         public string Name { get; }
         public List<Entity> Entities { get; private set; }
-        private List<Entity> toBeAddedEntities = new();
+        public List<Entity> toBeAddedEntities = new();
         public Indexer2D<Tile> Tiles { get; private set; }
         public Interactable SelectedInteractable { get; private set; }
         public Vector3 Tomovo { get; set; }

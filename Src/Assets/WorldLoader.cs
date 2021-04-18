@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -38,6 +39,14 @@ namespace yolo {
             {
                 nemocniceScene,
             };
+
+            for (int i = 0; i < nemocniceScene.toBeAddedEntities.Count; i++)
+            {
+                if (nemocniceScene.toBeAddedEntities[i].Behavior is SceneTransporter) {
+                    nemocniceScene.toBeAddedEntities.RemoveAt(i);
+                    break;
+                }
+            }
             return new World(scenes, nemocniceScene, 60, context);
         }
     }
